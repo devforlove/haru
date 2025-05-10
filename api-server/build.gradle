@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+bootJar.enabled = true
+jar.enabled = false
+
+dependencies {
+    implementation(project(':common'))
+    testImplementation(testFixtures(project(":common")))
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.h2database:h2'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+bootJar {
+    launchScript()
+    manifest {
+        attributes 'Start-Class': 'com.senok.ApiServerApplication'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

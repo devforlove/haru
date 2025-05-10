@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+bootJar.enabled = false
+jar.enabled = true
+
+dependencies {
+    // 공통 모듈은 dependency 제거
+}
+
+test {
+    useJUnitPlatform()
+}

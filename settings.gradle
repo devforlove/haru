@@ -1,0 +1,5 @@
+rootProject.name = 'haru'
+include 'api-server'
+include 'common'
+include 'batch-server'
+
