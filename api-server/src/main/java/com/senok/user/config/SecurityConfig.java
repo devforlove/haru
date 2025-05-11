@@ -1,5 +1,7 @@
 package com.senok.user.config;
 
+import com.senok.user.domain.auth.service.CustomOAuth2UserService;
+import com.senok.user.domain.auth.service.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +11,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomOAuth2UserService oAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -53,14 +57,14 @@ public class SecurityConfig {
                                 .successHandler(oAuth2SuccessHandler)
                 )
 
-                .addFilterBefore(tokenAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
+//                .addFilterBefore(tokenAuthenticationFilter,
+//                        UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
 
                 // 인증 예외 핸들링
-                .exceptionHandling((exceptions) -> exceptions
-                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                        .accessDeniedHandler(new CustomAccessDeniedHandler()))
+//                .exceptionHandling((exceptions) -> exceptions
+//                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//                        .accessDeniedHandler(new CustomAccessDeniedHandler()))
 
                 .build();
     }

@@ -1,7 +1,8 @@
-package com.senok.user.config.auth;
+package com.senok.user.domain.auth.service;
 
 import com.senok.user.adapter.out.persistence.entity.MemberEntity;
 import com.senok.user.adapter.out.persistence.repository.MemberRepository;
+import com.senok.user.domain.auth.model.OAuth2UserInfo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

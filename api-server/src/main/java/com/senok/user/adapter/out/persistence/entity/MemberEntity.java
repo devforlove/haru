@@ -6,12 +6,13 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "member")
 @NoArgsConstructor
 public class MemberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column
     private String memberKey;
     @Column

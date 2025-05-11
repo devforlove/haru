@@ -1,7 +1,6 @@
-package com.senok.user.config.auth;
+package com.senok.user.domain.auth.model;
 
 import com.senok.user.adapter.out.persistence.entity.MemberEntity;
-import com.senok.type.RoleType;
 import com.senok.user.exception.UserException;
 import lombok.Builder;
 
