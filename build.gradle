@@ -1,6 +1,8 @@
 buildscript {
 	ext {
 		springBootVersion = '3.4.5'
+		profile = project.hasProperty('profile') ? project.getProperty('profile') : 'local'
+
 	}
 	repositories {
 		mavenCentral()
