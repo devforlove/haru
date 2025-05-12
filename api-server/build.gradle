@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.google.cloud.tools.jib' version '3.4.5'
 }
 
 bootJar.enabled = true
@@ -39,4 +40,17 @@ bootJar {
 
 test {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = 'openjdk:21-jdk'
+    }
+    to {
+        image = 'haru/app:1.0.0'
+    }
+    container {
+        ports = ['17001']
+        jvmFlags = ['-Dspring.profiles.active=develop']
+    }
 }
