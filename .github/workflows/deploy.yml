@@ -34,4 +34,4 @@ jobs:
       - name: Build with jib
         run: |
           ./gradlew jib \
-          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/develop:${GITHUB_REF##*/}"
+          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/develop:1.0.0"
