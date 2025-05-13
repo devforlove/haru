@@ -34,5 +34,5 @@ jobs:
       - name: Build with jib
         run: |
           ./gradlew jib \
-          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:1.0.1"
+          -Dspring.profiles.active=${{ github.ref_name }} \
       
