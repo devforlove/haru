@@ -33,6 +33,6 @@ jobs:
 
       - name: Build with jib
         run: |
-          ./gradlew jib \
-          -Dspring.profiles.active=${{ github.ref_name }} \
+          ./gradlew :api-server:jib \
+          -Pprofile=${{ github.ref_name }} \
       
