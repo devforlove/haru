@@ -49,6 +49,7 @@ jobs:
           key: ${{ secrets.PRIVATE_PEM_KEY }}
           port: 22
           script: |
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.DOCKERHUB_REPOSITORY }}
             EXISTING=$(sudo docker ps -aqf "name=haru-app")
             if [ -n "$EXISTING" ]; then
             echo "기존 컨테이너 종료 및 삭제"
