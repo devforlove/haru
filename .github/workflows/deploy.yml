@@ -35,7 +35,7 @@ jobs:
       - name: Build with jib
         run: |
           ./gradlew :api-server:jib \
-          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }} \
+          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}" \
           -Pprofile=${{ github.ref_name }}
 
 #      ## deploy to develop
