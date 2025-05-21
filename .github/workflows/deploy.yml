@@ -2,12 +2,13 @@ name: Build and Deploy to EC2
 
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "main", "develop" ]
 
 env:
   AWS_REGION: ap-northeast-2
   AWS_CODE_DEPLOY_APPLICATION: haru-app-deploy
   AWS_CODE_DEPLOY_GROUP: haru-app-deploy-group
+  IMAGE_TAG: ${{ github.run_number }}
 
 jobs:
   deploy:
@@ -34,5 +35,30 @@ jobs:
       - name: Build with jib
         run: |
           ./gradlew :api-server:jib \
-          -Pprofile=${{ github.ref_name }} \
-      
+          -Djib.to.image="${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}" \
+          -Pprofile=${{ github.ref_name }}
+
+      ## deploy to develop
+      - name: Deploy to dev
+        uses: appleboy/ssh-action@master
+        id: deploy-dev
+        if: contains(github.ref, 'develop')
+        with:
+          host: ${{ secrets.HOST_DEV }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.PRIVATE_PEM_KEY }}
+          port: 22
+          script: |
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.DOCKERHUB_REPOSITORY }}
+            EXISTING=$(sudo docker ps -aqf "name=haru-app")
+            if [ -n "$EXISTING" ]; then
+            echo "기존 컨테이너 종료 및 삭제"
+            sudo docker stop $EXISTING
+            sudo docker rm $EXISTING
+            fi
+
+            docker ps
+            docker pull ${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}
+            docker run --name haru-app -d -p 17001:8081 ${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}
+            docker image prune -f
+
