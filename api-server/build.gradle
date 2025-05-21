@@ -47,7 +47,7 @@ jib {
         image = 'openjdk:21-jdk'
     }
     container {
-        ports = ['17001']
+        ports = ['18080']
         jvmFlags = ["-Dspring.profiles.active=${profile}"]
     }
 }
