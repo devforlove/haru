@@ -57,8 +57,6 @@ jobs:
             sudo docker rm $EXISTING
             fi
 
-            docker ps
-            docker pull ${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}
-            docker run --name haru-app -d -p 17001:8081 ${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}
+            docker run --name haru-app -d -p 18080:8080 ${{ secrets.DOCKERHUB_REPOSITORY }}/haru/${{ github.ref_name }}:${{ env.IMAGE_TAG }}
             docker image prune -f
 
