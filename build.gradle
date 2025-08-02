@@ -1,72 +1,43 @@
-buildscript {
-	ext {
-		springBootVersion = '3.4.5'
-		kotlin_version = '1.9.10'
-		profile = project.hasProperty('profile') ? project.getProperty('profile') : 'local'
-
-	}
-	repositories {
-		mavenCentral()
-	}
-
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-		classpath "io.spring.gradle:dependency-management-plugin:1.1.7"
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-	}
+// root build.gradle
+plugins {
+	id 'org.springframework.boot' version '3.4.5' apply false
+	id 'io.spring.dependency-management' version '1.1.4' apply false
+	id 'org.jetbrains.kotlin.jvm' version '1.9.25' apply false
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25' apply false
+	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.25' apply false
+	id 'org.jetbrains.kotlin.kapt' version '1.9.25' apply false
 }
 
 allprojects {
-	group = 'com.senok'
-	version = '0.0.1'
+	group = 'com.example'
+	version = '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
 }
 
 subprojects {
-	apply plugin: 'java-library'
-	apply plugin: 'org.springframework.boot'
-	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'jacoco'
-	apply plugin: 'java-test-fixtures'
-
-	// Kotlin 관련 플러그인
 	apply plugin: 'org.jetbrains.kotlin.jvm'
 	apply plugin: 'org.jetbrains.kotlin.plugin.spring'
 	apply plugin: 'org.jetbrains.kotlin.plugin.jpa'
 	apply plugin: 'org.jetbrains.kotlin.kapt'
-
-
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
-	repositories {
-		mavenCentral()
-		maven { url 'https://jitpack.io' }
-	}
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
 	dependencies {
-		implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-		runtimeOnly 'com.h2database:h2'
-		kapt("org.springframework.boot:spring-boot-configuration-processor")
-		implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
-
-		implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.jetbrains.kotlin:kotlin-test:1.6.21"
+		implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+		implementation "org.jetbrains.kotlin:kotlin-reflect"
 	}
 
-	test {
-		useJUnitPlatform()
+	tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+		kotlinOptions {
+			jvmTarget = "17"
+		}
 	}
-}
 
-compileKotlin {
-	kotlinOptions {
-		jvmTarget = "11"
+	java {
+		sourceCompatibility = JavaVersion.VERSION_17
+		targetCompatibility = JavaVersion.VERSION_17
 	}
 }
-
-compileTestKotlin {
-	kotlinOptions {
-		jvmTarget = "11"
-	}
-}
-

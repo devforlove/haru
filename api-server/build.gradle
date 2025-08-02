@@ -7,8 +7,8 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
-    implementation(project(':common'))
-    testImplementation(testFixtures(project(":common")))
+//    implementation(project(':common'))
+//    testImplementation(testFixtures(project(":common")))
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -40,14 +40,4 @@ bootJar {
 
 test {
     useJUnitPlatform()
-}
-
-jib {
-    from {
-        image = 'openjdk:21-jdk'
-    }
-    container {
-        ports = ['17001']
-        jvmFlags = ["-Dspring.profiles.active=${profile}"]
-    }
 }
