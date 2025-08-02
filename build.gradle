@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '3.4.5'
+		kotlin_version = '1.9.10'
 		profile = project.hasProperty('profile') ? project.getProperty('profile') : 'local'
 
 	}
@@ -11,6 +12,7 @@ buildscript {
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
 		classpath "io.spring.gradle:dependency-management-plugin:1.1.7"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 	}
 }
 
@@ -26,6 +28,13 @@ subprojects {
 	apply plugin: 'jacoco'
 	apply plugin: 'java-test-fixtures'
 
+	// Kotlin 관련 플러그인
+	apply plugin: 'org.jetbrains.kotlin.jvm'
+	apply plugin: 'org.jetbrains.kotlin.plugin.spring'
+	apply plugin: 'org.jetbrains.kotlin.plugin.jpa'
+	apply plugin: 'org.jetbrains.kotlin.kapt'
+
+
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 	repositories {
@@ -34,20 +43,30 @@ subprojects {
 	}
 
 	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter'
+		implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+		runtimeOnly 'com.h2database:h2'
+		kapt("org.springframework.boot:spring-boot-configuration-processor")
+		implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
 
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-		testCompileOnly 'org.projectlombok:lombok'
-		testAnnotationProcessor 'org.projectlombok:lombok'
-
-		testImplementation('org.springframework.boot:spring-boot-starter-test') {
-			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-		}
+		implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation "org.jetbrains.kotlin:kotlin-test:1.6.21"
 	}
 
 	test {
 		useJUnitPlatform()
+	}
+}
+
+compileKotlin {
+	kotlinOptions {
+		jvmTarget = "11"
+	}
+}
+
+compileTestKotlin {
+	kotlinOptions {
+		jvmTarget = "11"
 	}
 }
 

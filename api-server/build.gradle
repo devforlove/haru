@@ -46,9 +46,6 @@ jib {
     from {
         image = 'openjdk:21-jdk'
     }
-    to {
-        image = "249230285388.dkr.ecr.ap-northeast-2.amazonaws.com/haru/${profile}:1.0.0"
-    }
     container {
         ports = ['17001']
         jvmFlags = ["-Dspring.profiles.active=${profile}"]
