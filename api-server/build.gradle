@@ -46,11 +46,8 @@ jib {
     from {
         image = 'openjdk:21-jdk'
     }
-    to {
-        image = 'haru/app:1.0.0'
-    }
     container {
         ports = ['17001']
-        jvmFlags = ['-Dspring.profiles.active=develop']
+        jvmFlags = ["-Dspring.profiles.active=${profile}"]
     }
 }
