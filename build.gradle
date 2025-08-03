@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-	group = 'com.example'
+	group = 'com.senok'
 	version = '0.0.1-SNAPSHOT'
 
 	repositories {
