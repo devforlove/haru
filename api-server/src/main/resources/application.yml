@@ -19,7 +19,7 @@ spring:
     oauth2:
       client:
         registration:
-          kakao:
+          google:
             client-id: 333
             client-secret: 333
             redirect-uri: 333
@@ -29,7 +29,19 @@ spring:
               - profile_nickname
               - profile_image
             client-name: kakao
-        # kakao provider 설정
+          kakao:
+            client-id: 333
+            client-secret: 333
+            redirect-uri: 333
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            client-name: kakao
+
+            # kakao provider 설정
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize

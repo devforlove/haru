@@ -18,13 +18,4 @@ class CoupleEvent(
 
     @Column(name = "event_data")
     val data: String
-): BaseEntity() {
-
-    companion object {
-        
-    }
-
-    sealed class CoupleEventData(data: String) {
-
-    }
-}
+): BaseEntity()
