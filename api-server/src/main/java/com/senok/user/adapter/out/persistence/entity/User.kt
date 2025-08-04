@@ -1,13 +1,14 @@
 package com.senok.user.adapter.out.persistence.entity
 
 import com.senok.common.db.entitty.BaseEntity
+import com.senok.common.db.entitty.EntityId
 import jakarta.persistence.*
 
 @Table(name = "user")
 @Entity
 class User(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    val id: EntityId<User>,
 
     @Column(name = "login_id")
     val loginId: String,

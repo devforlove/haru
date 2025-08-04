@@ -1,4 +1,4 @@
-package com.senok.security.application
+package com.senok.auth.application
 
 import com.senok.user.adapter.out.persistence.repository.UserRepository
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
