@@ -21,7 +21,7 @@ class User(
     @Column(name = "name", nullable = true)
     val name: String?,
 
-    @Column(name = "name")
+    @Column(name = "nickname")
     val nickname: String,
 
     @Column(name = "gender")
@@ -31,5 +31,5 @@ class User(
     val rubyCount: Int = 0,
 
     @Enumerated(EnumType.STRING)
-    val status: String,
+    val status: UserStatus,
 ): BaseEntity()

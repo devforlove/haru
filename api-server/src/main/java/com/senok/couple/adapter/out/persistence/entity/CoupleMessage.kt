@@ -10,7 +10,7 @@ class CoupleMessage(
     val id: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "couple_id")
+    @JoinColumn(name = "couple_id")
     val Couple: Couple,
 
     @Enumerated(EnumType.STRING)

@@ -11,7 +11,7 @@ class CoupleCode(
     val id: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "couple_id")
+    @JoinColumn(name = "couple_id")
     val couple: Couple,
 
     @Column(name = "code")
