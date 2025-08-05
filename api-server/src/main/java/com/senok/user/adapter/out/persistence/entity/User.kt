@@ -8,29 +8,44 @@ import jakarta.persistence.*
 @Entity
 class User(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: EntityId<User>,
-
-    @Column(name = "login_id")
-    val loginId: String,
+    val id: EntityId<User> = EntityId(),
 
     @Column(name = "email")
-    val email: String,
+    val email: String = "inwook94@naver.com",
 
     @Column(name = "password")
-    val password: String,
+    val password: String? = null,
 
-    @Column(name = "name", nullable = true)
-    val name: String?,
+    @Column(name = "name")
+    val name: String? = null,
 
     @Column(name = "nickname")
     val nickname: String,
 
+    @Column(name = "profile_image")
+    val profileImage: String? = null,
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
-    val gender: String,
+    val gender: GenderType? = null,
 
     @Column(name = "ruby_count")
     val rubyCount: Int = 0,
 
     @Enumerated(EnumType.STRING)
-    val status: UserStatus,
-): BaseEntity()
+    @Column(name = "user_status")
+    val userStatus: UserStatus,
+): BaseEntity() {
+
+    companion object {
+
+        fun initiateUser(email: String, nickname: String, profileImage: String): User {
+            return User(
+                email = email,
+                nickname = nickname,
+                profileImage = profileImage,
+                userStatus = UserStatus.INITIATED
+            )
+        }
+    }
+}

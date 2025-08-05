@@ -6,4 +6,6 @@ import org.springframework.data.repository.Repository
 interface UserRepository: Repository<User, Long> {
 
     fun findByEmail(email: String): User?
+
+    fun save(user: User): User
 }

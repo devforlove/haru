@@ -1,6 +1,7 @@
-package com.senok.auth.config
+package com.senok.user.config
 
-import com.senok.auth.application.CustomOAuth2UserService
+import com.senok.user.config.auth.CustomOAuth2UserService
+import com.senok.user.config.auth.OAuth2SuccessHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -11,7 +12,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @Configuration
 class SecurityConfig(
-    val oAuth2UserService: CustomOAuth2UserService
+    val oAuth2UserService: CustomOAuth2UserService,
+    val oAuth2SuccessHandler: OAuth2SuccessHandler
 ) {
 
     @Bean
@@ -42,7 +44,7 @@ class SecurityConfig(
                     .userInfoEndpoint {
                         it.userService(oAuth2UserService)
                     }
-                    .successHandler(null)
+                    .successHandler(oAuth2SuccessHandler)
             }
             .build()
     }
