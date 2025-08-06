@@ -1,5 +1,6 @@
 package com.senok.user.config.auth
 
+import com.senok.common.db.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.User
 import com.senok.user.adapter.out.persistence.repository.UserRepository
 import com.senok.user.domain.auth.OAuth2UserInfo
@@ -8,7 +9,6 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CustomOAuth2UserService(
@@ -24,7 +24,10 @@ class CustomOAuth2UserService(
         val userNameAttributeName = userRequest.clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
 
         val oAuth2UserInfo: OAuth2UserInfo = OAuth2UserInfo.of(registrationId, userAttributes)
-        val user = getOrSaveUser(oAuth2UserInfo)
+
+        val user = Tx.run {
+             getOrSaveUser(oAuth2UserInfo)
+        }
 
         return PrincipalDetails(user, setOf(), userAttributes, userNameAttributeName)
     }
