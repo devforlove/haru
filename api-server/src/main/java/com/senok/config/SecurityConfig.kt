@@ -1,7 +1,7 @@
-package com.senok.user.config
+package com.senok.config
 
-import com.senok.user.config.auth.CustomOAuth2UserService
-import com.senok.user.config.auth.OAuth2SuccessHandler
+import com.senok.config.auth.CustomOAuth2UserService
+import com.senok.config.auth.OAuth2SuccessHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

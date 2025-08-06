@@ -1,4 +1,4 @@
-package com.senok.user.config.auth
+package com.senok.config.auth
 
 import com.senok.common.db.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.User
