@@ -7,24 +7,14 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
-//    implementation(project(':common'))
-//    testImplementation(testFixtures(project(":common")))
+    implementation(project(':core-db'))
+    implementation(project(':core-web'))
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    // Jwt
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     // db connector
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'com.h2database:h2'
     testImplementation platform('org.junit:junit-bom:5.10.0')
