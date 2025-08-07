@@ -34,7 +34,7 @@ dependencies {
 bootJar {
     launchScript()
     manifest {
-        attributes 'Start-Class': 'com.senok.ApiServerApplication'
+        attributes 'Start-Class': 'com.senok.ApiCoreApplication'
     }
 }
 
