@@ -9,7 +9,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
+import org.springframework.util.StringUtils
 import java.util.*
 import javax.crypto.SecretKey
 
@@ -22,7 +24,6 @@ class TokenProvider {
 
     companion object {
         private val ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30L
-        private val REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 30L * 24 * 7
         private val KEY_ROLE = "role"
     }
 
@@ -40,14 +41,21 @@ class TokenProvider {
         val claims = parseClaims(token)
         val authorities = getAuthorities(claims)
 
-
-        return UsernamePasswordAuthenticationToken()
+        val principal = User(claims.subject, null, authorities)
+        return UsernamePasswordAuthenticationToken(principal, token, authorities)
     }
 
-    fun getAuthorities(claims: Claims): List<GrantedAuthority> {
-        return listOf(
-            SimpleGrantedAuthority(claims[KEY_ROLE].toString())
-        )
+    fun validateToken(token: String?): Boolean {
+        if (!StringUtils.hasText(token)) {
+            return false
+        }
+
+        val claims = parseClaims(token!!)
+        return claims.expiration.after(Date())
+    }
+
+    private fun getAuthorities(claims: Claims): List<GrantedAuthority> {
+        return claims[KEY_ROLE] as List<GrantedAuthority>
     }
 
     private fun generateToken(authentication: Authentication): String {
@@ -56,7 +64,7 @@ class TokenProvider {
 
         val authorities = authentication.authorities
             .map { authority -> authority.authority }
-            .joinToString { it.toString() }
+            .toList()
 
         return Jwts.builder()
             .setSubject(authentication.name)
@@ -79,7 +87,7 @@ class TokenProvider {
             // TODO(토큰 예외 정리)
             throw Exception("JWT token expired", e)
         } catch (e: Exception) {
-            throw Exception("unknown issue", e)
+            throw Exception("unknown exception", e)
         }
     }
 }
