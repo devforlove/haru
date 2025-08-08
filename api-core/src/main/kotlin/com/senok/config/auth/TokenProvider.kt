@@ -15,21 +15,22 @@ import java.util.*
 import javax.crypto.SecretKey
 
 @Component
-class TokenProvider {
+class TokenProvider(
+    @Value("\${jwt.secret}")
+    val key: String,
+    @Value("\${jwt.expiration_time}")
+    val expireTime: String
+) {
 
-    @Value("{jwt.key}")
-    private lateinit var key: String
     private lateinit var secretKey: SecretKey
 
     companion object {
-        private val ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30L
         private val KEY_ROLE = "role"
     }
 
     @PostConstruct
     private fun init() {
         secretKey = Keys.hmacShaKeyFor(key.toByteArray())
-        println(secretKey)
     }
 
     fun generateAccessToken(authentication: Authentication): String {
@@ -59,7 +60,7 @@ class TokenProvider {
 
     private fun generateToken(authentication: Authentication): String {
         val now = Date()
-        val expireTime = Date(now.time + ACCESS_TOKEN_EXPIRE_TIME)
+        val expireTime = Date(now.time + expireTime.toLong())
 
         val authorities = authentication.authorities
             .map { authority -> authority.authority }

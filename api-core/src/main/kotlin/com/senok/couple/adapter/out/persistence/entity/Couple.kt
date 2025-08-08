@@ -1,7 +1,7 @@
 package com.senok.couple.adapter.out.persistence.entity
 
-import com.senok.common.db.entitty.BaseEntity
-import com.senok.common.db.entitty.EntityId
+import com.senok.coredb.entity.BaseEntity
+import com.senok.coredb.entity.EntityId
 import jakarta.persistence.*
 
 @Table(name = "couple")
