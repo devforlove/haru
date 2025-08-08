@@ -1,8 +1,11 @@
 package com.senok.coreweb.exception
 
-enum class ErrorCode {
-    NOT_FOUND,
+enum class ErrorCode(
+    val status: Int,
+    val message: String,
+) {
+    CLIENT_ERROR(400, "client error"),
+    NOT_FOUND(404, "resource not found"),
 
-    SERVER_ERROR,
-    CLIENT_ERROR,
+    SERVER_ERROR(500, "internal server error"),
 }

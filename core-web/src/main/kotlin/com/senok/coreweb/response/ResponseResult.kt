@@ -42,8 +42,8 @@ sealed class ResponseResult<out T> {
             is Success -> data
             is Failure -> {
                 when {
-                    errorResponse.isClientError -> throw ApiException(errorResponse, ErrorCode.CLIENT_ERROR)
-                    else -> throw ApiException(errorResponse, ErrorCode.SERVER_ERROR)
+                    errorResponse.isClientError -> throw ApiException(ErrorCode.CLIENT_ERROR)
+                    else -> throw ApiException(ErrorCode.SERVER_ERROR)
                 }
             }
         }
