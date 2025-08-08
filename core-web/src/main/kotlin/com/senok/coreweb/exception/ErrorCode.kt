@@ -1,4 +1,4 @@
-package com.senok.common.exception
+package com.senok.coreweb.exception
 
 enum class ErrorCode {
     NOT_FOUND,

@@ -1,6 +1,6 @@
 package com.senok.config.auth
 
-import com.senok.common.db.transaction.Tx
+import com.senok.coredb.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.User
 import com.senok.user.adapter.out.persistence.repository.UserRepository
 import com.senok.user.domain.auth.OAuth2UserInfo

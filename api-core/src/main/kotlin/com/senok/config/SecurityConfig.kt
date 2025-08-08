@@ -50,7 +50,6 @@ class SecurityConfig(
                     }
                     .successHandler(oAuth2SuccessHandler)
             }
-
             // 인가 기능
             .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()

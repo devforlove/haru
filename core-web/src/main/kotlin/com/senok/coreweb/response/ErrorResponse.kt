@@ -1,4 +1,4 @@
-package com.senok.common.response
+package com.senok.coreweb.response
 
 data class ErrorResponse(
     val message: String,

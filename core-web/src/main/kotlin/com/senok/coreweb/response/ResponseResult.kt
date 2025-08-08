@@ -1,7 +1,7 @@
-package com.senok.common.response
+package com.senok.coreweb.response
 
-import com.senok.common.exception.ApiException
-import com.senok.common.exception.ErrorCode
+import com.senok.coreweb.exception.ApiException
+import com.senok.coreweb.exception.ErrorCode
 
 sealed class ResponseResult<out T> {
 

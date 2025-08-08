@@ -1,6 +1,6 @@
-package com.senok.common.exception
+package com.senok.coreweb.exception
 
-import com.senok.common.response.ErrorResponse
+import com.senok.coreweb.response.ErrorResponse
 
 class ApiException(
     val errorResponse: ErrorResponse,
