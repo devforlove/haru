@@ -50,5 +50,5 @@ spring:
             user-name-attribute: id
 
 jwt:
-  secret: adf4aafsaf3lzalbvppamvpdpdpsafkadfkmclxlxefewafvcz323f
-  expiration_time: 30
+  secret: adf4aafsaf3lzalbvppamvpdfasadfe3pdpsafa2kadfkfafdasmsclxlxefewafvcz323f
+  expiration_time: 1800000

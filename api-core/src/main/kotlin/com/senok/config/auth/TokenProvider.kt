@@ -17,9 +17,9 @@ import javax.crypto.SecretKey
 @Component
 class TokenProvider(
     @Value("\${jwt.secret}")
-    val key: String,
+    private val key: String,
     @Value("\${jwt.expiration_time}")
-    val expireTime: String
+    private val expireTime: String
 ) {
 
     private lateinit var secretKey: SecretKey

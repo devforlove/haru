@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomOAuth2UserService(
-    val userRepository: UserRepository,
+    private val userRepository: UserRepository,
 ): DefaultOAuth2UserService() {
 
     override fun loadUser(userRequest: OAuth2UserRequest?): OAuth2User {
