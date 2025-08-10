@@ -7,8 +7,9 @@ data class RegisterUserRequest(
     val nickname: String,
     val genderType: GenderType,
     val phoneNumber: String,
+    val providerType: String
 ) {
     fun toCommand(): RegisterUserCommand {
-        return RegisterUserCommand(nickname, genderType, phoneNumber)
+        return RegisterUserCommand(nickname, genderType, phoneNumber, providerType)
     }
 }

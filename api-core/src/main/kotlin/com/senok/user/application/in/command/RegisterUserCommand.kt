@@ -6,4 +6,5 @@ data class RegisterUserCommand(
     val nickname: String,
     val genderType: GenderType,
     val phoneNumber: String,
+    val providerType: String
 )

@@ -1,5 +1,7 @@
 package com.senok.config.auth
 
+import com.senok.user.adapter.out.persistence.entity.RoleType
+import com.senok.user.domain.auth.PrincipalDetails
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
@@ -26,6 +28,7 @@ class TokenProvider(
 
     companion object {
         private val KEY_ROLE = "role"
+        private val USER_ID = "user_id"
     }
 
     @PostConstruct
@@ -41,8 +44,8 @@ class TokenProvider(
         val claims = parseClaims(token)
         val authorities = getAuthorities(claims)
 
-        val principal = User(claims.subject, null, authorities)
-        return UsernamePasswordAuthenticationToken(principal, token, authorities)
+        val principal = PrincipalDetails(claims.subject, claims[USER_ID] as Long, authorities.toSet())
+        return UsernamePasswordAuthenticationToken(principal, token, authorities.map { GrantedAuthority { it.toString() } })
     }
 
     fun validateToken(token: String?): Boolean {
@@ -54,8 +57,8 @@ class TokenProvider(
         return claims.expiration.after(Date())
     }
 
-    private fun getAuthorities(claims: Claims): List<GrantedAuthority> {
-        return claims[KEY_ROLE] as List<GrantedAuthority>
+    private fun getAuthorities(claims: Claims): List<RoleType> {
+        return claims[KEY_ROLE] as List<RoleType>
     }
 
     private fun generateToken(authentication: Authentication): String {

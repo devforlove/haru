@@ -9,6 +9,6 @@ class Role(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: EntityId<Role>,
 
-    @Column(name = "name")
-    val name: String
+    @Column(name = "role_type")
+    val roleType: RoleType
 )
