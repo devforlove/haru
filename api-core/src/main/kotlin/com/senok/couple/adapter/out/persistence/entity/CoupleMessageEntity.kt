@@ -5,13 +5,13 @@ import jakarta.persistence.*
 
 @Table(name = "couple_history")
 @Entity
-class CoupleMessage(
+class CoupleMessageEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")
-    val Couple: Couple,
+    val Couple: CoupleEntity,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "message_type")

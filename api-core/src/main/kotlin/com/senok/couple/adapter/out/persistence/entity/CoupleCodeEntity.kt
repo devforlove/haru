@@ -6,13 +6,13 @@ import java.time.LocalDateTime
 
 @Table(name = "couple_code")
 @Entity
-class CoupleCode(
+class CoupleCodeEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")
-    val couple: Couple,
+    val couple: CoupleEntity,
 
     @Column(name = "code")
     val code: String,

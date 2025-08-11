@@ -8,7 +8,7 @@ import jakarta.persistence.*
 
 @Table(name = "notification")
 @Entity
-class Notification(
+class NotificationEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 

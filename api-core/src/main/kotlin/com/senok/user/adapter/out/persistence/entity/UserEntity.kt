@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Table(name = "user")
 @Entity
-class User(
+class UserEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
@@ -38,8 +38,8 @@ class User(
 
     companion object {
 
-        fun initiateUser(email: String, nickname: String, profileImage: String): User {
-            return User(
+        fun initiateUser(email: String, nickname: String, profileImage: String): UserEntity {
+            return UserEntity(
                 email = email,
                 nickname = nickname,
                 profileImage = profileImage,

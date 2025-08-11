@@ -1,6 +1,6 @@
 package com.senok.user.domain.auth
 
-import com.senok.user.adapter.out.persistence.entity.User
+import com.senok.user.adapter.out.persistence.entity.UserEntity
 
 data class OAuth2UserInfo private constructor(
     val name: String,
@@ -8,8 +8,8 @@ data class OAuth2UserInfo private constructor(
     val profile: String
 ) {
 
-    fun toEntity(): User {
-        return User.initiateUser(
+    fun toEntity(): UserEntity {
+        return UserEntity.initiateUser(
             email = email,
             nickname = name,
             profileImage = profile

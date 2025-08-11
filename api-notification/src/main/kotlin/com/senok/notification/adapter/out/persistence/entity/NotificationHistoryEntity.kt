@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Table(name = "notification_history")
 @Entity
-class NotificationHistory(
+class NotificationHistoryEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 

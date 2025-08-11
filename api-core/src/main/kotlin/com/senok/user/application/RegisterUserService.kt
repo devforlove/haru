@@ -19,7 +19,7 @@ class RegisterUserService(
 
     override fun registerUser(command: RegisterUserCommand, userId: Long) {
         Tx.run {
-            val user = findUserPort.findUser(EntityId(userId))
+            val user = findUserPort.findUser(userId)
 
             user.activeUser(command.nickname, command.genderType)
             val device = Device.register(userId, command.deviceKey, command.providerType)

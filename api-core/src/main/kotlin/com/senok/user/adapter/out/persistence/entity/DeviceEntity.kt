@@ -5,13 +5,13 @@ import jakarta.persistence.*
 
 @Table(name = "device")
 @Entity
-class Device(
+class DeviceEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User,
+    val user: UserEntity,
 
     @Column(name = "device_key")
     val deviceKey: String,

@@ -9,5 +9,5 @@ class UserRole(
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    val userId: User
+    val userId: UserEntity
 )

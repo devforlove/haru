@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Table(name = "couple")
 @Entity
-class Couple(
+class CoupleEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 

@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Table(name = "individual")
 @Entity
-class Individual(
+class IndividualEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
