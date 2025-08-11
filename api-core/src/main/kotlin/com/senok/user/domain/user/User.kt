@@ -2,9 +2,26 @@ package com.senok.user.domain.user
 
 import com.senok.user.adapter.out.persistence.entity.GenderType
 
-class User {
+class User(
+    val id: Long,
+    val email: String,
+    var name: String?,
+    var nickname: String,
+    var profileImage: String?,
+    var gender: GenderType?,
+    var rubyCount: Int,
+    var userStatus: UserStatus
+) {
+    init {
+        require(email.isNotBlank()) { "이메일은 비어있을 수 없습니다." }
+        require(nickname.isNotBlank()) { "닉네임은 비어있을 수 없습니다." }
+    }
 
-    fun updateRegisterInfo(nickname: String, genderType: GenderType, providerType: String, phoneNumber: String) {
-        TODO("Not yet implemented")
+    fun activeUser(nickname: String, gender: GenderType) {
+        require(nickname.isNotBlank()) { "닉네임은 비어있을 수 없습니다." }
+        this.nickname = nickname
+        this.gender = gender
+
+        this.userStatus = UserStatus.ACTIVE
     }
 }

@@ -1,7 +1,6 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.coredb.entity.BaseEntity
-import com.senok.coredb.entity.EntityId
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -9,7 +8,7 @@ import java.time.LocalDateTime
 @Entity
 class CoupleCode(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: EntityId<CoupleCode>,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")

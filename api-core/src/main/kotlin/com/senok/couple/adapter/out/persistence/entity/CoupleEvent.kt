@@ -1,14 +1,13 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.coredb.entity.BaseEntity
-import com.senok.coredb.entity.EntityId
 import jakarta.persistence.*
 
 @Table(name = "couple_event")
 @Entity
 class CoupleEvent(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: EntityId<CoupleEvent>,
+    val id: Long? = null,
 
     @Column(name = "couple_id")
     val coupleId: Long,

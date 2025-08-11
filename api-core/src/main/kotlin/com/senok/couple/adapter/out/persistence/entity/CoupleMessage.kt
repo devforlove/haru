@@ -1,14 +1,13 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.coredb.entity.BaseEntity
-import com.senok.coredb.entity.EntityId
 import jakarta.persistence.*
 
 @Table(name = "couple_history")
 @Entity
 class CoupleMessage(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: EntityId<CoupleMessage>,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")
