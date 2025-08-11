@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
 import java.util.*
@@ -29,6 +28,7 @@ class TokenProvider(
     companion object {
         private val KEY_ROLE = "role"
         private val USER_ID = "user_id"
+        private val USER_EMAIL = "user_email"
     }
 
     @PostConstruct
@@ -42,10 +42,17 @@ class TokenProvider(
 
     fun getAuthentication(token: String): Authentication {
         val claims = parseClaims(token)
-        val authorities = getAuthorities(claims)
 
-        val principal = PrincipalDetails(claims.subject, claims[USER_ID] as Long, authorities.toSet())
-        return UsernamePasswordAuthenticationToken(principal, token, authorities.map { GrantedAuthority { it.toString() } })
+        val authorities = getAuthorities(claims)
+        val userEmail = claims[USER_EMAIL] as String
+        val userId = (claims[USER_ID] as Number).toLong()
+
+        val principal = PrincipalDetails(userEmail, userId, authorities.toSet())
+        return UsernamePasswordAuthenticationToken(
+            principal,
+            token,
+            authorities.map { roleType -> GrantedAuthority { roleType.toString() } }
+        )
     }
 
     fun validateToken(token: String?): Boolean {
@@ -58,13 +65,15 @@ class TokenProvider(
     }
 
     private fun getAuthorities(claims: Claims): List<RoleType> {
-        return claims[KEY_ROLE] as List<RoleType>
+        return (claims[KEY_ROLE] as List<*>)
+            .map { RoleType.valueOf(it as String) }
     }
 
     private fun generateToken(authentication: Authentication): String {
         val now = Date()
         val expireTime = Date(now.time + expireTime.toLong())
 
+        val principalDetails = authentication.principal as PrincipalDetails
         val authorities = authentication.authorities
             .map { authority -> authority.authority }
             .toList()
@@ -72,6 +81,8 @@ class TokenProvider(
         return Jwts.builder()
             .setSubject(authentication.name)
             .claim(KEY_ROLE, authorities)
+            .claim(USER_ID, principalDetails.id)
+            .claim(USER_EMAIL, principalDetails.username)
             .setIssuedAt(now)
             .setExpiration(expireTime)
             .signWith(secretKey, SignatureAlgorithm.HS512)

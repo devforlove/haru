@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.oauth2.core.user.OAuth2User
 
 data class PrincipalDetails(
-    private val _username: String,
+    private val email: String,
     private val userId: Long,
     private val roles: Set<RoleType>,
     private val userAttributes: Map<String, Any> = emptyMap(),
@@ -17,7 +17,7 @@ data class PrincipalDetails(
     constructor(userEntity: UserEntity,
                 roles: Set<RoleType>,
                 userAttributes: Map<String, Any>,
-    ): this(userEntity.email, userEntity.id.value!!, roles, userAttributes)
+    ): this(userEntity.email, userEntity.id!!, roles, userAttributes)
 
     val id = userId
 
@@ -30,7 +30,7 @@ data class PrincipalDetails(
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-       return roles.map { SimpleGrantedAuthority(it.toString()) }.toMutableSet()
+       return roles.map { roleType -> SimpleGrantedAuthority(roleType.toString()) }.toMutableSet()
     }
 
     override fun getPassword(): String? {
@@ -38,6 +38,6 @@ data class PrincipalDetails(
     }
 
     override fun getUsername(): String {
-        return _username
+        return email
     }
 }
