@@ -6,6 +6,6 @@ enum class ErrorCode(
 ) {
     CLIENT_ERROR(400, "client error"),
     NOT_FOUND(404, "resource not found"),
-
+    ENTITY_NOT_FOUND(4041, "entity not found"),
     SERVER_ERROR(500, "internal server error"),
 }

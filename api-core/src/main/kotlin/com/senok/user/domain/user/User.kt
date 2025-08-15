@@ -1,14 +1,15 @@
 package com.senok.user.domain.user
 
 import com.senok.user.adapter.out.persistence.entity.GenderType
+import com.senok.user.adapter.out.persistence.entity.UserStatus
 
 class User(
     val id: Long,
     val email: String,
-    var name: String?,
+    var name: String,
     var nickname: String,
-    var profileImage: String?,
-    var gender: GenderType?,
+    var profileImage: String,
+    var gender: GenderType,
     var rubyCount: Int,
     var userStatus: UserStatus
 ) {

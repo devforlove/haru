@@ -26,7 +26,7 @@ class UserEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
-    val gender: GenderType? = null,
+    val gender: GenderType,
 
     @Column(name = "ruby_count")
     val rubyCount: Int = 0,
@@ -43,7 +43,8 @@ class UserEntity(
                 email = email,
                 nickname = nickname,
                 profileImage = profileImage,
-                userStatus = UserStatus.INITIATED
+                userStatus = UserStatus.INITIATED,
+                gender = GenderType.UNKNOWN,
             )
         }
     }

@@ -7,8 +7,10 @@ import com.senok.user.application.`in`.command.RegisterUserCommand
 import com.senok.user.application.out.UpdateUserPort
 import com.senok.user.application.out.FindUserPort
 import com.senok.user.application.out.RegisterDevicePort
+import com.senok.user.application.out.dto.RegisterInfoDto
 import com.senok.user.domain.user.Device
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class RegisterUserService(
@@ -22,9 +24,9 @@ class RegisterUserService(
             val user = findUserPort.findUser(userId)
 
             user.activeUser(command.nickname, command.genderType)
-            val device = Device.register(userId, command.deviceKey, command.providerType)
+            val device = Device.register(userId, UUID.randomUUID().toString(), command.providerType)
 
-            updateUserPort.updateUserInfo(user)
+            updateUserPort.updateRegisterInfo(RegisterInfoDto(user.id, user.nickname, user.gender))
             registerDevicePort.registerDevice(device)
         }
     }

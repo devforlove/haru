@@ -9,9 +9,8 @@ class DeviceEntity(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
+    @Column(name = "user_id")
+    val userId: Long,
 
     @Column(name = "device_key")
     val deviceKey: String,

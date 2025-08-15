@@ -1,7 +1,7 @@
 package com.senok.user.application.out
 
-import com.senok.user.domain.user.User
+import com.senok.user.application.out.dto.RegisterInfoDto
 
 interface UpdateUserPort {
-    fun updateUserInfo(user: User)
+    fun updateRegisterInfo(dto: RegisterInfoDto)
 }
