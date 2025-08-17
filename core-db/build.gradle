@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'java-test-fixtures'
 }
 
 bootJar.enabled = false
@@ -7,6 +8,9 @@ jar.enabled = true
 
 dependencies {
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'com.h2database:h2'
 }
 
 test {

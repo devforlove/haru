@@ -1,6 +1,5 @@
 package com.senok.user.application
 
-import com.senok.coredb.entity.EntityId
 import com.senok.coredb.transaction.Tx
 import com.senok.user.application.`in`.RegisterUserUseCase
 import com.senok.user.application.`in`.command.RegisterUserCommand
