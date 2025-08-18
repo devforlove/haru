@@ -4,42 +4,46 @@ import com.senok.integration.AbstractIntegrationSupport
 import com.senok.user.application.out.FindUserPort
 import com.senok.user.application.out.RegisterDevicePort
 import com.senok.user.application.out.UpdateUserPort
-import io.kotest.matchers.shouldBe
-import io.mockk.mockk
 import com.senok.apicore.fixtures.command.RegisterUserCommandFixture
-import com.senok.apicore.fixtures.domain.UserFixture
+import com.senok.apicore.fixtures.domain.UserEntityFixture
 import com.senok.user.adapter.out.persistence.entity.GenderType
-import io.mockk.every
+import com.senok.user.adapter.out.persistence.repository.DeviceRepository
+import com.senok.user.adapter.out.persistence.repository.UserRepository
+import io.kotest.matchers.shouldBe
 
-class RegisterUserServiceTest: AbstractIntegrationSupport({
+class RegisterUserServiceTest(
+    private val findUserPort: FindUserPort,
+    private val updateUserPort: UpdateUserPort,
+    private val registerDevicePort: RegisterDevicePort,
+    private val userRepository: UserRepository,
+    private val deviceRepository: DeviceRepository,
+): AbstractIntegrationSupport({
+    val userId = 1L
 
-    given("유저 등록시") {
-        val findUserPort = mockk<FindUserPort>()
-        val updateUserPort = mockk<UpdateUserPort>()
-        val registerDevice = mockk<RegisterDevicePort>()
-        val userId = 10L
+    beforeTest {
+        userRepository.save(UserEntityFixture.getUserEntity())
+    }
 
-        every { findUserPort.findUser(any()) } returns UserFixture.getUser(id = userId, nickname = "hihi", gender = GenderType.MALE)
-        val sut = RegisterUserService(findUserPort, updateUserPort, registerDevice)
+    describe("유저 등록시") {
+        context("정상적으로 유저가 등록되면") {
+            it("user 테이블과, device 테이블에 유저 데이터가 생성된다.") {
+                val command = RegisterUserCommandFixture.getCommand(nickname = "hihi", genderType = GenderType.MALE)
 
-        `when`("정상적으로 유저가 등록되면") {
-            val command = RegisterUserCommandFixture.getCommand()
-            sut.registerUser(command, userId)
+                val sut = RegisterUserService(findUserPort, updateUserPort, registerDevicePort)
+                sut.registerUser(command, userId)
 
-            then("user 테이블과, device 테이블에 유저 데이터가 생성된다.") {
+                val user = userRepository.findById(userId)
+                val devices = deviceRepository.findByUserId(userId)
 
-
+                user?.id shouldBe userId
+                user?.gender shouldBe GenderType.MALE
+                devices.size shouldBe 1
+                devices[0].userId shouldBe userId
             }
         }
+    }
 
-        `when`("user 테이블에 유저 정보가 없으면") {
-            val command = RegisterUserCommandFixture.getCommand()
-            val result = sut.registerUser(command, userId)
-
-            then("예외가 발생하고 더 이상 진행되지 않는다.") {
-
-                result shouldBe 5
-            }
-        }
+    afterTest {
+        userRepository.deleteById(userId)
     }
 })

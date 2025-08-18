@@ -7,11 +7,10 @@ import com.senok.user.application.`in`.command.RegisterUserCommand
 data class RegisterUserRequest(
     val nickname: String,
     val genderType: GenderType,
-    val deviceKey: String,
     val phoneNumber: String,
     val providerType: ProviderType
 ) {
     fun toCommand(): RegisterUserCommand {
-        return RegisterUserCommand(nickname, genderType, deviceKey, phoneNumber, providerType)
+        return RegisterUserCommand(nickname, genderType, phoneNumber, providerType)
     }
 }

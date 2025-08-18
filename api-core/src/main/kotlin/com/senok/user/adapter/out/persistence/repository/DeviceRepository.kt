@@ -6,4 +6,5 @@ import org.springframework.data.repository.Repository
 interface DeviceRepository: Repository<DeviceEntity, Long> {
 
     fun save(device: DeviceEntity)
+    fun findByUserId(userId: Long): List<DeviceEntity>
 }

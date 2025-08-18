@@ -8,4 +8,5 @@ interface UserRepository: Repository<UserEntity, Long> {
     fun findByEmail(email: String): UserEntity?
     fun save(user: UserEntity): UserEntity
     fun findById(id: Long): UserEntity?
+    fun deleteById(id: Long)
 }
