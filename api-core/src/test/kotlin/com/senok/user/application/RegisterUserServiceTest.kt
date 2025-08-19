@@ -37,6 +37,7 @@ class RegisterUserServiceTest(
 
                 user?.id shouldBe userId
                 user?.gender shouldBe GenderType.MALE
+                user?.nickname shouldBe "hihi"
                 devices.size shouldBe 1
                 devices[0].userId shouldBe userId
             }

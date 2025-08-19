@@ -1,4 +1,4 @@
-package com.senok.coredb.entity
+package com.senok.common.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

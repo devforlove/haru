@@ -2,7 +2,6 @@ rootProject.name = 'haru'
 include 'api-core'
 include 'api-notification'
 include 'core-web'
-include 'core-db'
 include 'common'
 include 'batch-server'
 

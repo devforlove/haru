@@ -1,6 +1,6 @@
 package com.senok.couple.adapter.out.persistence.entity
 
-import com.senok.coredb.entity.BaseEntity
+import com.senok.common.entity.BaseEntity
 import jakarta.persistence.*
 
 @Table(name = "individual")

@@ -1,6 +1,6 @@
 package com.senok.config.auth
 
-import com.senok.coredb.transaction.Tx
+import com.senok.common.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.RoleEntity
 import com.senok.user.adapter.out.persistence.entity.RoleType
 import com.senok.user.adapter.out.persistence.entity.UserEntity

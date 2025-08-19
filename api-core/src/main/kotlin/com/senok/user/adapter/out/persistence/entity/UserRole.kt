@@ -5,7 +5,7 @@ import jakarta.persistence.*
 @Table(name = "user_role")
 @Entity
 class UserRole(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,4 +1,4 @@
-package com.senok.coredb.transaction
+package com.senok.common.transaction
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional

@@ -3,7 +3,6 @@ package com.senok.notification.adapter.out.persistence.entity
 
 import com.senok.alarm.adapter.out.persistence.entity.NotificationStatus
 import com.senok.alarm.adapter.out.persistence.entity.NotificationType
-import com.senok.coredb.entity.BaseEntity
 import jakarta.persistence.*
 
 @Table(name = "notification")
@@ -23,4 +22,4 @@ class NotificationEntity(
 
     @Column(name = "notification_status")
     val status: NotificationStatus,
-): BaseEntity()
+)
