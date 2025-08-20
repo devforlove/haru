@@ -1,5 +1,6 @@
 package com.senok.user.application
 
+import com.senok.common.transaction.Tx
 import com.senok.user.application.`in`.RegisterUserUseCase
 import com.senok.user.application.`in`.command.RegisterUserCommand
 import com.senok.user.application.out.UpdateUserPort
@@ -18,6 +19,7 @@ class RegisterUserService(
     private  val registerDevicePort: RegisterDevicePort
 ): RegisterUserUseCase {
 
+
     @Transactional
     override fun registerUser(command: RegisterUserCommand, userId: Long) {
         val user = findUserPort.findUser(userId)
@@ -27,5 +29,6 @@ class RegisterUserService(
 
         updateUserPort.updateRegisterInfo(RegisterInfoDto(user.id, user.nickname, user.gender))
         registerDevicePort.registerDevice(device)
+
     }
 }

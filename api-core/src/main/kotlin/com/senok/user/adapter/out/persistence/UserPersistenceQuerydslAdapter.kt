@@ -1,6 +1,7 @@
 package com.senok.user.adapter.out.persistence
 
 import com.querydsl.jpa.impl.JPAQueryFactory
+import com.senok.common.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.QUserEntity
 import com.senok.user.application.out.UpdateUserPort
 import com.senok.user.application.out.dto.RegisterInfoDto
@@ -12,7 +13,6 @@ class UserPersistenceQuerydslAdapter(
     private val queryFactory: JPAQueryFactory,
 ): UpdateUserPort {
 
-    @Transactional
     override fun updateRegisterInfo(dto: RegisterInfoDto) {
         val qUser = QUserEntity.userEntity
         queryFactory
