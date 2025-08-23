@@ -20,15 +20,15 @@ class RegisterUserService(
 ): RegisterUserUseCase {
 
 
-    @Transactional
     override fun registerUser(command: RegisterUserCommand, userId: Long) {
-        val user = findUserPort.findUser(userId)
+        Tx.writable {
+            val user = findUserPort.findUser(userId)
 
-        user.activeUser(command.nickname, command.genderType)
-        val device = Device.register(userId, UUID.randomUUID().toString(), command.providerType)
+            user.activeUser(command.nickname, command.genderType)
+            val device = Device.register(userId, UUID.randomUUID().toString(), command.providerType)
 
-        updateUserPort.updateRegisterInfo(RegisterInfoDto(user.id, user.nickname, user.gender))
-        registerDevicePort.registerDevice(device)
-
+            updateUserPort.updateRegisterInfo(RegisterInfoDto(user.id, user.nickname, user.gender))
+            registerDevicePort.registerDevice(device)
+        }
     }
 }

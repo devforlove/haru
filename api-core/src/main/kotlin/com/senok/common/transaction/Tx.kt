@@ -15,8 +15,8 @@ class Tx(
     companion object {
         private lateinit var txAdvice: TxAdvice
 
-        fun <T> run(function: () -> T): T {
-            return txAdvice.run(function)
+        fun <T> writable(function: () -> T): T {
+            return txAdvice.writable(function)
         }
     }
 
@@ -24,7 +24,7 @@ class Tx(
     class TxAdvice {
 
         @Transactional
-        fun <T> run(function: () -> T): T {
+        fun <T> writable(function: () -> T): T {
             return function()
         }
     }

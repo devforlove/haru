@@ -1,12 +1,10 @@
 package com.senok.user.adapter.out.persistence
 
 import com.querydsl.jpa.impl.JPAQueryFactory
-import com.senok.common.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.QUserEntity
 import com.senok.user.application.out.UpdateUserPort
 import com.senok.user.application.out.dto.RegisterInfoDto
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 
 @Component
 class UserPersistenceQuerydslAdapter(
