@@ -6,8 +6,12 @@ import com.senok.user.application.out.RegisterDevicePort
 import com.senok.user.application.out.UpdateUserPort
 import com.senok.apicore.fixtures.command.RegisterUserCommandFixture
 import com.senok.apicore.fixtures.domain.UserEntityFixture
+import com.senok.user.adapter.out.persistence.entity.DeviceEntity
 import com.senok.user.adapter.out.persistence.entity.GenderType
+import com.senok.user.adapter.out.persistence.entity.UserEntity
+import com.senok.user.adapter.out.persistence.entity.UserEventEntity
 import com.senok.user.adapter.out.persistence.repository.DeviceRepository
+import com.senok.user.adapter.out.persistence.repository.UserEventRepository
 import com.senok.user.adapter.out.persistence.repository.UserRepository
 import io.kotest.matchers.shouldBe
 
@@ -17,6 +21,7 @@ class RegisterUserServiceTest(
     private val registerDevicePort: RegisterDevicePort,
     private val userRepository: UserRepository,
     private val deviceRepository: DeviceRepository,
+    private val userEventRepository: UserEventRepository,
 ): AbstractIntegrationSupport({
     val userId = 1L
 
@@ -34,12 +39,11 @@ class RegisterUserServiceTest(
 
                 val user = userRepository.findById(userId)
                 val devices = deviceRepository.findByUserId(userId)
+                val events = userEventRepository.findByUserId(userId)
 
-                user?.id shouldBe userId
-                user?.gender shouldBe GenderType.MALE
-                user?.nickname shouldBe "hihi"
-                devices.size shouldBe 1
-                devices[0].userId shouldBe userId
+                verifyUser(user, 1L, GenderType.MALE, "hihi")
+                verifyDevice(devices, 1L)
+                verifyEvent(events, 1L)
             }
         }
     }
@@ -48,3 +52,22 @@ class RegisterUserServiceTest(
         userRepository.deleteById(userId)
     }
 })
+
+private fun verifyUser(user: UserEntity?, userId: Long, genderType: GenderType, nickname: String) {
+    user?.id shouldBe userId
+    user?.gender shouldBe genderType
+    user?.nickname shouldBe nickname
+}
+
+private fun verifyDevice(devices: List<DeviceEntity>, userId: Long
+) {
+    devices.size shouldBe 1
+    devices[0].userId shouldBe userId
+}
+
+private fun verifyEvent(events: List<UserEventEntity>, userId: Long) {
+    events.size shouldBe 1
+    events[0].userId shouldBe userId
+    println(events[0].attributes)
+}
+

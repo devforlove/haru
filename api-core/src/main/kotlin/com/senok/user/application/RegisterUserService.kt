@@ -19,7 +19,6 @@ class RegisterUserService(
     private  val registerDevicePort: RegisterDevicePort
 ): RegisterUserUseCase {
 
-
     override fun registerUser(command: RegisterUserCommand, userId: Long) {
         Tx.writable {
             val user = findUserPort.findUser(userId)

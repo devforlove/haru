@@ -1,6 +1,8 @@
 package com.senok.user.adapter.out.persistence.entity
 
 import com.senok.common.entity.BaseEntity
+import com.senok.common.event.Events
+import com.senok.user.domain.user.UserRegisterEvent
 import jakarta.persistence.*
 
 @Table(name = "user")
@@ -47,5 +49,10 @@ class UserEntity(
                 gender = GenderType.UNKNOWN,
             )
         }
+    }
+
+    @PostPersist
+    private fun onPostCreate() {
+        Events.raise(UserRegisterEvent(id!!, gender))
     }
 }

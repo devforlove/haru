@@ -1,4 +1,4 @@
-package com.senok.common.mapper
+package com.senok.common.entity.mapper
 
 interface CommonMapper<E, D> {
     fun toEntity(domain: D): E

@@ -1,6 +1,6 @@
 package com.senok.user.adapter.out.persistence.mapper
 
-import com.senok.common.mapper.CommonMapper
+import com.senok.common.entity.mapper.CommonMapper
 import com.senok.user.adapter.out.persistence.entity.DeviceEntity
 import com.senok.user.domain.user.Device
 import org.springframework.stereotype.Component

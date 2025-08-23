@@ -1,6 +1,6 @@
 package com.senok.user.adapter.out.persistence.mapper
 
-import com.senok.common.mapper.CommonMapper
+import com.senok.common.entity.mapper.CommonMapper
 import com.senok.user.adapter.out.persistence.entity.UserEntity
 import com.senok.user.domain.user.User
 import org.springframework.stereotype.Component
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class UserMapper: CommonMapper<UserEntity, User> {
 
     override fun toEntity(domain: User): UserEntity {
-        throw UnsupportedOperationException()
+        throw UnsupportedOperationException("not supported function")
     }
 
     override fun toDomain(entity: UserEntity): User {
