@@ -16,7 +16,6 @@ class UserFixture {
             gender: GenderType = GenderType.MALE,
             rubyCount: Int = 0,
             userStatus: UserStatus = UserStatus.ACTIVE
-
         ) = User(id, email, name, nickname, profileImage, gender, rubyCount, userStatus)
     }
 }

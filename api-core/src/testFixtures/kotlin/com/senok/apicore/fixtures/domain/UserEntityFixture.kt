@@ -17,7 +17,6 @@ class UserEntityFixture {
             gender: GenderType = GenderType.MALE,
             rubyCount: Int = 0,
             userStatus: UserStatus = UserStatus.ACTIVE
-
         ) = UserEntity(id, email, password, name, nickname, profileImage, gender, rubyCount, userStatus)
     }
 }

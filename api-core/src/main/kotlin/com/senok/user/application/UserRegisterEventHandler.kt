@@ -1,5 +1,6 @@
 package com.senok.user.application
 
+import com.senok.common.event.Events
 import com.senok.user.adapter.out.persistence.UserEventPersistenceAdapter
 import com.senok.user.domain.user.UserRegisterEvent
 import org.springframework.stereotype.Service
@@ -12,7 +13,12 @@ class UserRegisterEventHandler(
 ) {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
-    fun handle(event: UserRegisterEvent) {
+    fun handleBeforeTransaction(event: UserRegisterEvent) {
         userEventPersistenceAdapter.saveUserRegisterEvent(event)
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun handleAfterTransaction(event: UserRegisterEvent) {
+
     }
 }

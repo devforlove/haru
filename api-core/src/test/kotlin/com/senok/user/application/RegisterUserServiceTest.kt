@@ -31,7 +31,7 @@ class RegisterUserServiceTest(
 
     describe("유저 등록시") {
         context("정상적으로 유저가 등록되면") {
-            it("user 테이블과, device 테이블에 유저 데이터가 생성된다.") {
+            it("user 테이블과, device 테이블에 유저 데이터가 생성되고, 이벤트가 발행된다.") {
                 val command = RegisterUserCommandFixture.getCommand(nickname = "hihi", genderType = GenderType.MALE)
 
                 val sut = RegisterUserService(findUserPort, updateUserPort, registerDevicePort)
@@ -49,6 +49,7 @@ class RegisterUserServiceTest(
     }
 
     afterTest {
+        // TODO("테이블 전체 제거 추가")
         userRepository.deleteById(userId)
     }
 })

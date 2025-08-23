@@ -11,7 +11,7 @@ class User(
     var profileImage: String,
     var gender: GenderType,
     var rubyCount: Int,
-    var userStatus: UserStatus
+    var userStatus: UserStatus = UserStatus.INITIATED,
 ) {
     init {
         require(email.isNotBlank()) { "이메일은 비어있을 수 없습니다." }
