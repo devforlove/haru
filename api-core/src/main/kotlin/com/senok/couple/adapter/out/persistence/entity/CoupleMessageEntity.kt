@@ -6,8 +6,6 @@ import jakarta.persistence.*
 @Table(name = "couple_history")
 @Entity
 class CoupleMessageEntity(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")

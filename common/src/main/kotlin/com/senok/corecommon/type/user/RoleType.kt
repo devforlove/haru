@@ -1,4 +1,4 @@
-package com.senok.user.adapter.out.persistence.entity
+package com.senok.corecommon.type.user
 
 enum class RoleType(
     val value: String

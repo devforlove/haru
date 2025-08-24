@@ -1,6 +1,6 @@
 package com.senok.config.auth
 
-import com.senok.user.adapter.out.persistence.entity.RoleType
+import com.senok.corecommon.type.user.RoleType
 import com.senok.user.domain.auth.PrincipalDetails
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys

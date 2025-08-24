@@ -7,9 +7,7 @@ import java.time.LocalDateTime
 @Table(name = "couple_code")
 @Entity
 class CoupleCodeEntity(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? = null,
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")
     val couple: CoupleEntity,

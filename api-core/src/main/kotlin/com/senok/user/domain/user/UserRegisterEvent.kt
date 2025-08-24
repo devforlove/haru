@@ -1,6 +1,6 @@
 package com.senok.user.domain.user
 
-import com.senok.user.adapter.out.persistence.entity.GenderType
+import com.senok.corecommon.type.user.GenderType
 
 data class UserRegisterEvent(
     val userId: Long,

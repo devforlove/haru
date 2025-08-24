@@ -2,7 +2,7 @@ package com.senok.user.adapter.out.persistence.mapper
 
 import com.senok.common.entity.mapper.CommonMapper
 import com.senok.user.adapter.out.persistence.entity.UserEventEntity
-import com.senok.user.adapter.out.persistence.entity.UserEventType
+import com.senok.corecommon.type.user.UserEventType
 import com.senok.user.domain.user.UserRegisterEvent
 import org.springframework.stereotype.Component
 

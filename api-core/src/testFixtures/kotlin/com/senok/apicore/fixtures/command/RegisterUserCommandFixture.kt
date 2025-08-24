@@ -1,7 +1,7 @@
 package com.senok.apicore.fixtures.command
 
-import com.senok.user.adapter.out.persistence.entity.GenderType
-import com.senok.user.adapter.out.persistence.entity.ProviderType
+import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.type.user.ProviderType
 import com.senok.user.application.`in`.command.RegisterUserCommand
 
 class RegisterUserCommandFixture {

@@ -1,6 +1,6 @@
 package com.senok.user.domain.auth
 
-import com.senok.user.adapter.out.persistence.entity.RoleType
+import com.senok.corecommon.type.user.RoleType
 import com.senok.user.adapter.out.persistence.entity.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

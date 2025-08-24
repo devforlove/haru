@@ -1,6 +1,6 @@
 package com.senok.user.domain.user
 
-import com.senok.user.adapter.out.persistence.entity.ProviderType
+import com.senok.corecommon.type.user.ProviderType
 
 class Device(
     val id: Long? = null,

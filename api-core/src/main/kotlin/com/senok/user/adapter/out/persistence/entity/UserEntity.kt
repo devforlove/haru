@@ -2,6 +2,8 @@ package com.senok.user.adapter.out.persistence.entity
 
 import com.senok.common.entity.BaseEntity
 import com.senok.common.event.Events
+import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.type.user.UserStatus
 import com.senok.user.domain.user.UserRegisterEvent
 import jakarta.persistence.*
 
@@ -9,7 +11,7 @@ import jakarta.persistence.*
 @Entity
 class UserEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    override val id: Long? = null,
 
     @Column(name = "email")
     val email: String = "inwook94@naver.com",

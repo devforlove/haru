@@ -6,8 +6,6 @@ import jakarta.persistence.*
 @Table(name = "individual")
 @Entity
 class IndividualEntity(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? = null,
 
     @Column(name = "user_id")
     val userId: String,

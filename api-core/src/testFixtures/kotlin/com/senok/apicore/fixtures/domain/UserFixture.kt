@@ -1,7 +1,7 @@
 package com.senok.apicore.fixtures.domain
 
-import com.senok.user.adapter.out.persistence.entity.GenderType
-import com.senok.user.adapter.out.persistence.entity.UserStatus
+import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.type.user.UserStatus
 import com.senok.user.domain.user.User
 
 class UserFixture {

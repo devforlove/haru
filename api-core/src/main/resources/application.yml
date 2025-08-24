@@ -19,16 +19,6 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            client-id: 333
-            client-secret: 333
-            redirect-uri: 333
-            client-authentication-method: client_secret_post
-            authorization-grant-type: authorization_code
-            scope:
-              - profile_nickname
-              - profile_image
-            client-name: google
           kakao:
             client-id: bedc003a9899e7c1fddf9a2b0940d24a
             client-secret: OFP3y0m1kqid0gxi8aJRrwOhtAmJETJU
@@ -48,6 +38,27 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-info-authentication-method: header
             user-name-attribute: id
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      # 성능/신뢰성 튜닝
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+        linger.ms: 20
+        batch.size: 32768
+        compression.type: lz4
+        delivery.timeout.ms: 120000
+        retries: 2147483647
+        request.timeout.ms: 30000
+    properties:
+      spring.json.add.type.headers: false
+    template:
+      default-topic: user-registered-topic
 
 jwt:
   secret: adf4aafsaf3lzalbvppamvpdfasadfe3pdpsafa2kadfkfafdasmsclxlxefewafvcz323f

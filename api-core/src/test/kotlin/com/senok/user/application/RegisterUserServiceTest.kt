@@ -7,7 +7,7 @@ import com.senok.user.application.out.UpdateUserPort
 import com.senok.apicore.fixtures.command.RegisterUserCommandFixture
 import com.senok.apicore.fixtures.domain.UserEntityFixture
 import com.senok.user.adapter.out.persistence.entity.DeviceEntity
-import com.senok.user.adapter.out.persistence.entity.GenderType
+import com.senok.corecommon.type.user.GenderType
 import com.senok.user.adapter.out.persistence.entity.UserEntity
 import com.senok.user.adapter.out.persistence.entity.UserEventEntity
 import com.senok.user.adapter.out.persistence.repository.DeviceRepository

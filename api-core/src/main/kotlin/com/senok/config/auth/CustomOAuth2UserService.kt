@@ -2,7 +2,7 @@ package com.senok.config.auth
 
 import com.senok.common.transaction.Tx
 import com.senok.user.adapter.out.persistence.entity.RoleEntity
-import com.senok.user.adapter.out.persistence.entity.RoleType
+import com.senok.corecommon.type.user.RoleType
 import com.senok.user.adapter.out.persistence.entity.UserEntity
 import com.senok.user.adapter.out.persistence.repository.RoleRepository
 import com.senok.user.adapter.out.persistence.repository.UserRepository

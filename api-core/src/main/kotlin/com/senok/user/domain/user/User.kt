@@ -1,7 +1,7 @@
 package com.senok.user.domain.user
 
-import com.senok.user.adapter.out.persistence.entity.GenderType
-import com.senok.user.adapter.out.persistence.entity.UserStatus
+import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.type.user.UserStatus
 
 class User(
     val id: Long,
