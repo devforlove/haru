@@ -1,8 +1,8 @@
 package com.senok.apicore.fixtures.domain
 
+import com.senok.apicore.user.domain.user.User
 import com.senok.corecommon.type.user.GenderType
 import com.senok.corecommon.type.user.UserStatus
-import com.senok.user.domain.user.User
 
 class UserFixture {
 

@@ -1,25 +1,25 @@
 package com.senok.user.application
 
-import com.senok.integration.AbstractIntegrationSupport
-import com.senok.user.application.out.FindUserPort
-import com.senok.user.application.out.RegisterDevicePort
-import com.senok.user.application.out.UpdateUserPort
 import com.senok.apicore.fixtures.command.RegisterUserCommandFixture
 import com.senok.apicore.fixtures.domain.UserEntityFixture
-import com.senok.user.adapter.out.persistence.entity.DeviceEntity
+import com.senok.apicore.user.adapter.out.persistence.entity.DeviceEntity
+import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
+import com.senok.apicore.user.adapter.out.persistence.entity.UserEventEntity
+import com.senok.apicore.user.adapter.out.persistence.repository.DeviceRepository
+import com.senok.apicore.user.adapter.out.persistence.repository.UserEventRepository
+import com.senok.apicore.user.application.RegisterUserService
+import com.senok.apicore.user.application.out.FindUserPort
+import com.senok.apicore.user.application.out.RegisterDevicePort
+import com.senok.apicore.user.application.out.UpdateUserPort
 import com.senok.corecommon.type.user.GenderType
-import com.senok.user.adapter.out.persistence.entity.UserEntity
-import com.senok.user.adapter.out.persistence.entity.UserEventEntity
-import com.senok.user.adapter.out.persistence.repository.DeviceRepository
-import com.senok.user.adapter.out.persistence.repository.UserEventRepository
-import com.senok.user.adapter.out.persistence.repository.UserRepository
+import com.senok.integration.AbstractIntegrationSupport
 import io.kotest.matchers.shouldBe
 
 class RegisterUserServiceTest(
     private val findUserPort: FindUserPort,
     private val updateUserPort: UpdateUserPort,
     private val registerDevicePort: RegisterDevicePort,
-    private val userRepository: UserRepository,
+    private val userRepository: com.senok.apicore.user.adapter.out.persistence.repository.UserRepository,
     private val deviceRepository: DeviceRepository,
     private val userEventRepository: UserEventRepository,
 ): AbstractIntegrationSupport({
