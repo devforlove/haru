@@ -1,6 +1,7 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.common.entity.BaseEntity
+import com.senok.corecommon.type.couple.CoupleStatus
 import jakarta.persistence.*
 
 @Table(name = "couple")
@@ -18,11 +19,5 @@ class CoupleEntity(
     val coupleStatus: CoupleStatus,
 
     @Column(name = "message_count")
-    val messageCount: MessageCount = MessageCount(0),
-): BaseEntity() {
-
-    @JvmInline
-    value class MessageCount(val value: Int) {
-
-    }
-}
+    val messageCount: Int,
+): BaseEntity()

@@ -1,4 +1,4 @@
-package com.senok.couple.adapter.out.persistence.entity
+package com.senok.corecommon.type.couple
 
 enum class CoupleStatus{
     REQUESTING,

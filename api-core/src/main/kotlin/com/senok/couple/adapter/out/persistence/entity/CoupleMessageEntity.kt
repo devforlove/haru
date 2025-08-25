@@ -1,6 +1,8 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.common.entity.BaseEntity
+import com.senok.corecommon.type.couple.CoupleMessageStatus
+import com.senok.corecommon.type.couple.CoupleMessageType
 import jakarta.persistence.*
 
 @Table(name = "couple_history")

@@ -1,4 +1,4 @@
-package com.senok.couple.application.`in`
+package com.senok.couple.application.out
 
 import com.senok.couple.domain.model.Individual
 

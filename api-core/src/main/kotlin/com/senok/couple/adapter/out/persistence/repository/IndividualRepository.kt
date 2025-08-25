@@ -6,4 +6,5 @@ import org.springframework.data.repository.Repository
 interface IndividualRepository: Repository<IndividualEntity, Long> {
 
     fun save(individual: IndividualEntity)
+    fun findByUserId(userId: Long): IndividualEntity?
 }
