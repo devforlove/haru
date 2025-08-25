@@ -1,16 +1,19 @@
 package com.senok.couple.adapter.out.persistence
 
-import com.senok.couple.adapter.out.persistence.entity.IndividualEntity
+import com.senok.couple.adapter.out.persistence.mapper.IndividualMapper
 import com.senok.couple.adapter.out.persistence.repository.IndividualRepository
 import com.senok.couple.application.`in`.SaveIndividualPort
+import com.senok.couple.domain.model.Individual
 import org.springframework.stereotype.Component
 
 @Component
 class IndividualPersistenceAdapter(
-    private val individualRepository: IndividualRepository
+    private val individualRepository: IndividualRepository,
+    private val mapper: IndividualMapper
 ): SaveIndividualPort {
 
-    override fun saveIndividual(individual: IndividualEntity) {
-        individualRepository.save(individual)
+    override fun saveIndividual(individual: Individual) {
+        val individualEntity = mapper.toEntity(individual)
+        individualRepository.save(individualEntity)
     }
 }

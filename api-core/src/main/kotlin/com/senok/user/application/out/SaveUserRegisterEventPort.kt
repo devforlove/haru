@@ -1,7 +1,7 @@
 package com.senok.user.application.out
 
-import com.senok.user.domain.user.UserRegisterEvent
+import com.senok.coreeventpublisher.user.UserEvent
 
 interface SaveUserRegisterEventPort {
-    fun saveUserRegisterEvent(event: UserRegisterEvent)
+    fun saveUserRegisterEvent(event: UserEvent)
 }

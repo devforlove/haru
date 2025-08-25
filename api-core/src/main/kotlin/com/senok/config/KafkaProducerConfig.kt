@@ -12,15 +12,15 @@ class KafkaProducerConfig(
     private val producerFactory: ProducerFactory<String, String>
 ) {
 
-    @Bean
-    fun userRegisteredTopic(): NewTopic =
-        TopicBuilder.name("user-registered-topic")
-            .partitions(3)
-            .replicas(3)
-            .config("min.insync.replicas", "2")
-            .build()
-
-    @Bean
-    fun userEventKafkaTemplate(): KafkaTemplate<String, String> =
-        KafkaTemplate(producerFactory)
+//    @Bean
+//    fun userRegisteredTopic(): NewTopic =
+//        TopicBuilder.name("user-registered-topic")
+//            .partitions(3)
+//            .replicas(3)
+//            .config("min.insync.replicas", "2")
+//            .build()
+//
+//    @Bean
+//    fun userEventKafkaTemplate(): KafkaTemplate<String, String> =
+//        KafkaTemplate(producerFactory)
 }

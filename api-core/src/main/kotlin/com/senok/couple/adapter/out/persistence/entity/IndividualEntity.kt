@@ -1,6 +1,7 @@
 package com.senok.couple.adapter.out.persistence.entity
 
 import com.senok.common.entity.BaseEntity
+import com.senok.corecommon.type.user.GenderType
 import jakarta.persistence.*
 
 @Table(name = "individual")
@@ -8,10 +9,10 @@ import jakarta.persistence.*
 class IndividualEntity(
 
     @Column(name = "user_id")
-    val userId: String,
+    val userId: Long,
 
     @Column(name = "gender")
-    val gender: String,
+    val gender: GenderType,
 
     @Column(name = "is_couple")
     val isCouple: Boolean,

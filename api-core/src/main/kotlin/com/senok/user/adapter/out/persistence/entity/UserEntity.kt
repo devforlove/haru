@@ -3,9 +3,11 @@ package com.senok.user.adapter.out.persistence.entity
 import com.senok.common.entity.BaseEntity
 import com.senok.common.event.Events
 import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.type.user.UserEventType
 import com.senok.corecommon.type.user.UserStatus
-import com.senok.user.domain.user.UserRegisterEvent
+import com.senok.coreeventpublisher.user.UserEvent
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Table(name = "user")
 @Entity
@@ -55,6 +57,13 @@ class UserEntity(
 
     @PostPersist
     private fun onPostCreate() {
-        Events.raise(UserRegisterEvent(id!!, gender))
+        Events.raise(
+            UserEvent(
+                userId = id!!,
+                eventType = UserEventType.REGISTER,
+                attributes = UserEvent.UserEventAttribute(id, gender),
+                createdAt = LocalDateTime.now()
+            )
+        )
     }
 }
