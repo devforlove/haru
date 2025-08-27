@@ -1,6 +1,7 @@
 package com.senok.apicore.couple.adapter.out.persistence.entity
 
 import com.senok.apicore.common.entity.BaseEntity
+import com.senok.apicore.common.event.Events
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -21,6 +22,6 @@ class CoupleCodeEntity(
 
     @PostPersist
     private fun onPostCreate() {
-        // Events.raise()
+        Events.raise()
     }
 }
