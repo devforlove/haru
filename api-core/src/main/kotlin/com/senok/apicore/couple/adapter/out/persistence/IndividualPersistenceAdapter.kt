@@ -16,8 +16,8 @@ class IndividualPersistenceAdapter(
 ): SaveIndividualPort, FindIndividualPort {
 
     override fun saveIndividual(individual: Individual) {
-        val individualEntity = mapper.toEntity(individual)
-        individualRepository.save(individualEntity)
+        mapper.toEntity(individual)
+            .let { individualRepository.save(it) }
     }
 
     override fun findIndividual(userId: Long): Individual {

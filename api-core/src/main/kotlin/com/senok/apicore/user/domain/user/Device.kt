@@ -17,8 +17,8 @@ class Device(
             ownerId: Long,
             deviceKey: String,
             providerType: ProviderType
-        ): com.senok.apicore.user.domain.user.Device {
-            return com.senok.apicore.user.domain.user.Device(
+        ): Device {
+            return Device(
                 id = null,
                 ownerId = ownerId,
                 deviceKey = deviceKey,

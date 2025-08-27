@@ -9,10 +9,20 @@ import org.springframework.stereotype.Component
 class CoupleMapper: CommonMapper<CoupleEntity, Couple> {
 
     override fun toEntity(domain: Couple): CoupleEntity {
-        TODO("Not yet implemented")
+        return CoupleEntity(
+            domain.femaleId,
+            domain.maleId,
+            domain.coupleStatus,
+            domain.messageCount
+        )
     }
 
     override fun toDomain(entity: CoupleEntity): Couple {
-        TODO("Not yet implemented")
+        return Couple(
+            entity.femaleId,
+            entity.maleId,
+            entity.coupleStatus,
+            entity.messageCount
+        ).assignId(entity.id!!)
     }
 }

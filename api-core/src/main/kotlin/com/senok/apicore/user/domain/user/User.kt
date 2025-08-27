@@ -4,7 +4,7 @@ import com.senok.corecommon.type.user.GenderType
 import com.senok.corecommon.type.user.UserStatus
 
 class User(
-    val id: Long,
+    val userId: Long,
     val email: String,
     var name: String,
     var nickname: String,

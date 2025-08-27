@@ -14,7 +14,7 @@ class UserMapper: CommonMapper<UserEntity, User> {
 
     override fun toDomain(entity: UserEntity): User {
         return User(
-            id = entity.id!!,
+            userId = entity.id!!,
             email = entity.email,
             name = entity.name?:"",
             nickname = entity.nickname,

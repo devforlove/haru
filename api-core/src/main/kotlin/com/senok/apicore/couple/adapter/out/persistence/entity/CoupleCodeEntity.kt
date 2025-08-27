@@ -10,11 +10,17 @@ class CoupleCodeEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couple_id")
-    val couple: com.senok.apicore.couple.adapter.out.persistence.entity.CoupleEntity,
+    val couple: CoupleEntity,
 
     @Column(name = "code")
     val code: String,
 
     @Column(name = "expired_at")
     val expiredAt: LocalDateTime,
-): BaseEntity()
+): BaseEntity() {
+
+    @PostPersist
+    private fun onPostCreate() {
+        // Events.raise()
+    }
+}
