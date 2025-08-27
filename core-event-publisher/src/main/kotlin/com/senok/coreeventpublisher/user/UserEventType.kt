@@ -1,4 +1,4 @@
-package com.senok.corecommon.type.user
+package com.senok.coreeventpublisher.user
 
 enum class UserEventType {
     REGISTER

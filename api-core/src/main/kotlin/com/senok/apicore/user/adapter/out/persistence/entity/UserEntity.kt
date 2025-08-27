@@ -3,7 +3,7 @@ package com.senok.apicore.user.adapter.out.persistence.entity
 import com.senok.apicore.common.entity.BaseEntity
 import com.senok.apicore.common.event.Events
 import com.senok.corecommon.type.user.GenderType
-import com.senok.corecommon.type.user.UserEventType
+import com.senok.coreeventpublisher.user.UserEventType
 import com.senok.corecommon.type.user.UserStatus
 import com.senok.coreeventpublisher.user.UserEvent
 import jakarta.persistence.*

@@ -1,4 +1,4 @@
-package com.senok.apicore.fixtures.domain
+package com.senok.apicore.fixtures.domain.user
 
 import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
 import com.senok.corecommon.type.user.GenderType

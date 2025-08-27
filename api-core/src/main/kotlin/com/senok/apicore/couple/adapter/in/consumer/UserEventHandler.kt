@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.adapter.`in`.consumer
 
 import com.senok.apicore.couple.application.`in`.SaveIndividualUseCase
-import com.senok.corecommon.type.user.UserEventType
+import com.senok.coreeventpublisher.user.UserEventType
 import com.senok.coreeventpublisher.user.UserEvent
 import org.springframework.stereotype.Component
 import org.springframework.transaction.event.TransactionalEventListener

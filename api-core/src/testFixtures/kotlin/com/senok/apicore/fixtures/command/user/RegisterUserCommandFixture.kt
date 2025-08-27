@@ -1,8 +1,8 @@
-package com.senok.apicore.fixtures.command
+package com.senok.apicore.fixtures.command.user
 
+import com.senok.apicore.user.application.`in`.command.RegisterUserCommand
 import com.senok.corecommon.type.user.GenderType
 import com.senok.corecommon.type.user.ProviderType
-import com.senok.apicore.user.application.`in`.command.RegisterUserCommand
 
 class RegisterUserCommandFixture {
 
@@ -11,7 +11,7 @@ class RegisterUserCommandFixture {
             nickname: String = "hiho",
             genderType: GenderType = GenderType.MALE,
         ) =
-            com.senok.apicore.user.application.`in`.command.RegisterUserCommand(
+            RegisterUserCommand(
                 nickname,
                 genderType,
                 "01012345678",
