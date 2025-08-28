@@ -9,18 +9,20 @@ import org.springframework.stereotype.Component
 class CoupleCodeMapper: CommonMapper<CoupleCodeEntity, CoupleCode> {
 
     override fun toEntity(domain: CoupleCode): CoupleCodeEntity {
+
         return CoupleCodeEntity(
-            domain.coupleId,
-            domain.code,
-            domain.expiredAt
+            coupleId = domain.coupleId,
+            code = domain.code,
+            expiredAt = domain.expiredAt,
         )
     }
 
     override fun toDomain(entity: CoupleCodeEntity): CoupleCode {
+
         return CoupleCode(
-            entity.coupleId,
-            entity.code,
-            entity.expiredAt
+            coupleId = entity.coupleId,
+            code = entity.code,
+            expiredAt = entity.expiredAt
         )
     }
 }

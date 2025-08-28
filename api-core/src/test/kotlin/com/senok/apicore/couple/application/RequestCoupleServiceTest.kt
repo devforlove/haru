@@ -13,6 +13,7 @@ import com.senok.apicore.fixtures.domain.couple.IndividualEntityFixture
 import com.senok.apicore.integration.AbstractIntegrationSupport
 import com.senok.apicore.integration.IntegrationUtilService
 import com.senok.corecommon.type.user.GenderType
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
 class RequestCoupleServiceTest(
@@ -42,12 +43,15 @@ class RequestCoupleServiceTest(
 
                 val couple = verifyCouple(integrationUtilService.getQuery(), femaleId, maleId)
                 verifyCoupleCode(integrationUtilService.getQuery(), couple.id!!)
+                verifyCoupleCodeEvent(integrationUtilService.getQuery(), couple.id!!)
             }
         }
     }
 
     afterSpec {
         integrationUtilService.deleteAll(QIndividualEntity.individualEntity)
+        integrationUtilService.deleteAll(QCoupleCodeEntity.coupleCodeEntity)
+        integrationUtilService.deleteAll(QCoupleEventEntity.coupleEventEntity)
     }
 })
 
@@ -81,4 +85,17 @@ private fun verifyCoupleCode(
 
     coupleCode shouldNotBe null
     return coupleCode!!
+}
+
+fun verifyCoupleCodeEvent(
+    query: JPAQueryFactory,
+    coupleId: Long) {
+
+    val events = query.selectFrom(QCoupleEventEntity.coupleEventEntity)
+        .where(
+            QCoupleEventEntity.coupleEventEntity.coupleId.eq(coupleId)
+        )
+        .fetch()
+
+    events.size shouldBe 1
 }

@@ -7,7 +7,7 @@ import com.senok.coreeventpublisher.user.UserEvent
 import org.springframework.stereotype.Component
 
 @Component
-class UserRegisterEventMapper: CommonMapper<UserEventEntity, UserEvent> {
+class UserEventMapper: CommonMapper<UserEventEntity, UserEvent> {
 
     override fun toEntity(domain: UserEvent): UserEventEntity {
         return UserEventEntity(

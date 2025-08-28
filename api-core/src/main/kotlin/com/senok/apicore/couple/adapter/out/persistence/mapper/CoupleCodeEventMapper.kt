@@ -1,0 +1,23 @@
+package com.senok.apicore.couple.adapter.out.persistence.mapper
+
+import com.senok.apicore.common.entity.mapper.CommonMapper
+import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleEventEntity
+import com.senok.coreeventpublisher.couple.CoupleEvent
+import org.springframework.stereotype.Component
+
+@Component
+class CoupleCodeEventMapper: CommonMapper<CoupleEventEntity, CoupleEvent> {
+
+    override fun toEntity(domain: CoupleEvent): CoupleEventEntity {
+
+        return CoupleEventEntity(
+            coupleId = domain.connId,
+            eventType = domain.eventType,
+            attributes = domain.attributes.toString(),
+        )
+    }
+
+    override fun toDomain(entity: CoupleEventEntity): CoupleEvent {
+        throw UnsupportedOperationException("not supported function")
+    }
+}

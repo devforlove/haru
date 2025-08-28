@@ -37,7 +37,7 @@ class RequestCoupleService(
             val couple = findCouplePort.findCouple(femaleId, maleId)
                 ?: saveCouplePort.saveCouple(Couple.initCouple(femaleId, maleId))
 
-            // 커플 코드 생성 및 발행
+            // 커플 코드 생성 및 이벤트 발행
             saveCoupleCodePort.saveCoupleCode(CoupleCode.generateCode(couple.coupleId))
         }
     }

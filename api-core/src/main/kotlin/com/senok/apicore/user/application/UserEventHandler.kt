@@ -8,13 +8,13 @@ import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Service
-class UserRegisterEventHandler(
+class UserEventHandler(
     private val userEventPersistenceAdapter: UserEventPersistenceAdapter
 ) {
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     fun handleBeforeTransaction(event: UserEvent) {
-        userEventPersistenceAdapter.saveUserRegisterEvent(event)
+        userEventPersistenceAdapter.saveUserEvent(event)
         Events.raise(event)
     }
 }

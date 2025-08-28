@@ -1,5 +1,5 @@
 package com.senok.coreeventpublisher.couple
 
-enum class CoupleCodeEventType {
-    REGISTER
+enum class CoupleEventType {
+    REQUESTING
 }
