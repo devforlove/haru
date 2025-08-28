@@ -4,8 +4,8 @@ import com.senok.apicore.common.entity.BaseEntity
 import com.senok.apicore.common.event.Events
 import com.senok.corecommon.constants.CoupleConstant
 import com.senok.corecommon.type.couple.CoupleStatus
-import com.senok.coreeventpublisher.couple.CoupleEvent
-import com.senok.coreeventpublisher.couple.CoupleEventType
+import com.senok.coreeventpublisher.event.couple.CoupleEvent
+import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

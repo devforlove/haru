@@ -1,0 +1,20 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+        linger.ms: 20
+        batch.size: 32768
+        compression.type: lz4
+        delivery.timeout.ms: 120000
+        retries: 2147483647
+        request.timeout.ms: 30000
+    properties:
+      spring.json.add.type.headers: false
+    template:
+      default-topic: user-registered-topic

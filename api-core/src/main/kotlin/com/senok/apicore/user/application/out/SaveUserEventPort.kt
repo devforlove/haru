@@ -1,6 +1,6 @@
 package com.senok.apicore.user.application.out
 
-import com.senok.coreeventpublisher.user.UserEvent
+import com.senok.coreeventpublisher.event.user.UserEvent
 
 interface SaveUserEventPort {
     fun saveUserEvent(event: UserEvent)

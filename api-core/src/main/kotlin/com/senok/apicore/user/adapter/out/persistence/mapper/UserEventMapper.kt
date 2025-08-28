@@ -2,8 +2,8 @@ package com.senok.apicore.user.adapter.out.persistence.mapper
 
 import com.senok.apicore.common.entity.mapper.CommonMapper
 import com.senok.apicore.user.adapter.out.persistence.entity.UserEventEntity
-import com.senok.coreeventpublisher.user.UserEventType
-import com.senok.coreeventpublisher.user.UserEvent
+import com.senok.coreeventpublisher.event.user.UserEventType
+import com.senok.coreeventpublisher.event.user.UserEvent
 import org.springframework.stereotype.Component
 
 @Component

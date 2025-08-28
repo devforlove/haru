@@ -3,7 +3,7 @@ package com.senok.apicore.couple.application
 import com.senok.apicore.couple.application.`in`.SaveIndividualUseCase
 import com.senok.apicore.couple.application.out.SaveIndividualPort
 import com.senok.apicore.couple.domain.model.Individual
-import com.senok.coreeventpublisher.user.UserEvent
+import com.senok.coreeventpublisher.event.user.UserEvent
 import org.springframework.stereotype.Service
 
 @Service

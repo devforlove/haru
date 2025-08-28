@@ -1,4 +1,4 @@
-package com.senok.coreeventpublisher.couple
+package com.senok.coreeventpublisher.event.couple
 
 import com.senok.coreeventpublisher.common.DomainEvent
 import java.time.LocalDateTime

@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.adapter.out.persistence.entity
 
 import com.senok.apicore.common.entity.BaseEntity
-import com.senok.coreeventpublisher.couple.CoupleEventType
+import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import jakarta.persistence.*
 
 @Table(name = "couple_event")

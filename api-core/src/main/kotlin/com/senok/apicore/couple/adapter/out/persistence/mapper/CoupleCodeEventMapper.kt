@@ -2,7 +2,7 @@ package com.senok.apicore.couple.adapter.out.persistence.mapper
 
 import com.senok.apicore.common.entity.mapper.CommonMapper
 import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleEventEntity
-import com.senok.coreeventpublisher.couple.CoupleEvent
+import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import org.springframework.stereotype.Component
 
 @Component

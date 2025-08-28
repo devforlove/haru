@@ -3,9 +3,9 @@ package com.senok.apicore.user.adapter.out.persistence.entity
 import com.senok.apicore.common.entity.BaseEntity
 import com.senok.apicore.common.event.Events
 import com.senok.corecommon.type.user.GenderType
-import com.senok.coreeventpublisher.user.UserEventType
+import com.senok.coreeventpublisher.event.user.UserEventType
 import com.senok.corecommon.type.user.UserStatus
-import com.senok.coreeventpublisher.user.UserEvent
+import com.senok.coreeventpublisher.event.user.UserEvent
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
