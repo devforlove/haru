@@ -1,4 +1,4 @@
-package com.senok.config
+package com.senok.apicore.common.config
 
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
@@ -7,7 +7,7 @@ import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.utility.DockerImageName
 
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfig {
+class TestDatabaseContainersConfig {
 
     @Bean
     @ServiceConnection

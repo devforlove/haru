@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
-class UserEventHandler(
+class CoupleEventConsumer(
     private val saveIndividualUseCase: SaveIndividualUseCase
 ) {
 

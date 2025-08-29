@@ -23,6 +23,8 @@ dependencies {
     kapt ("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(testFixtures(project(':core-event-publisher')))
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")

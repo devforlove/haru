@@ -1,19 +1,13 @@
 package com.senok.apicore.user.application
 
-import com.querydsl.jpa.impl.JPAQueryFactory
 import com.senok.apicore.fixtures.command.user.RegisterUserCommandFixture
 import com.senok.apicore.fixtures.domain.user.UserEntityFixture
-import com.senok.apicore.user.adapter.out.persistence.entity.DeviceEntity
-import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
-import com.senok.apicore.user.adapter.out.persistence.entity.UserEventEntity
-import com.senok.apicore.user.adapter.out.persistence.repository.DeviceRepository
-import com.senok.apicore.user.adapter.out.persistence.repository.UserEventRepository
 import com.senok.apicore.user.application.out.FindUserPort
 import com.senok.apicore.user.application.out.RegisterDevicePort
 import com.senok.apicore.user.application.out.UpdateUserPort
 import com.senok.corecommon.type.user.GenderType
-import com.senok.apicore.integration.AbstractIntegrationSupport
-import com.senok.apicore.integration.IntegrationUtilService
+import com.senok.apicore.common.integration.AbstractIntegrationSupport
+import com.senok.apicore.common.integration.IntegrationUtil
 import com.senok.apicore.user.adapter.out.persistence.entity.QDeviceEntity
 import com.senok.apicore.user.adapter.out.persistence.entity.QUserEntity
 import com.senok.apicore.user.adapter.out.persistence.entity.QUserEventEntity
@@ -25,7 +19,6 @@ class RegisterUserServiceTest(
     private val updateUserPort: UpdateUserPort,
     private val registerDevicePort: RegisterDevicePort,
     private val userRepository: UserRepository,
-    private val integrationUtilService: IntegrationUtilService
 ): AbstractIntegrationSupport({
     val userId = 1L
 
@@ -41,22 +34,22 @@ class RegisterUserServiceTest(
                 val sut = RegisterUserService(findUserPort, updateUserPort, registerDevicePort)
                 sut.registerUser(command, userId)
 
-                verifyUser(integrationUtilService.getQuery(), 1L, GenderType.MALE, "hihi")
-                verifyDevice(integrationUtilService.getQuery(), 1L)
-                verifyEvent(integrationUtilService.getQuery(), 1L)
+                verifyUser(1L, GenderType.MALE, "hihi")
+                verifyDevice( 1L)
+                verifyEvent(1L)
             }
         }
     }
 
     afterSpec {
-        integrationUtilService.deleteAll(QUserEntity.userEntity)
-        integrationUtilService.deleteAll(QDeviceEntity.deviceEntity)
-        integrationUtilService.deleteAll(QUserEventEntity.userEventEntity)
+        IntegrationUtil.deleteAll(QUserEntity.userEntity)
+        IntegrationUtil.deleteAll(QDeviceEntity.deviceEntity)
+        IntegrationUtil.deleteAll(QUserEventEntity.userEventEntity)
     }
 })
 
-private fun verifyUser(query: JPAQueryFactory, userId: Long, genderType: GenderType, nickname: String) {
-    val user = query
+private fun verifyUser(userId: Long, genderType: GenderType, nickname: String) {
+    val user = IntegrationUtil.getQuery()
         .selectFrom(QUserEntity.userEntity)
         .where(QUserEntity.userEntity.id.eq(userId))
         .fetchOne()
@@ -65,9 +58,9 @@ private fun verifyUser(query: JPAQueryFactory, userId: Long, genderType: GenderT
     user?.nickname shouldBe nickname
 }
 
-private fun verifyDevice(query: JPAQueryFactory, userId: Long
+private fun verifyDevice(userId: Long
 ) {
-    val devices = query
+    val devices = IntegrationUtil.getQuery()
         .selectFrom(QDeviceEntity.deviceEntity)
         .where(QDeviceEntity.deviceEntity.userId.eq(userId))
         .fetch()
@@ -75,8 +68,8 @@ private fun verifyDevice(query: JPAQueryFactory, userId: Long
     devices[0].userId shouldBe userId
 }
 
-private fun verifyEvent(query: JPAQueryFactory, userId: Long) {
-    val events = query
+private fun verifyEvent(userId: Long) {
+    val events = IntegrationUtil.getQuery()
         .selectFrom(QUserEventEntity.userEventEntity)
         .where(QUserEventEntity.userEventEntity.userId.eq(userId))
         .fetch()

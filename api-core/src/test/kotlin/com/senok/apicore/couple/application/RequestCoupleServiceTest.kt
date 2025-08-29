@@ -1,6 +1,5 @@
 package com.senok.apicore.couple.application
 
-import com.querydsl.jpa.impl.JPAQueryFactory
 import com.senok.apicore.couple.adapter.out.persistence.entity.*
 import com.senok.apicore.couple.adapter.out.persistence.repository.IndividualRepository
 import com.senok.apicore.couple.application.out.FindCouplePort
@@ -10,8 +9,8 @@ import com.senok.apicore.couple.application.out.SaveCouplePort
 import com.senok.apicore.couple.domain.service.ValidateRequestService
 import com.senok.apicore.fixtures.command.couple.RequestCoupleCommandFixture
 import com.senok.apicore.fixtures.domain.couple.IndividualEntityFixture
-import com.senok.apicore.integration.AbstractIntegrationSupport
-import com.senok.apicore.integration.IntegrationUtilService
+import com.senok.apicore.common.integration.AbstractIntegrationSupport
+import com.senok.apicore.common.integration.IntegrationUtil
 import com.senok.corecommon.type.user.GenderType
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -23,7 +22,6 @@ class RequestCoupleServiceTest(
     private val findCouplePort: FindCouplePort,
     private val saveCouplePort: SaveCouplePort,
     private val saveCoupleCodePort: SaveCoupleCodePort,
-    private val integrationUtilService: IntegrationUtilService
 ) : AbstractIntegrationSupport({
     val maleId = 1L
     val femaleId = 2L
@@ -41,26 +39,23 @@ class RequestCoupleServiceTest(
                 val sut = RequestCoupleService(findIndividualPort, validateRequestService, findCouplePort, saveCouplePort, saveCoupleCodePort)
                 sut.requestCouple(command)
 
-                val couple = verifyCouple(integrationUtilService.getQuery(), femaleId, maleId)
-                verifyCoupleCode(integrationUtilService.getQuery(), couple.id!!)
-                verifyCoupleCodeEvent(integrationUtilService.getQuery(), couple.id!!)
+                val couple = verifyCouple(femaleId, maleId)
+                verifyCoupleCode(couple.id!!)
+                verifyCoupleCodeEvent(couple.id!!)
             }
         }
     }
 
     afterSpec {
-        integrationUtilService.deleteAll(QIndividualEntity.individualEntity)
-        integrationUtilService.deleteAll(QCoupleCodeEntity.coupleCodeEntity)
-        integrationUtilService.deleteAll(QCoupleEventEntity.coupleEventEntity)
+        IntegrationUtil.deleteAll(QIndividualEntity.individualEntity)
+        IntegrationUtil.deleteAll(QCoupleCodeEntity.coupleCodeEntity)
+        IntegrationUtil.deleteAll(QCoupleEventEntity.coupleEventEntity)
     }
 })
 
-private fun verifyCouple(
-    query: JPAQueryFactory,
-    femaleId: Long,
-    maleId: Long
-): CoupleEntity {
-    val couple = query
+private fun verifyCouple(femaleId: Long, maleId: Long): CoupleEntity {
+
+    val couple = IntegrationUtil.getQuery()
         .selectFrom(QCoupleEntity.coupleEntity)
         .where(
             QCoupleEntity.coupleEntity.femaleId.eq(femaleId)
@@ -72,11 +67,9 @@ private fun verifyCouple(
     return couple!!
 }
 
-private fun verifyCoupleCode(
-    query: JPAQueryFactory,
-    coupleId: Long): CoupleCodeEntity {
+private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
 
-    val coupleCode = query
+    val coupleCode = IntegrationUtil.getQuery()
         .selectFrom(QCoupleCodeEntity.coupleCodeEntity)
         .where(
             QCoupleCodeEntity.coupleCodeEntity.coupleId.eq(coupleId)
@@ -87,11 +80,9 @@ private fun verifyCoupleCode(
     return coupleCode!!
 }
 
-fun verifyCoupleCodeEvent(
-    query: JPAQueryFactory,
-    coupleId: Long) {
+private fun verifyCoupleCodeEvent(coupleId: Long) {
 
-    val events = query.selectFrom(QCoupleEventEntity.coupleEventEntity)
+    val events = IntegrationUtil.getQuery().selectFrom(QCoupleEventEntity.coupleEventEntity)
         .where(
             QCoupleEventEntity.coupleEventEntity.coupleId.eq(coupleId)
         )
