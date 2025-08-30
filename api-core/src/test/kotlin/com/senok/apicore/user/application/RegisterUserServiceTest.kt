@@ -1,7 +1,7 @@
 package com.senok.apicore.user.application
 
-import com.senok.apicore.fixtures.command.user.RegisterUserCommandFixture
-import com.senok.apicore.fixtures.domain.user.UserEntityFixture
+import com.senok.apicore.fixtures.user.command.RegisterUserCommandFixture
+import com.senok.apicore.fixtures.user.entity.UserEntityFixture
 import com.senok.apicore.user.application.out.FindUserPort
 import com.senok.apicore.user.application.out.RegisterDevicePort
 import com.senok.apicore.user.application.out.UpdateUserPort

@@ -1,4 +1,4 @@
-package com.senok.apicore.fixtures.command.user
+package com.senok.apicore.fixtures.user.command
 
 import com.senok.apicore.user.application.`in`.command.RegisterUserCommand
 import com.senok.corecommon.type.user.GenderType

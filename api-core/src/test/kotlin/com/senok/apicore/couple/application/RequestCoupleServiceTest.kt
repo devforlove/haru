@@ -3,10 +3,9 @@ package com.senok.apicore.couple.application
 import com.senok.apicore.couple.adapter.out.persistence.entity.*
 import com.senok.apicore.couple.adapter.out.persistence.repository.IndividualRepository
 import com.senok.apicore.couple.domain.service.ValidateRequestService
-import com.senok.apicore.fixtures.command.couple.RequestCoupleCommandFixture
-import com.senok.apicore.fixtures.domain.couple.IndividualEntityFixture
+import com.senok.apicore.fixtures.couple.command.RequestCoupleCommandFixture
+import com.senok.apicore.fixtures.couple.entity.IndividualEntityFixture
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
-import com.senok.apicore.common.integration.IntegrationUtil
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
 import com.senok.apicore.couple.application.out.*

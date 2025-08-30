@@ -1,4 +1,4 @@
-package com.senok.apicore.fixtures.command.couple
+package com.senok.apicore.fixtures.couple.command
 
 import com.senok.apicore.couple.application.`in`.command.RequestCoupleCommand
 

@@ -1,7 +1,6 @@
 package com.senok.apicore.couple.application
 
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
-import com.senok.apicore.common.integration.IntegrationUtil
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
 import com.senok.apicore.couple.adapter.out.persistence.entity.QCoupleEntity
@@ -12,9 +11,9 @@ import com.senok.apicore.couple.application.out.ChangeCouplePort
 import com.senok.apicore.couple.application.out.ChangeCoupleRequestPort
 import com.senok.apicore.couple.application.out.FindCouplePort
 import com.senok.apicore.couple.application.out.FindCoupleRequestPort
-import com.senok.apicore.fixtures.command.couple.AcceptCoupleCommandFixture
-import com.senok.apicore.fixtures.domain.couple.CoupleEntityFixture
-import com.senok.apicore.fixtures.domain.couple.CoupleRequestEntityFixture
+import com.senok.apicore.fixtures.couple.command.AcceptCoupleCommandFixture
+import com.senok.apicore.fixtures.couple.entity.CoupleEntityFixture
+import com.senok.apicore.fixtures.couple.entity.CoupleRequestEntityFixture
 import com.senok.corecommon.type.couple.CoupleRequestType
 import com.senok.corecommon.type.couple.CoupleStatus
 import io.kotest.matchers.shouldBe

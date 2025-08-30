@@ -1,4 +1,4 @@
-package com.senok.apicore.fixtures.domain
+package com.senok.apicore.fixtures.user.domain
 
 import com.senok.apicore.user.domain.user.User
 import com.senok.corecommon.type.user.GenderType
