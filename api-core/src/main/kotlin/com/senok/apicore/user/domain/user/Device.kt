@@ -6,7 +6,8 @@ class Device(
     val id: Long? = null,
     val ownerId: Long,
     val deviceKey: String,
-    val providerType: ProviderType
+    val providerType: ProviderType,
+    val isNotiOn: Boolean
 ) {
     init {
         require(deviceKey.isNotBlank()) { "deviceKey는 비어있을 수 없습니다." }
@@ -22,7 +23,8 @@ class Device(
                 id = null,
                 ownerId = ownerId,
                 deviceKey = deviceKey,
-                providerType = providerType
+                providerType = providerType,
+                isNotiOn = true
             )
         }
     }

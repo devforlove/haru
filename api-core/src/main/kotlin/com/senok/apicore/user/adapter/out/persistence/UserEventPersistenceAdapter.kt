@@ -12,7 +12,8 @@ class UserEventPersistenceAdapter(
     private val mapper: UserEventMapper
 ): SaveUserEventPort {
     override fun saveUserEvent(event: UserEvent) {
-        val entity = mapper.toEntity(event)
-        userEventRepository.save(entity)
+        mapper.toEntity(event).apply {
+            userEventRepository.save(this)
+        }
     }
 }

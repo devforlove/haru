@@ -15,6 +15,7 @@ dependencies {
     testFixturesImplementation("org.springframework.boot:spring-boot-testcontainers")
     testFixturesImplementation('org.testcontainers:junit-jupiter')
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
+    testFixturesImplementation('org.awaitility:awaitility:4.2.0')
 }
 
 test {

@@ -1,11 +1,11 @@
-package com.senok
+package com.senok.apifront
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ApiNotificationApplication
+class ApiFrontApplication
 
 fun main(args: Array<String>) {
-    runApplication<ApiNotificationApplication>(*args)
+    runApplication<ApiFrontApplication>(*args)
 }

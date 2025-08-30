@@ -14,7 +14,7 @@ class CoupleEventHandler(
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     fun handleBeforeTransaction(event: CoupleEvent) {
-        coupleEventPersistenceAdapter.saveCoupleCodeEvent(event)
+        coupleEventPersistenceAdapter.saveCoupleEvent(event)
         Events.raise(event)
     }
 }

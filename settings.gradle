@@ -8,4 +8,5 @@ include 'core-web'
 include 'common'
 include 'batch-server'
 include 'core-event-publisher'
+include 'api-front'
 

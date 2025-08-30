@@ -8,10 +8,11 @@ import com.senok.apicore.user.application.out.UpdateUserPort
 import com.senok.corecommon.type.user.GenderType
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
 import com.senok.apicore.common.integration.IntegrationUtil
-import com.senok.apicore.user.adapter.out.persistence.entity.QDeviceEntity
-import com.senok.apicore.user.adapter.out.persistence.entity.QUserEntity
-import com.senok.apicore.user.adapter.out.persistence.entity.QUserEventEntity
+import com.senok.apicore.user.adapter.out.persistence.entity.*
 import com.senok.apicore.user.adapter.out.persistence.repository.UserRepository
+import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.event.device.DeviceEvent
+import com.senok.coreeventpublisher.event.device.DeviceEventType
 import io.kotest.matchers.shouldBe
 
 class RegisterUserServiceTest(
@@ -34,9 +35,15 @@ class RegisterUserServiceTest(
                 val sut = RegisterUserService(findUserPort, updateUserPort, registerDevicePort)
                 sut.registerUser(command, userId)
 
-                verifyUser(1L, GenderType.MALE, "hihi")
-                verifyDevice( 1L)
-                verifyEvent(1L)
+                verifyUserAndEvent(1L, GenderType.MALE, "hihi")
+                val device = verifyDevice( 1L)
+                val deviceEvent = verifyDeviceEvent(device.id!!)
+
+                KafkaPublishVerifier.verify<DeviceEvent>("device.event") { event ->
+                    event.deviceId shouldBe deviceEvent.deviceId
+                    event.eventType shouldBe DeviceEventType.REGISTER
+                    event.attributes.toString() shouldBe deviceEvent.attributes
+                }
             }
         }
     }
@@ -48,33 +55,40 @@ class RegisterUserServiceTest(
     }
 })
 
-private fun verifyUser(userId: Long, genderType: GenderType, nickname: String) {
+private fun verifyUserAndEvent(userId: Long, genderType: GenderType, nickname: String) {
     val user = IntegrationUtil.getQuery()
         .selectFrom(QUserEntity.userEntity)
         .where(QUserEntity.userEntity.id.eq(userId))
         .fetchOne()
+    val events = IntegrationUtil.getQuery()
+        .selectFrom(QUserEventEntity.userEventEntity)
+        .where(QUserEventEntity.userEventEntity.userId.eq(userId))
+        .fetch()
+
     user?.id shouldBe userId
     user?.gender shouldBe genderType
     user?.nickname shouldBe nickname
+    events.size shouldBe 1
+    events[0].userId shouldBe userId
 }
 
-private fun verifyDevice(userId: Long
-) {
+private fun verifyDevice(userId: Long): DeviceEntity {
     val devices = IntegrationUtil.getQuery()
         .selectFrom(QDeviceEntity.deviceEntity)
         .where(QDeviceEntity.deviceEntity.userId.eq(userId))
         .fetch()
     devices.size shouldBe 1
     devices[0].userId shouldBe userId
+    return devices[0]
 }
 
-private fun verifyEvent(userId: Long) {
+private fun verifyDeviceEvent(deviceId: Long): DeviceEventEntity {
     val events = IntegrationUtil.getQuery()
-        .selectFrom(QUserEventEntity.userEventEntity)
-        .where(QUserEventEntity.userEventEntity.userId.eq(userId))
+        .selectFrom(QDeviceEventEntity.deviceEventEntity)
+        .where(QDeviceEventEntity.deviceEventEntity.deviceId.eq(deviceId))
         .fetch()
     events.size shouldBe 1
-    events[0].userId shouldBe userId
-    println(events[0].attributes)
+    events[0].eventType shouldBe DeviceEventType.REGISTER
+    return events[0]
 }
 

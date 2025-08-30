@@ -12,7 +12,8 @@ class DeviceMapper: CommonMapper<DeviceEntity, Device> {
         return DeviceEntity(
             userId = domain.ownerId,
             deviceKey = domain.deviceKey,
-            providerType = domain.providerType
+            providerType = domain.providerType,
+            isNotiOn = domain.isNotiOn,
         )
     }
 
@@ -21,7 +22,8 @@ class DeviceMapper: CommonMapper<DeviceEntity, Device> {
             id = entity.id,
             ownerId = entity.userId,
             deviceKey = entity.deviceKey,
-            providerType = entity.providerType
+            providerType = entity.providerType,
+            isNotiOn = entity.isNotiOn,
         )
     }
 }

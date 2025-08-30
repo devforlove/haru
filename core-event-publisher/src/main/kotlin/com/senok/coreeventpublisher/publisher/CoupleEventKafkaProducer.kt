@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class CoupleEventKafkaProducer(
-    private val kafkaTemplate: KafkaTemplate<String, Any>,
+    private val coupleEventKafkaTemplate: KafkaTemplate<String, Any>,
 ) {
 
     fun produce(event: CoupleEvent) {
-        kafkaTemplate.send("couple.event", event)
+        coupleEventKafkaTemplate.send("couple.event", event)
     }
 }

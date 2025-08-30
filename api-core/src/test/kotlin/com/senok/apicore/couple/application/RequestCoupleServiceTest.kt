@@ -11,7 +11,12 @@ import com.senok.apicore.fixtures.command.couple.RequestCoupleCommandFixture
 import com.senok.apicore.fixtures.domain.couple.IndividualEntityFixture
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
 import com.senok.apicore.common.integration.IntegrationUtil
+import com.senok.apicore.couple.domain.model.Couple
 import com.senok.corecommon.type.user.GenderType
+import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.TestKafkaContainerContext
+import com.senok.coreeventpublisher.event.couple.CoupleEvent
+import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -39,9 +44,15 @@ class RequestCoupleServiceTest(
                 val sut = RequestCoupleService(findIndividualPort, validateRequestService, findCouplePort, saveCouplePort, saveCoupleCodePort)
                 sut.requestCouple(command)
 
-                val couple = verifyCouple(femaleId, maleId)
-                verifyCoupleCode(couple.id!!)
-                verifyCoupleCodeEvent(couple.id!!)
+                val coupleEntity = verifyCouple(femaleId, maleId)
+                val coupleEventEntity = verifyCoupleEvent(coupleEntity.id!!)
+                verifyCoupleCode(coupleEntity.id!!)
+
+                KafkaPublishVerifier.verify<CoupleEvent>("couple.event") { event ->
+                    event.coupleId shouldBe coupleEventEntity.coupleId
+                    event.eventType shouldBe CoupleEventType.REQUESTING
+                    event.attributes.toString() shouldBe coupleEventEntity.attributes
+                }
             }
         }
     }
@@ -54,7 +65,6 @@ class RequestCoupleServiceTest(
 })
 
 private fun verifyCouple(femaleId: Long, maleId: Long): CoupleEntity {
-
     val couple = IntegrationUtil.getQuery()
         .selectFrom(QCoupleEntity.coupleEntity)
         .where(
@@ -67,8 +77,18 @@ private fun verifyCouple(femaleId: Long, maleId: Long): CoupleEntity {
     return couple!!
 }
 
-private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
+private fun verifyCoupleEvent(coupleId: Long): CoupleEventEntity {
+    val events = IntegrationUtil.getQuery().selectFrom(QCoupleEventEntity.coupleEventEntity)
+        .where(
+            QCoupleEventEntity.coupleEventEntity.coupleId.eq(coupleId)
+        )
+        .fetch()
+    events.size shouldBe 1
+    events[0].eventType shouldBe CoupleEventType.REQUESTING
+    return events[0]
+}
 
+private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
     val coupleCode = IntegrationUtil.getQuery()
         .selectFrom(QCoupleCodeEntity.coupleCodeEntity)
         .where(
@@ -78,15 +98,4 @@ private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
 
     coupleCode shouldNotBe null
     return coupleCode!!
-}
-
-private fun verifyCoupleCodeEvent(coupleId: Long) {
-
-    val events = IntegrationUtil.getQuery().selectFrom(QCoupleEventEntity.coupleEventEntity)
-        .where(
-            QCoupleEventEntity.coupleEventEntity.coupleId.eq(coupleId)
-        )
-        .fetch()
-
-    events.size shouldBe 1
 }
