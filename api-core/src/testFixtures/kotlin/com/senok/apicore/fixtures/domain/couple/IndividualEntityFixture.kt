@@ -6,7 +6,7 @@ import com.senok.corecommon.type.user.GenderType
 class IndividualEntityFixture {
 
     companion object {
-        fun getUserEntity(
+        fun getIndividualEntity(
             userId: Long = 1L,
             gender: GenderType = GenderType.MALE,
             isCouple: Boolean = false,

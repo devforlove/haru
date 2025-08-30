@@ -7,4 +7,5 @@ interface CoupleRepository: Repository<CoupleEntity, Long> {
 
     fun save(couple: CoupleEntity): CoupleEntity
     fun findByFemaleIdAndMaleId(femaleId: Long, maleId: Long): CoupleEntity?
+    fun findById(coupleId: Long): CoupleEntity?
 }

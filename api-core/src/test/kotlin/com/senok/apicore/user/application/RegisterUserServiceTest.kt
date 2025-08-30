@@ -7,7 +7,8 @@ import com.senok.apicore.user.application.out.RegisterDevicePort
 import com.senok.apicore.user.application.out.UpdateUserPort
 import com.senok.corecommon.type.user.GenderType
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
-import com.senok.apicore.common.integration.IntegrationUtil
+import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
+import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
 import com.senok.apicore.user.adapter.out.persistence.entity.*
 import com.senok.apicore.user.adapter.out.persistence.repository.UserRepository
 import com.senok.coreeventpublisher.KafkaPublishVerifier
@@ -49,18 +50,18 @@ class RegisterUserServiceTest(
     }
 
     afterSpec {
-        IntegrationUtil.deleteAll(QUserEntity.userEntity)
-        IntegrationUtil.deleteAll(QDeviceEntity.deviceEntity)
-        IntegrationUtil.deleteAll(QUserEventEntity.userEventEntity)
+        deleteAll(QUserEntity.userEntity)
+        deleteAll(QDeviceEntity.deviceEntity)
+        deleteAll(QUserEventEntity.userEventEntity)
     }
 })
 
 private fun verifyUserAndEvent(userId: Long, genderType: GenderType, nickname: String) {
-    val user = IntegrationUtil.getQuery()
+    val user = getQuery()
         .selectFrom(QUserEntity.userEntity)
         .where(QUserEntity.userEntity.id.eq(userId))
         .fetchOne()
-    val events = IntegrationUtil.getQuery()
+    val events = getQuery()
         .selectFrom(QUserEventEntity.userEventEntity)
         .where(QUserEventEntity.userEventEntity.userId.eq(userId))
         .fetch()
@@ -73,7 +74,7 @@ private fun verifyUserAndEvent(userId: Long, genderType: GenderType, nickname: S
 }
 
 private fun verifyDevice(userId: Long): DeviceEntity {
-    val devices = IntegrationUtil.getQuery()
+    val devices = getQuery()
         .selectFrom(QDeviceEntity.deviceEntity)
         .where(QDeviceEntity.deviceEntity.userId.eq(userId))
         .fetch()
@@ -83,7 +84,7 @@ private fun verifyDevice(userId: Long): DeviceEntity {
 }
 
 private fun verifyDeviceEvent(deviceId: Long): DeviceEventEntity {
-    val events = IntegrationUtil.getQuery()
+    val events = getQuery()
         .selectFrom(QDeviceEventEntity.deviceEventEntity)
         .where(QDeviceEventEntity.deviceEventEntity.deviceId.eq(deviceId))
         .fetch()

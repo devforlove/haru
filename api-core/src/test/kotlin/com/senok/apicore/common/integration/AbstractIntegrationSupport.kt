@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration
 
 @SpringBootTest(classes = [ApiServerApplication::class], properties = ["spring.profiles.active=test"])
 @ContextConfiguration(initializers = [TestKafkaContainerContext::class])
-@Import(value = [TestDatabaseContainersConfig::class, TestKafkaContainerContext::class])
+@Import(value = [TestDatabaseContainersConfig::class])
 abstract class AbstractIntegrationSupport(
     body: DescribeSpec.() -> Unit
 ): DescribeSpec(body) {

@@ -6,17 +6,9 @@ import kotlin.properties.Delegates
 class Couple(
     val femaleId: Long,
     val maleId: Long,
-    val coupleStatus: CoupleStatus,
-    val messageCount: Int,
+    var coupleStatus: CoupleStatus,
+    var messageCount: Int,
 ) {
-    var coupleId: Long by Delegates.notNull()
-        private set
-
-    fun assignId(id: Long): Couple {
-        coupleId = id
-        return this
-    }
-
     companion object {
         fun initCouple(
             femaleId: Long,
@@ -30,5 +22,17 @@ class Couple(
                 messageCount = 0
             )
         }
+    }
+
+    var coupleId: Long by Delegates.notNull()
+        private set
+
+    fun assignId(id: Long): Couple {
+        coupleId = id
+        return this
+    }
+
+    fun changeStatus(status: CoupleStatus) {
+        coupleStatus = status
     }
 }

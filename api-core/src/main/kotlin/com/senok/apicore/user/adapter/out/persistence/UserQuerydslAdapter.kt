@@ -7,7 +7,7 @@ import com.senok.apicore.user.application.out.dto.RegisterInfoDto
 import org.springframework.stereotype.Component
 
 @Component
-class UserPersistenceQuerydslAdapter(
+class UserQuerydslAdapter(
     private val queryFactory: JPAQueryFactory,
 ): UpdateUserPort {
 

@@ -8,7 +8,6 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.kafka.KafkaContainer
 import org.testcontainers.utility.DockerImageName
 
-@Component
 class TestKafkaContainerContext: ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     companion object {

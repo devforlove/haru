@@ -3,12 +3,10 @@ package com.senok.apicore.couple.application
 import com.senok.apicore.common.transaction.Tx
 import com.senok.apicore.couple.application.`in`.RequestCoupleUseCase
 import com.senok.apicore.couple.application.`in`.command.RequestCoupleCommand
-import com.senok.apicore.couple.application.out.FindCouplePort
-import com.senok.apicore.couple.application.out.FindIndividualPort
-import com.senok.apicore.couple.application.out.SaveCoupleCodePort
-import com.senok.apicore.couple.application.out.SaveCouplePort
+import com.senok.apicore.couple.application.out.*
 import com.senok.apicore.couple.domain.model.Couple
 import com.senok.apicore.couple.domain.model.CoupleCode
+import com.senok.apicore.couple.domain.model.CoupleRequest
 import com.senok.apicore.couple.domain.model.Individual
 import com.senok.apicore.couple.domain.service.ValidateRequestService
 import com.senok.corecommon.type.user.GenderType
@@ -22,6 +20,7 @@ class RequestCoupleService(
     private val validateRequestService: ValidateRequestService,
     private val findCouplePort: FindCouplePort,
     private val saveCouplePort: SaveCouplePort,
+    private val saveCoupleRequestPort: SaveCoupleRequestPort,
     private val saveCoupleCodePort: SaveCoupleCodePort
 ): RequestCoupleUseCase {
 
@@ -34,8 +33,11 @@ class RequestCoupleService(
             val (femaleId, maleId) = toFemaleMalePair(requestUser, requestedUser)
 
             // 커플 생성
-            val couple = findCouplePort.findCouple(femaleId, maleId)
+            val couple = findCouplePort.findCoupleByUserId(femaleId, maleId)
                 ?: saveCouplePort.saveCouple(Couple.initCouple(femaleId, maleId))
+
+            // 커플 요청 생성
+            saveCoupleRequestPort.saveCoupleRequest(CoupleRequest.initRequest(couple.coupleId))
 
             // 커플 코드 생성 및 이벤트 발행
             saveCoupleCodePort.saveCoupleCode(CoupleCode.generateCode(couple.coupleId))

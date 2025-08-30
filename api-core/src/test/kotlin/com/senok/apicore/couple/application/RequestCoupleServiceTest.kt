@@ -2,19 +2,17 @@ package com.senok.apicore.couple.application
 
 import com.senok.apicore.couple.adapter.out.persistence.entity.*
 import com.senok.apicore.couple.adapter.out.persistence.repository.IndividualRepository
-import com.senok.apicore.couple.application.out.FindCouplePort
-import com.senok.apicore.couple.application.out.FindIndividualPort
-import com.senok.apicore.couple.application.out.SaveCoupleCodePort
-import com.senok.apicore.couple.application.out.SaveCouplePort
 import com.senok.apicore.couple.domain.service.ValidateRequestService
 import com.senok.apicore.fixtures.command.couple.RequestCoupleCommandFixture
 import com.senok.apicore.fixtures.domain.couple.IndividualEntityFixture
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
 import com.senok.apicore.common.integration.IntegrationUtil
-import com.senok.apicore.couple.domain.model.Couple
+import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
+import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
+import com.senok.apicore.couple.application.out.*
+import com.senok.corecommon.type.couple.CoupleRequestType
 import com.senok.corecommon.type.user.GenderType
 import com.senok.coreeventpublisher.KafkaPublishVerifier
-import com.senok.coreeventpublisher.TestKafkaContainerContext
 import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import io.kotest.matchers.shouldBe
@@ -26,14 +24,15 @@ class RequestCoupleServiceTest(
     private val validateRequestService: ValidateRequestService,
     private val findCouplePort: FindCouplePort,
     private val saveCouplePort: SaveCouplePort,
+    private val saveCoupleRequestPort: SaveCoupleRequestPort,
     private val saveCoupleCodePort: SaveCoupleCodePort,
 ) : AbstractIntegrationSupport({
     val maleId = 1L
     val femaleId = 2L
 
     beforeSpec {
-        individualRepository.save(IndividualEntityFixture.getUserEntity(userId = maleId, gender = GenderType.MALE))
-        individualRepository.save(IndividualEntityFixture.getUserEntity(userId = femaleId, gender = GenderType.FEMALE))
+        individualRepository.save(IndividualEntityFixture.getIndividualEntity(userId = maleId, gender = GenderType.MALE))
+        individualRepository.save(IndividualEntityFixture.getIndividualEntity(userId = femaleId, gender = GenderType.FEMALE))
     }
 
     describe("유저가 특정 유저에게 커플 신청시") {
@@ -41,12 +40,13 @@ class RequestCoupleServiceTest(
             it("커플신청 관련 데이터가 데이터베이스에 생성되고, 상대방에게 이벤트가 발행된다.") {
                 val command = RequestCoupleCommandFixture.getCommand(requestedUserId = femaleId, userId = maleId)
 
-                val sut = RequestCoupleService(findIndividualPort, validateRequestService, findCouplePort, saveCouplePort, saveCoupleCodePort)
+                val sut = RequestCoupleService(findIndividualPort, validateRequestService, findCouplePort, saveCouplePort, saveCoupleRequestPort, saveCoupleCodePort)
                 sut.requestCouple(command)
 
                 val coupleEntity = verifyCouple(femaleId, maleId)
                 val coupleEventEntity = verifyCoupleEvent(coupleEntity.id!!)
                 verifyCoupleCode(coupleEntity.id!!)
+                verifyCoupleRequest(coupleEntity.id!!, CoupleRequestType.REQUESTING)
 
                 KafkaPublishVerifier.verify<CoupleEvent>("couple.event") { event ->
                     event.coupleId shouldBe coupleEventEntity.coupleId
@@ -58,14 +58,14 @@ class RequestCoupleServiceTest(
     }
 
     afterSpec {
-        IntegrationUtil.deleteAll(QIndividualEntity.individualEntity)
-        IntegrationUtil.deleteAll(QCoupleCodeEntity.coupleCodeEntity)
-        IntegrationUtil.deleteAll(QCoupleEventEntity.coupleEventEntity)
+        deleteAll(QIndividualEntity.individualEntity)
+        deleteAll(QCoupleCodeEntity.coupleCodeEntity)
+        deleteAll(QCoupleEventEntity.coupleEventEntity)
     }
 })
 
 private fun verifyCouple(femaleId: Long, maleId: Long): CoupleEntity {
-    val couple = IntegrationUtil.getQuery()
+    val couple = getQuery()
         .selectFrom(QCoupleEntity.coupleEntity)
         .where(
             QCoupleEntity.coupleEntity.femaleId.eq(femaleId)
@@ -78,7 +78,7 @@ private fun verifyCouple(femaleId: Long, maleId: Long): CoupleEntity {
 }
 
 private fun verifyCoupleEvent(coupleId: Long): CoupleEventEntity {
-    val events = IntegrationUtil.getQuery().selectFrom(QCoupleEventEntity.coupleEventEntity)
+    val events = getQuery().selectFrom(QCoupleEventEntity.coupleEventEntity)
         .where(
             QCoupleEventEntity.coupleEventEntity.coupleId.eq(coupleId)
         )
@@ -88,8 +88,19 @@ private fun verifyCoupleEvent(coupleId: Long): CoupleEventEntity {
     return events[0]
 }
 
+private fun verifyCoupleRequest(coupleId: Long, coupleRequestType: CoupleRequestType) {
+    val coupleRequest = getQuery().selectFrom(QCoupleRequestEntity.coupleRequestEntity)
+        .where(
+            QCoupleRequestEntity.coupleRequestEntity.coupleId.eq(coupleId)
+        )
+        .fetchOne()
+    coupleRequest shouldNotBe null
+    coupleRequest?.coupleId shouldBe coupleId
+    coupleRequest?.coupleRequestType shouldBe coupleRequestType
+}
+
 private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
-    val coupleCode = IntegrationUtil.getQuery()
+    val coupleCode = getQuery()
         .selectFrom(QCoupleCodeEntity.coupleCodeEntity)
         .where(
             QCoupleCodeEntity.coupleCodeEntity.coupleId.eq(coupleId)

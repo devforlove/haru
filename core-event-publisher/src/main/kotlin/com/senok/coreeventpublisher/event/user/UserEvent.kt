@@ -4,12 +4,12 @@ import com.senok.corecommon.type.user.GenderType
 import com.senok.coreeventpublisher.common.DomainEvent
 import java.time.LocalDateTime
 
-data class UserEvent(
+class UserEvent(
     val userId: Long,
-    override val eventType: UserEventType,
-    override val attributes: UserEventAttribute,
-    override val createdAt: LocalDateTime,
-): DomainEvent<UserEventType, UserEvent.UserEventAttribute>(userId, eventType, attributes, createdAt) {
+    _eventType: UserEventType,
+    _attributes: UserEventAttribute,
+    _createdAt: LocalDateTime,
+): DomainEvent<UserEventType, UserEvent.UserEventAttribute>(userId, _eventType, _attributes, _createdAt) {
 
     data class UserEventAttribute(
         val userId: Long,

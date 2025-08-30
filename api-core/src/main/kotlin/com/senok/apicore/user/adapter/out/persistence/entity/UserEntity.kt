@@ -60,9 +60,9 @@ class UserEntity(
         Events.raise(
             UserEvent(
                 userId = id!!,
-                eventType = UserEventType.REGISTER,
-                attributes = UserEvent.UserEventAttribute(id, gender),
-                createdAt = LocalDateTime.now()
+                _eventType = UserEventType.REGISTER,
+                _attributes = UserEvent.UserEventAttribute(id, gender),
+                _createdAt = LocalDateTime.now()
             )
         )
     }

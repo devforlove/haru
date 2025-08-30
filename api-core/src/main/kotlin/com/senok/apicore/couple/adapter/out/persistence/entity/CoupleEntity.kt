@@ -21,10 +21,10 @@ class CoupleEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "couple_status")
-    val coupleStatus: CoupleStatus,
+    var coupleStatus: CoupleStatus,
 
     @Column(name = "message_count")
-    val messageCount: Int,
+    var messageCount: Int,
 ): BaseEntity() {
 
     @PostPersist
@@ -32,9 +32,9 @@ class CoupleEntity(
         Events.raise(
             CoupleEvent(
                 coupleId = id!!,
-                eventType = CoupleEventType.REQUESTING,
-                attributes = CoupleEvent.CoupleEventAttribute(LocalDateTime.now().plusDays(CoupleConstant.expiredDay)),
-                createdAt = LocalDateTime.now()
+                _eventType = CoupleEventType.REQUESTING,
+                _attributes = CoupleEvent.CoupleEventAttribute(LocalDateTime.now().plusDays(CoupleConstant.expiredDay)),
+                _createdAt = LocalDateTime.now()
             )
         )
     }
