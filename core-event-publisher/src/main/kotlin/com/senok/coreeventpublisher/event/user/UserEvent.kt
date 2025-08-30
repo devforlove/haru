@@ -1,7 +1,7 @@
 package com.senok.coreeventpublisher.event.user
 
 import com.senok.corecommon.type.user.GenderType
-import com.senok.coreeventpublisher.common.DomainEvent
+import com.senok.coreeventpublisher.event.common.DomainEvent
 import java.time.LocalDateTime
 
 class UserEvent(

@@ -1,7 +1,7 @@
 package com.senok.coreeventpublisher.event.device
 
 import com.senok.corecommon.type.user.ProviderType
-import com.senok.coreeventpublisher.common.DomainEvent
+import com.senok.coreeventpublisher.event.common.DomainEvent
 import java.time.LocalDateTime
 
 class DeviceEvent(

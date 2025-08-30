@@ -1,6 +1,6 @@
 package com.senok.coreeventpublisher.event.couple
 
-import com.senok.coreeventpublisher.common.DomainEvent
+import com.senok.coreeventpublisher.event.common.DomainEvent
 import java.time.LocalDateTime
 
 class CoupleEvent(
