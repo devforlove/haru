@@ -1,22 +1,24 @@
 package com.senok.apicore.couple.adapter.out.persistence
 
 import com.querydsl.jpa.impl.JPAQueryFactory
+import com.senok.apicore.common.transaction.Tx
 import com.senok.apicore.couple.adapter.out.persistence.entity.QCoupleRequestEntity
+import com.senok.apicore.couple.adapter.out.persistence.repository.CoupleRequestRepository
 import com.senok.apicore.couple.application.out.ChangeCoupleRequestPort
 import com.senok.apicore.couple.domain.model.CoupleRequest
 import org.springframework.stereotype.Component
 
 @Component
 class CoupleRequestQuerydslAdapter(
-    private val queryFactory: JPAQueryFactory,
+    private val coupleRequestRepository: CoupleRequestRepository
 ): ChangeCoupleRequestPort {
 
     override fun changeCoupleRequest(coupleRequest: CoupleRequest) {
-        val qCoupleRequest = QCoupleRequestEntity.coupleRequestEntity
-        queryFactory
-            .update(qCoupleRequest)
-            .set(qCoupleRequest.coupleRequestType, coupleRequest.coupleRequestType)
-            .where(qCoupleRequest.coupleId.eq(coupleRequest.coupleId))
-            .execute()
+        Tx.writable {
+            val coupleRequestEntity = coupleRequestRepository.findById(coupleRequest.coupleId)
+            coupleRequestEntity.apply {
+                this?.coupleRequestType = coupleRequest.coupleRequestType
+            }
+        }
     }
 }

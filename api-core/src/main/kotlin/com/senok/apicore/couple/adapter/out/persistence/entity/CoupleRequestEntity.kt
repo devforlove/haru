@@ -17,7 +17,7 @@ class CoupleRequestEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "request_type")
-    val coupleRequestType: CoupleRequestType,
+    var coupleRequestType: CoupleRequestType,
 ): BaseEntity() {
 
     @PostUpdate
