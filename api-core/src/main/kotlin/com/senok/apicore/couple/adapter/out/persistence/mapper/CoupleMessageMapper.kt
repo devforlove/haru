@@ -10,22 +10,33 @@ class CoupleMessageMapper: CommonMapper<CoupleMessageEntity, CoupleMessage> {
 
     override fun toEntity(domain: CoupleMessage): CoupleMessageEntity {
         return CoupleMessageEntity(
-            domain.coupleId,
-            domain.type,
-            domain.status,
-            domain.textFromFemale,
-            domain.textFromMale,
+            coupleId = domain.coupleId,
+            type = domain.type,
+            status = domain.status,
+            femaleMessageContent = CoupleMessageEntity.MessageContentValue(
+                domain.contentFromFemale.userId,
+                domain.contentFromFemale.message
+            ),
+            maleMessageContent = CoupleMessageEntity.MessageContentValue(
+                domain.contentFromMale.userId,
+                domain.contentFromMale.message
+            ),
         )
     }
 
     override fun toDomain(entity: CoupleMessageEntity): CoupleMessage {
         return CoupleMessage(
-            entity.coupleId,
-            entity.type,
-            entity.status,
-            entity.textFromFemale,
-            entity.textFromMale,
+            coupleId = entity.coupleId,
+            type = entity.type,
+            status = entity.status,
+            contentFromFemale = CoupleMessage.MessageContent(
+                entity.femaleMessageContent.userId,
+                entity.femaleMessageContent.text,
+            ),
+            contentFromMale = CoupleMessage.MessageContent(
+                entity.maleMessageContent.userId,
+                entity.maleMessageContent.text,
+            )
         ).assignId(entity.id!!)
     }
-
 }

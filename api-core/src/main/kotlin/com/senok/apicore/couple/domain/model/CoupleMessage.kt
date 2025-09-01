@@ -1,31 +1,68 @@
 package com.senok.apicore.couple.domain.model
 
+import com.senok.apicore.common.domain.DomainModel
 import com.senok.corecommon.type.couple.CoupleMessageStatus
 import com.senok.corecommon.type.couple.CoupleMessageType
 import com.senok.corecommon.type.user.GenderType
-import kotlin.properties.Delegates
+import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
+import com.senok.coreeventpublisher.event.couple.CoupleMessageEventType
+import com.senok.coreweb.exception.ApiException
+import com.senok.coreweb.exception.ErrorCode
+import java.time.LocalDateTime
 
 class CoupleMessage(
     val coupleId: Long,
     val type: CoupleMessageType,
     var status: CoupleMessageStatus,
-    var textFromFemale: String? = null,
-    var textFromMale: String? = null,
-) {
+    var contentFromFemale: MessageContent,
+    var contentFromMale: MessageContent,
+): DomainModel<CoupleMessage>() {
+    
     fun writeMessage(genderType: GenderType, message: String) {
-        if (genderType == GenderType.MALE) {
-            textFromMale = message
-        } else if (genderType == GenderType.FEMALE) {
-            textFromFemale = message
-        }
+        val (fromId, toId) = changeContent(message, genderType)
+
         status = CoupleMessageStatus.COMPLETING
+        publishWriteMessageEvent(message, fromId, toId)
     }
     
-    var id: Long by Delegates.notNull()
-        private set
-    
-    fun assignId(id: Long): CoupleMessage{
+    override fun assignId(id: Long): CoupleMessage {
         this.id = id
         return this
+    }
+    
+    private fun changeContent(message: String, genderType: GenderType): Pair<Long, Long> {
+        return when (genderType) {
+            GenderType.MALE -> {
+                contentFromMale.applyMessage(message)
+                Pair(contentFromMale.userId, contentFromFemale.userId)
+            }
+            GenderType.FEMALE -> {
+                contentFromFemale.applyMessage(message)
+                Pair(contentFromFemale.userId, contentFromMale.userId)
+            }
+            else -> throw ApiException(ErrorCode.CLIENT_ERROR)
+        }
+    }
+    
+    private fun publishWriteMessageEvent(message: String, fromUserId: Long, toUserId: Long) {
+        publishEvent(
+            CoupleMessageEvent(
+                coupleId,
+                CoupleMessageEventType.WRITE_MESSAGE,
+                CoupleMessageEvent.CoupleMessageEventAttribute(
+                    coupleId,
+                    message,
+                    fromUserId,
+                    toUserId,
+                ),
+                LocalDateTime.now(),
+            )
+        )
+    }
+    
+    class MessageContent(val userId: Long, var message: String? = null) {
+        fun applyMessage(message: String) {
+            this.message = message
+        }
     }
 }

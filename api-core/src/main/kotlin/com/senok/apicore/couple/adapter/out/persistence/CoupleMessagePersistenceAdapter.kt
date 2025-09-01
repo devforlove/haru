@@ -24,10 +24,10 @@ class CoupleMessagePersistenceAdapter(
     
     override fun writeMessage(coupleMessage: CoupleMessage) {
         Tx.writable {
-            coupleMessageRepository.findById(coupleMessage.id).apply {
-                this?.textFromMale = coupleMessage.textFromMale
-                this?.textFromFemale = coupleMessage.textFromFemale
-                this?.status = coupleMessage.status
+            coupleMessageRepository.findById(coupleMessage.id)?.apply {
+                this.maleMessageContent.withText(coupleMessage.contentFromMale.message)
+                this.femaleMessageContent.withText(coupleMessage.contentFromFemale.message)
+                this.status = coupleMessage.status
             }
         }
     }

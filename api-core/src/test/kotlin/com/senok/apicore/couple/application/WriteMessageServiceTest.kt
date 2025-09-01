@@ -62,5 +62,5 @@ private fun verifyCoupleMessage(coupleMessageId: Long, text: String) {
     
     coupleMessageEntity shouldNotBe null
     coupleMessageEntity?.status shouldBe CoupleMessageStatus.COMPLETING
-    coupleMessageEntity?.textFromMale shouldBe text
+    coupleMessageEntity?.maleMessageContent?.text shouldBe text
 }

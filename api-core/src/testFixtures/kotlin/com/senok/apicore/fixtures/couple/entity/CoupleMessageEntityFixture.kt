@@ -1,6 +1,5 @@
 package com.senok.apicore.fixtures.couple.entity
 
-import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleEntity
 import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleMessageEntity
 import com.senok.corecommon.type.couple.CoupleMessageStatus
 import com.senok.corecommon.type.couple.CoupleMessageType
@@ -12,14 +11,22 @@ class CoupleMessageEntityFixture {
             coupleId: Long,
             type: CoupleMessageType,
             status: CoupleMessageStatus,
+            femaleUserId: Long = 2L,
             textFromFemale: String? = null,
+            maleUserId: Long = 1L,
             textFromMale: String? = null,
         ) = CoupleMessageEntity(
-            coupleId,
-            type,
-            status,
-            textFromFemale,
-            textFromMale,
+            coupleId = coupleId,
+            type = type,
+            status = status,
+            femaleMessageContent = CoupleMessageEntity.MessageContentValue(
+                femaleUserId,
+                textFromFemale
+            ),
+            maleMessageContent = CoupleMessageEntity.MessageContentValue(
+                maleUserId,
+                textFromMale
+            )
         )
     }
 }
