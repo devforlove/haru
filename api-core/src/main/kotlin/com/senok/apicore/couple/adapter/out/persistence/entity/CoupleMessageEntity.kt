@@ -1,6 +1,7 @@
 package com.senok.apicore.couple.adapter.out.persistence.entity
 
 import com.senok.apicore.common.entity.BaseEntity
+import com.senok.apicore.common.event.Events
 import com.senok.corecommon.type.couple.CoupleMessageStatus
 import com.senok.corecommon.type.couple.CoupleMessageType
 import jakarta.persistence.*
@@ -9,9 +10,8 @@ import jakarta.persistence.*
 @Entity
 class CoupleMessageEntity(
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "couple_id")
-    val Couple: CoupleEntity,
+    @Column(name = "couple_id")
+    val coupleId: Long,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "message_type")
@@ -19,11 +19,19 @@ class CoupleMessageEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "message_status")
-    val status: CoupleMessageStatus,
+    var status: CoupleMessageStatus,
 
     @Column(name = "text_from_female")
-    val textFromFemale: String?,
+    var textFromFemale: String?,
 
     @Column(name = "text_from_male")
-    val textFromMale: String?,
-): BaseEntity()
+    var textFromMale: String?,
+): BaseEntity() {
+
+    @PostUpdate
+    private fun onPostUpdate() {
+//        Events.raise(
+//
+//        )
+    }
+}

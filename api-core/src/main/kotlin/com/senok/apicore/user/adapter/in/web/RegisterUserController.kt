@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/user"])
 @RestController
 class RegisterUserController(
-    val registerUserUseCase: RegisterUserUseCase
+    val useCase: RegisterUserUseCase
 ) {
 
     @PostMapping
@@ -22,7 +22,7 @@ class RegisterUserController(
         @AuthenticationPrincipal user: PrincipalDetails
     ): ResponseResult<Unit> {
         return request.toCommand().run {
-            ResponseResult.Success(registerUserUseCase.registerUser(this, user.id))
+            ResponseResult.Success(useCase.registerUser(this, user.id))
         }
     }
 }

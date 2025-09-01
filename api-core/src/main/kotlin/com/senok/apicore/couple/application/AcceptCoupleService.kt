@@ -18,20 +18,20 @@ class AcceptCoupleService(
     private val findCouplePort: FindCouplePort,
     private val changeCoupleRequestPort: ChangeCoupleRequestPort,
     private val changeCouplePort: ChangeCouplePort,
-): AcceptCoupleUseCase {
+) : AcceptCoupleUseCase {
 
     override fun acceptCouple(command: AcceptCoupleCommand) {
+        val coupleRequest = findCoupleRequestPort.findCoupleRequest(command.coupleRequestId)
+        val couple = findCouplePort.findCoupleByCoupleId(coupleRequest.coupleId)
+
+        if (!coupleRequest.isRequesting)
+            throw ApiException(ErrorCode.CLIENT_ERROR, "Accept couple is not valid, couple request is not requesting.")
+        else {
+            coupleRequest.changeTypeOnRequest(command.isAccepted)
+            couple.changeStatus(CoupleStatus.ACTIVE)
+        }
+
         Tx.writable {
-            val coupleRequest = findCoupleRequestPort.findCoupleRequest(command.coupleRequestId)
-            val couple = findCouplePort.findCoupleByCoupleId(coupleRequest.coupleId)
-
-            if(!coupleRequest.isRequesting)
-                throw ApiException(ErrorCode.CLIENT_ERROR, "Accept couple is not valid, couple request is not requesting.")
-            else {
-                coupleRequest.changeTypeOnRequest(command.isAccepted)
-                couple.changeStatus(CoupleStatus.ACTIVE)
-            }
-
             changeCoupleRequestPort.changeCoupleRequest(coupleRequest)
             changeCouplePort.changeCoupleStatus(couple)
         }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/couple/accept"])
 @RestController
 class AcceptCoupleController(
-    private val acceptCoupleUseCase: AcceptCoupleUseCase
+    private val useCase: AcceptCoupleUseCase
 ) {
 
     @PostMapping
@@ -22,7 +22,7 @@ class AcceptCoupleController(
         @AuthenticationPrincipal user: PrincipalDetails
     ): ResponseResult<Unit> {
         return request.toCommand(user.id).run {
-            ResponseResult.Success(acceptCoupleUseCase.acceptCouple(this))
+            ResponseResult.Success(useCase.acceptCouple(this))
         }
     }
 }

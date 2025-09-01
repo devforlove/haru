@@ -22,16 +22,16 @@ class RequestCoupleService(
     private val saveCouplePort: SaveCouplePort,
     private val saveCoupleRequestPort: SaveCoupleRequestPort,
     private val saveCoupleCodePort: SaveCoupleCodePort
-): RequestCoupleUseCase {
+) : RequestCoupleUseCase {
 
     override fun requestCouple(command: RequestCoupleCommand) {
+        val requestUser = findIndividualPort.findIndividual(command.userId)
+        val requestedUser = findIndividualPort.findIndividual(command.requestedUserId)
+        validateRequestService.validateRequest(requestUser, requestedUser)
+
+        val (femaleId, maleId) = toFemaleMalePair(requestUser, requestedUser)
+
         Tx.writable {
-            val requestUser = findIndividualPort.findIndividual(command.userId)
-            val requestedUser = findIndividualPort.findIndividual(command.requestedUserId)
-            validateRequestService.validateRequest(requestUser, requestedUser)
-
-            val (femaleId, maleId) = toFemaleMalePair(requestUser, requestedUser)
-
             // 커플 생성
             val couple = findCouplePort.findCoupleByUserId(femaleId, maleId)
                 ?: saveCouplePort.saveCouple(Couple.initCouple(femaleId, maleId))
@@ -48,6 +48,9 @@ class RequestCoupleService(
         when {
             a.gender == GenderType.FEMALE && b.gender == GenderType.MALE -> a.userId to b.userId
             a.gender == GenderType.MALE && b.gender == GenderType.FEMALE -> b.userId to a.userId
-            else -> throw ApiException(ErrorCode.CLIENT_ERROR, "Unsupported gender combination: ${a.gender} - ${b.gender}")
+            else -> throw ApiException(
+                ErrorCode.CLIENT_ERROR,
+                "Unsupported gender combination: ${a.gender} - ${b.gender}"
+            )
         }
 }
