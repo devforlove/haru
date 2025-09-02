@@ -12,6 +12,7 @@ import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
 import com.senok.apicore.user.adapter.out.persistence.entity.*
 import com.senok.apicore.user.adapter.out.persistence.repository.UserRepository
 import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.device.DeviceEvent
 import com.senok.coreeventpublisher.event.device.DeviceEventType
 import io.kotest.matchers.shouldBe
@@ -40,7 +41,7 @@ class RegisterUserServiceTest(
                 val device = verifyDevice( 1L)
                 val deviceEvent = verifyDeviceEvent(device.id!!)
 
-                KafkaPublishVerifier.verify<DeviceEvent>("device.event") { event ->
+                KafkaPublishVerifier.verify<DeviceEvent>(TopicConstants.DEVICE_EVENT) { event ->
                     event.deviceId shouldBe deviceEvent.deviceId
                     event.eventType shouldBe DeviceEventType.REGISTER
                     event.attributes.toString() shouldBe deviceEvent.attributes

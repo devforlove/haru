@@ -19,6 +19,7 @@ import com.senok.corecommon.type.couple.CoupleMessageStatus
 import com.senok.corecommon.type.couple.CoupleMessageType
 import com.senok.corecommon.type.user.GenderType
 import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEventType
 import io.kotest.matchers.shouldBe
@@ -51,7 +52,7 @@ class WriteMessageServiceTest(
                 verifyCoupleMessage(COUPLE_MESSAGE_ID, "I was ...")
                 val coupleMessageEventEntity = verifyCoupleMessageEvent(COUPLE_MESSAGE_ID)
                 
-                KafkaPublishVerifier.verify<CoupleMessageEvent>("couple.message.event") { event ->
+                KafkaPublishVerifier.verify<CoupleMessageEvent>(TopicConstants.COUPLE_MESSAGE) { event ->
                     event.coupleMessageId shouldBe COUPLE_MESSAGE_ID
                     event.eventType shouldBe CoupleMessageEventType.WRITE_MESSAGE
                     event.attributes.toString() shouldBe coupleMessageEventEntity.attributes

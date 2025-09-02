@@ -1,4 +1,4 @@
-package com.senok.notification.adapter.out.persistence.entity
+package com.senok.notification.dao.entity
 
 
 import com.senok.alarm.adapter.out.persistence.entity.NotificationStatus

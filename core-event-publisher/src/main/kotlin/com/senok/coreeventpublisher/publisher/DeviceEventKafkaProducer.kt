@@ -1,5 +1,6 @@
 package com.senok.coreeventpublisher.publisher
 
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.device.DeviceEvent
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
@@ -10,6 +11,6 @@ class DeviceEventKafkaProducer(
 ) {
 
     fun produce(event: DeviceEvent) {
-        deviceEventKafkaTemplate.send("device.event", event)
+        deviceEventKafkaTemplate.send(TopicConstants.DEVICE_EVENT, event)
     }
 }

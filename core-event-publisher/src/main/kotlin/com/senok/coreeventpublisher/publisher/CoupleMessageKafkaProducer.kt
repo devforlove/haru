@@ -1,5 +1,6 @@
 package com.senok.coreeventpublisher.publisher
 
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
@@ -10,6 +11,6 @@ class CoupleMessageKafkaProducer(
 ) {
     
     fun produce(event: CoupleMessageEvent) {
-        coupleMessageEventKafkaTemplate.send("couple.message.event", event)
+        coupleMessageEventKafkaTemplate.send(TopicConstants.COUPLE_MESSAGE, event)
     }
 }

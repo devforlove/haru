@@ -19,6 +19,7 @@ import com.senok.apicore.fixtures.couple.entity.CoupleRequestEntityFixture
 import com.senok.corecommon.type.couple.CoupleRequestType
 import com.senok.corecommon.type.couple.CoupleStatus
 import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import com.senok.coreeventpublisher.event.couple.CoupleRequestEvent
@@ -53,7 +54,7 @@ class AcceptCoupleServiceTest(
                 verifyCouple(COUPLE_ID)
                 val coupleRequestEntity = verifyCoupleRequest(COUPLE_REQUEST_ID)
                 
-                KafkaPublishVerifier.verify<CoupleRequestEvent>("couple.request.event") { event ->
+                KafkaPublishVerifier.verify<CoupleRequestEvent>(TopicConstants.COUPLE_REQUEST) { event ->
                     event.coupleRequestId shouldBe coupleRequestEntity.id
                     event.eventType shouldBe CoupleRequestEventType.ACCEPTED
                 }

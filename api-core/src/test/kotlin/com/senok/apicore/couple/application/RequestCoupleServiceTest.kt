@@ -12,6 +12,7 @@ import com.senok.apicore.couple.application.out.*
 import com.senok.corecommon.type.couple.CoupleRequestType
 import com.senok.corecommon.type.user.GenderType
 import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import com.senok.coreeventpublisher.event.couple.CoupleEventType
 import io.kotest.matchers.shouldBe
@@ -47,7 +48,7 @@ class RequestCoupleServiceTest(
                 verifyCoupleCode(coupleEntity.id!!)
                 verifyCoupleRequest(coupleEntity.id!!, CoupleRequestType.REQUESTING)
 
-                KafkaPublishVerifier.verify<CoupleEvent>("couple.event") { event ->
+                KafkaPublishVerifier.verify<CoupleEvent>(TopicConstants.COUPLE_EVENT) { event ->
                     event.coupleId shouldBe coupleEventEntity.coupleId
                     event.eventType shouldBe CoupleEventType.REQUESTING
                     event.attributes.toString() shouldBe coupleEventEntity.attributes
