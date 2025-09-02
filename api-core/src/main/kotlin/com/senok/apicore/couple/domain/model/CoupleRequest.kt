@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.domain.model
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.couple.CoupleRequestType
+import com.senok.corecommon.types.couple.CoupleRequestType
 import com.senok.coreeventpublisher.event.couple.CoupleRequestEvent
 import com.senok.coreeventpublisher.event.couple.CoupleRequestEventType
 import java.time.LocalDateTime

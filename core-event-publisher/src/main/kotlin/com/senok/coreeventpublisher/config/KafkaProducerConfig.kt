@@ -12,56 +12,41 @@ import org.springframework.kafka.core.ProducerFactory
 class KafkaProducerConfig(
     private val props: KafkaProperties
 ) {
-
+    
     @Bean
-    fun coupleEventProducerFactory(): ProducerFactory<String, Any> {
+    fun coupleEventKafkaTemplate(): KafkaTemplate<String, Any> {
         val props = props.buildProducerProperties()
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.RETRIES_CONFIG] = 5
         props[ProducerConfig.LINGER_MS_CONFIG] = 10
-        return DefaultKafkaProducerFactory(props)
+        return KafkaTemplate(DefaultKafkaProducerFactory(props))
     }
 
     @Bean
-    fun deviceEventProducerFactory(): ProducerFactory<String, Any> {
+    fun deviceEventKafkaTemplate(): KafkaTemplate<String, Any> {
         val props = props.buildProducerProperties()
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.RETRIES_CONFIG] = 5
         props[ProducerConfig.LINGER_MS_CONFIG] = 10
-        return DefaultKafkaProducerFactory(props)
+        return KafkaTemplate(DefaultKafkaProducerFactory(props))
     }
     
+    
     @Bean
-    fun coupleMessageEventProducerFactory(): ProducerFactory<String, Any> {
+    fun coupleMessageEventKafkaTemplate(): KafkaTemplate<String, Any> {
         val props = props.buildProducerProperties()
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.RETRIES_CONFIG] = 5
         props[ProducerConfig.LINGER_MS_CONFIG] = 10
-        return DefaultKafkaProducerFactory(props)
+        return KafkaTemplate(DefaultKafkaProducerFactory(props))
     }
     
     @Bean
-    fun coupleRequestEventProducerFactory(): ProducerFactory<String, Any> {
+    fun coupleRequestEventKafkaTemplate(): KafkaTemplate<String, Any> {
         val props = props.buildProducerProperties()
         props[ProducerConfig.ACKS_CONFIG] = "all"
         props[ProducerConfig.RETRIES_CONFIG] = 5
         props[ProducerConfig.LINGER_MS_CONFIG] = 10
-        return DefaultKafkaProducerFactory(props)
+        return KafkaTemplate(DefaultKafkaProducerFactory(props))
     }
-
-    @Bean
-    fun coupleEventKafkaTemplate(): KafkaTemplate<String, Any> =
-        KafkaTemplate(coupleEventProducerFactory())
-
-    @Bean
-    fun deviceEventKafkaTemplate(): KafkaTemplate<String, Any> =
-        KafkaTemplate(deviceEventProducerFactory())
-    
-    @Bean
-    fun coupleMessageEventKafkaTemplate(): KafkaTemplate<String, Any> =
-        KafkaTemplate(coupleMessageEventProducerFactory())
-    
-    @Bean
-    fun coupleRequestEventKafkaTemplate(): KafkaTemplate<String, Any> =
-        KafkaTemplate(coupleRequestEventProducerFactory())
 }

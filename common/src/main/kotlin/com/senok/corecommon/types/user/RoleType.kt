@@ -1,4 +1,4 @@
-package com.senok.corecommon.type.user
+package com.senok.corecommon.types.user
 
 enum class RoleType(
     val value: String

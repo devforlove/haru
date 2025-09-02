@@ -1,4 +1,4 @@
-package com.senok.corecommon.type.couple
+package com.senok.corecommon.types.couple
 
 enum class CoupleMessageStatus {
     NEW,

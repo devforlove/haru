@@ -2,21 +2,21 @@ package com.senok.notification.consumer
 
 import com.senok.coreeventpublisher.constants.ConsumerGroupConstants
 import com.senok.coreeventpublisher.constants.TopicConstants
-import com.senok.coreeventpublisher.event.couple.CoupleEvent
+import com.senok.coreeventpublisher.event.couple.CoupleRequestEvent
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 
 @Component
-class CoupleEventConsumer {
+class CoupleRequestEventConsumer {
 
     @KafkaListener(
-        topics = [TopicConstants.COUPLE],
+        topics = [TopicConstants.COUPLE_REQUEST],
         groupId = ConsumerGroupConstants.COUPLE_CONSUMER_GROUP,
-        containerFactory = "coupleEventContainerFactory"
+        containerFactory = "coupleRequestEventConsumerFactory"
     )
-    fun consume(consumerRecords: List<ConsumerRecord<String, CoupleEvent>>, ack: Acknowledgment) {
+    fun consume(consumerRecords: List<ConsumerRecord<String, CoupleRequestEvent>>, ack: Acknowledgment) {
         
         ack.acknowledge()
     }

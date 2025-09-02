@@ -2,7 +2,7 @@ package com.senok.apicore.user.adapter.out.persistence.entity
 
 import com.senok.apicore.common.entity.BaseEntity
 import com.senok.apicore.common.event.Events
-import com.senok.corecommon.type.user.ProviderType
+import com.senok.corecommon.types.user.ProviderType
 import com.senok.coreeventpublisher.event.device.DeviceEvent
 import com.senok.coreeventpublisher.event.device.DeviceEventType
 import jakarta.persistence.*

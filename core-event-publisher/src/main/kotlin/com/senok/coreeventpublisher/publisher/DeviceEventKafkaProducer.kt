@@ -11,6 +11,6 @@ class DeviceEventKafkaProducer(
 ) {
 
     fun produce(event: DeviceEvent) {
-        deviceEventKafkaTemplate.send(TopicConstants.DEVICE_EVENT, event)
+        deviceEventKafkaTemplate.send(TopicConstants.DEVICE, event)
     }
 }

@@ -11,6 +11,6 @@ class CoupleEventKafkaProducer(
 ) {
 
     fun produce(event: CoupleEvent) {
-        coupleEventKafkaTemplate.send(TopicConstants.COUPLE_EVENT, event)
+        coupleEventKafkaTemplate.send(TopicConstants.COUPLE, event)
     }
 }

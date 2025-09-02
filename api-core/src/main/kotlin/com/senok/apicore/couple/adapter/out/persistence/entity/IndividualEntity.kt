@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.adapter.out.persistence.entity
 
 import com.senok.apicore.common.entity.BaseEntity
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 import jakarta.persistence.*
 
 @Table(name = "individual")

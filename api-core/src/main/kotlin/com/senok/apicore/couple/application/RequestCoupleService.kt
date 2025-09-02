@@ -9,7 +9,7 @@ import com.senok.apicore.couple.domain.model.CoupleCode
 import com.senok.apicore.couple.domain.model.CoupleRequest
 import com.senok.apicore.couple.domain.model.Individual
 import com.senok.apicore.couple.domain.service.ValidateRequestService
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 import com.senok.coreweb.exception.ApiException
 import com.senok.coreweb.exception.ErrorCode
 import org.springframework.stereotype.Service

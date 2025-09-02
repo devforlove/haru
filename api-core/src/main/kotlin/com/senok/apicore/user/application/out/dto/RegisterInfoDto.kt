@@ -1,6 +1,6 @@
 package com.senok.apicore.user.application.out.dto
 
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 
 data class RegisterInfoDto(
     val userId: Long,

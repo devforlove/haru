@@ -15,9 +15,9 @@ import com.senok.apicore.couple.application.out.WriteCoupleMessagePort
 import com.senok.apicore.fixtures.couple.command.WriteMessageCommandFixture
 import com.senok.apicore.fixtures.couple.entity.CoupleMessageEntityFixture
 import com.senok.apicore.fixtures.couple.entity.IndividualEntityFixture
-import com.senok.corecommon.type.couple.CoupleMessageStatus
-import com.senok.corecommon.type.couple.CoupleMessageType
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.couple.CoupleMessageStatus
+import com.senok.corecommon.types.couple.CoupleMessageType
+import com.senok.corecommon.types.user.GenderType
 import com.senok.coreeventpublisher.KafkaPublishVerifier
 import com.senok.coreeventpublisher.constants.TopicConstants
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent

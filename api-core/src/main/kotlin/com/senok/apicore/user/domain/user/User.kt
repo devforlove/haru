@@ -1,8 +1,8 @@
 package com.senok.apicore.user.domain.user
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.user.GenderType
-import com.senok.corecommon.type.user.UserStatus
+import com.senok.corecommon.types.user.GenderType
+import com.senok.corecommon.types.user.UserStatus
 
 class User(
     val userId: Long,

@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.domain.model
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 
 class Individual(
     val userId: Long,

@@ -1,7 +1,7 @@
 package com.senok.apicore.user.domain.user
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.user.ProviderType
+import com.senok.corecommon.types.user.ProviderType
 
 class Device(
     val ownerId: Long,

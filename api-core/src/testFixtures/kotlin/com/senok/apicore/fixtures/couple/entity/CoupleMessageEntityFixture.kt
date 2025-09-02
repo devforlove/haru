@@ -1,8 +1,8 @@
 package com.senok.apicore.fixtures.couple.entity
 
 import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleMessageEntity
-import com.senok.corecommon.type.couple.CoupleMessageStatus
-import com.senok.corecommon.type.couple.CoupleMessageType
+import com.senok.corecommon.types.couple.CoupleMessageStatus
+import com.senok.corecommon.types.couple.CoupleMessageType
 
 class CoupleMessageEntityFixture {
     

@@ -1,7 +1,7 @@
 package com.senok.apicore.fixtures.couple.entity
 
 import com.senok.apicore.couple.adapter.out.persistence.entity.IndividualEntity
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 
 class IndividualEntityFixture {
 

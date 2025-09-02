@@ -1,6 +1,6 @@
 package com.senok.coreeventpublisher.event.device
 
-import com.senok.corecommon.type.user.ProviderType
+import com.senok.corecommon.types.user.ProviderType
 import com.senok.coreeventpublisher.event.common.DomainEvent
 import java.time.LocalDateTime
 

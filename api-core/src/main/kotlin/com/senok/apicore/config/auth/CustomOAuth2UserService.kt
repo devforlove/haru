@@ -1,10 +1,9 @@
 package com.senok.apicore.config.auth
 
-import com.senok.apicore.common.transaction.Tx
 import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
 import com.senok.apicore.user.domain.auth.OAuth2UserInfo
 import com.senok.apicore.user.domain.auth.PrincipalDetails
-import com.senok.corecommon.type.user.RoleType
+import com.senok.corecommon.types.user.RoleType
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.core.user.OAuth2User

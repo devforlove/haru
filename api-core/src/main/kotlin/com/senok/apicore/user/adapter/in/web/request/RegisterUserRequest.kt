@@ -1,8 +1,7 @@
 package com.senok.apicore.user.adapter.`in`.web.request
 
-import com.senok.corecommon.type.user.GenderType
-import com.senok.corecommon.type.user.ProviderType
-import com.senok.apicore.user.application.`in`.command.RegisterUserCommand
+import com.senok.corecommon.types.user.GenderType
+import com.senok.corecommon.types.user.ProviderType
 
 data class RegisterUserRequest(
     val nickname: String,

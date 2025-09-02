@@ -1,9 +1,9 @@
 package com.senok.apicore.couple.domain.model
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.couple.CoupleMessageStatus
-import com.senok.corecommon.type.couple.CoupleMessageType
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.couple.CoupleMessageStatus
+import com.senok.corecommon.types.couple.CoupleMessageType
+import com.senok.corecommon.types.user.GenderType
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEventType
 import com.senok.coreweb.exception.ApiException

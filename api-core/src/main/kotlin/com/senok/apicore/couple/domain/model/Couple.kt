@@ -1,7 +1,7 @@
 package com.senok.apicore.couple.domain.model
 
 import com.senok.apicore.common.domain.DomainModel
-import com.senok.corecommon.type.couple.CoupleStatus
+import com.senok.corecommon.types.couple.CoupleStatus
 
 class Couple(
     val femaleId: Long,

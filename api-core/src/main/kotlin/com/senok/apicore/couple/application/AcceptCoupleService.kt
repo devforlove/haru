@@ -7,7 +7,7 @@ import com.senok.apicore.couple.application.out.ChangeCouplePort
 import com.senok.apicore.couple.application.out.ChangeCoupleRequestPort
 import com.senok.apicore.couple.application.out.FindCouplePort
 import com.senok.apicore.couple.application.out.FindCoupleRequestPort
-import com.senok.corecommon.type.couple.CoupleStatus
+import com.senok.corecommon.types.couple.CoupleStatus
 import com.senok.coreweb.exception.ApiException
 import com.senok.coreweb.exception.ErrorCode
 import org.springframework.stereotype.Service

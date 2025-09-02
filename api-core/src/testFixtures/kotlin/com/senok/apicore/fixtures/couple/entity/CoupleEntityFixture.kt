@@ -1,7 +1,7 @@
 package com.senok.apicore.fixtures.couple.entity
 
 import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleEntity
-import com.senok.corecommon.type.couple.CoupleStatus
+import com.senok.corecommon.types.couple.CoupleStatus
 
 class CoupleEntityFixture {
 

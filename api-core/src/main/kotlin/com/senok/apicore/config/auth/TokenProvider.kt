@@ -1,7 +1,7 @@
 package com.senok.apicore.config.auth
 
 import com.senok.apicore.user.domain.auth.PrincipalDetails
-import com.senok.corecommon.type.user.RoleType
+import com.senok.corecommon.types.user.RoleType
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException

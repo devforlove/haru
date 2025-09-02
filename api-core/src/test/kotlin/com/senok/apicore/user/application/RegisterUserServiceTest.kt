@@ -5,7 +5,7 @@ import com.senok.apicore.fixtures.user.entity.UserEntityFixture
 import com.senok.apicore.user.application.out.FindUserPort
 import com.senok.apicore.user.application.out.RegisterDevicePort
 import com.senok.apicore.user.application.out.UpdateUserPort
-import com.senok.corecommon.type.user.GenderType
+import com.senok.corecommon.types.user.GenderType
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
@@ -41,7 +41,7 @@ class RegisterUserServiceTest(
                 val device = verifyDevice( 1L)
                 val deviceEvent = verifyDeviceEvent(device.id!!)
 
-                KafkaPublishVerifier.verify<DeviceEvent>(TopicConstants.DEVICE_EVENT) { event ->
+                KafkaPublishVerifier.verify<DeviceEvent>(TopicConstants.DEVICE) { event ->
                     event.deviceId shouldBe deviceEvent.deviceId
                     event.eventType shouldBe DeviceEventType.REGISTER
                     event.attributes.toString() shouldBe deviceEvent.attributes

@@ -1,6 +1,6 @@
 package com.senok.apicore.user.adapter.out.persistence.entity
 
-import com.senok.corecommon.type.user.RoleType
+import com.senok.corecommon.types.user.RoleType
 import jakarta.persistence.*
 
 @Table(name = "role")
