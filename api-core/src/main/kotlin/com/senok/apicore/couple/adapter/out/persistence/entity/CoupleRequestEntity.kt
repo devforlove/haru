@@ -18,18 +18,4 @@ class CoupleRequestEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "request_type")
     var coupleRequestType: CoupleRequestType,
-): BaseEntity() {
-
-    @PostUpdate
-    private fun onPostUpdate() {
-        Events.raise(
-            CoupleRequestEvent(
-                coupleRequestId = id!!,
-                _eventType = if(coupleRequestType == CoupleRequestType.ACCEPTED)
-                    CoupleRequestEventType.REQUESTING else CoupleRequestEventType.REJECTED,
-                _attributes = Unit,
-                _createdAt = LocalDateTime.now()
-            )
-        )
-    }
-}
+): BaseEntity()

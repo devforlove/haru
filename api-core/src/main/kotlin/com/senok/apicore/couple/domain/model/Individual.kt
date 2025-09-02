@@ -11,7 +11,11 @@ class Individual(
 
     companion object {
         fun initIndividual(userId: Long, gender: GenderType): Individual {
-            return Individual(userId, gender, isCouple = false)
+            return Individual(
+                userId = userId,
+                gender = gender,
+                isCouple = false
+            )
         }
     }
 }

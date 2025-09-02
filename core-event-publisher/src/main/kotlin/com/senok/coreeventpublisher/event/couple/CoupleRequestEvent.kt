@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 class CoupleRequestEvent(
     val coupleRequestId: Long,
-    val _eventType: CoupleRequestEventType,
-    val _attributes: Unit,
-    val _createdAt: LocalDateTime,
-): DomainEvent<CoupleRequestEventType, Unit>(coupleRequestId, _eventType, _attributes, _createdAt)
+    val eventType: CoupleRequestEventType,
+    val attributes: Unit,
+    val createdAt: LocalDateTime,
+): DomainEvent<CoupleRequestEventType, Unit>(coupleRequestId, eventType, attributes, createdAt)

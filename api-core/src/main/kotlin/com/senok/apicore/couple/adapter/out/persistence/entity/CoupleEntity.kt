@@ -32,9 +32,9 @@ class CoupleEntity(
         Events.raise(
             CoupleEvent(
                 coupleId = id!!,
-                _eventType = CoupleEventType.REQUESTING,
-                _attributes = CoupleEvent.CoupleEventAttribute(LocalDateTime.now().plusDays(CoupleConstant.expiredDay)),
-                _createdAt = LocalDateTime.now()
+                eventType = CoupleEventType.REQUESTING,
+                attributes = CoupleEvent.CoupleEventAttribute(LocalDateTime.now().plusDays(CoupleConstant.expiredDay)),
+                createdAt = LocalDateTime.now()
             )
         )
     }

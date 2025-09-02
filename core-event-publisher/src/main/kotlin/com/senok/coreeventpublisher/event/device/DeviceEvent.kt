@@ -6,10 +6,10 @@ import java.time.LocalDateTime
 
 class DeviceEvent(
     val deviceId: Long,
-    val _eventType: DeviceEventType,
-    val _attributes: DeviceEventAttribute,
-    val _createdAt: LocalDateTime,
-): DomainEvent<DeviceEventType, DeviceEvent.DeviceEventAttribute>(deviceId, _eventType, _attributes, _createdAt) {
+    val eventType: DeviceEventType,
+    val attributes: DeviceEventAttribute,
+    val createdAt: LocalDateTime,
+): DomainEvent<DeviceEventType, DeviceEvent.DeviceEventAttribute>(deviceId, eventType, attributes, createdAt) {
 
     data class DeviceEventAttribute(
         val userId: Long,

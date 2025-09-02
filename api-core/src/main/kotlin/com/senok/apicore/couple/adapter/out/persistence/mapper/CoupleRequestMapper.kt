@@ -19,6 +19,6 @@ class CoupleRequestMapper: CommonMapper<CoupleRequestEntity, CoupleRequest> {
         return CoupleRequest(
             entity.coupleId,
             entity.coupleRequestType
-        )
+        ).assignId(entity.id!!)
     }
 }

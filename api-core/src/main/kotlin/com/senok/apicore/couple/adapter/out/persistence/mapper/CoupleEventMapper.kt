@@ -11,7 +11,7 @@ class CoupleEventMapper: CommonMapper<CoupleEventEntity, CoupleEvent> {
     override fun toEntity(domain: CoupleEvent): CoupleEventEntity {
 
         return CoupleEventEntity(
-            coupleId = domain.connId,
+            coupleId = domain.coupleId,
             eventType = domain.eventType,
             attributes = domain.attributes.toString(),
         )

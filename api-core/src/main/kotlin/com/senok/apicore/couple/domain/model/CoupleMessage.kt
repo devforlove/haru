@@ -22,7 +22,7 @@ class CoupleMessage(
         val (fromId, toId) = changeContent(message, genderType)
 
         status = CoupleMessageStatus.COMPLETING
-        publishWriteMessageEvent(message, fromId, toId)
+        publishCoupleMessageEvent(message, fromId, toId)
     }
     
     private fun changeContent(message: String, genderType: GenderType): Pair<Long, Long> {
@@ -39,18 +39,18 @@ class CoupleMessage(
         }
     }
     
-    private fun publishWriteMessageEvent(message: String, fromUserId: Long, toUserId: Long) {
+    private fun publishCoupleMessageEvent(message: String, fromUserId: Long, toUserId: Long) {
         publishEvent(
             CoupleMessageEvent(
-                coupleId,
-                CoupleMessageEventType.WRITE_MESSAGE,
-                CoupleMessageEvent.CoupleMessageEventAttribute(
+                coupleMessageId = id,
+                eventType = CoupleMessageEventType.WRITE_MESSAGE,
+                attributes = CoupleMessageEvent.CoupleMessageEventAttribute(
                     coupleId,
                     message,
                     fromUserId,
                     toUserId,
                 ),
-                LocalDateTime.now(),
+                createdAt = LocalDateTime.now(),
             )
         )
     }

@@ -5,10 +5,10 @@ import java.time.LocalDateTime
 
 class CoupleMessageEvent(
     val coupleMessageId: Long,
-    val _eventType: CoupleMessageEventType,
-    val _attributes: CoupleMessageEventAttribute,
-    val _createdAt: LocalDateTime,
-): DomainEvent<CoupleMessageEventType, CoupleMessageEvent.CoupleMessageEventAttribute>(coupleMessageId, _eventType, _attributes, _createdAt) {
+    val eventType: CoupleMessageEventType,
+    val attributes: CoupleMessageEventAttribute,
+    val createdAt: LocalDateTime,
+): DomainEvent<CoupleMessageEventType, CoupleMessageEvent.CoupleMessageEventAttribute>(coupleMessageId, eventType, attributes, createdAt) {
     
     data class CoupleMessageEventAttribute(
         val coupleId: Long,

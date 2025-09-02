@@ -10,7 +10,7 @@ class DeviceEventMapper: CommonMapper<DeviceEventEntity, DeviceEvent> {
 
     override fun toEntity(domain: DeviceEvent): DeviceEventEntity {
         return DeviceEventEntity(
-            domain.connId,
+            domain.deviceId,
             domain.eventType,
             domain.attributes.toString()
         )

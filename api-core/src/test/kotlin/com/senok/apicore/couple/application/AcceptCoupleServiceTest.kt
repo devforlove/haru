@@ -12,11 +12,17 @@ import com.senok.apicore.couple.application.out.ChangeCouplePort
 import com.senok.apicore.couple.application.out.ChangeCoupleRequestPort
 import com.senok.apicore.couple.application.out.FindCouplePort
 import com.senok.apicore.couple.application.out.FindCoupleRequestPort
+import com.senok.apicore.couple.domain.model.CoupleRequest
 import com.senok.apicore.fixtures.couple.command.AcceptCoupleCommandFixture
 import com.senok.apicore.fixtures.couple.entity.CoupleEntityFixture
 import com.senok.apicore.fixtures.couple.entity.CoupleRequestEntityFixture
 import com.senok.corecommon.type.couple.CoupleRequestType
 import com.senok.corecommon.type.couple.CoupleStatus
+import com.senok.coreeventpublisher.KafkaPublishVerifier
+import com.senok.coreeventpublisher.event.couple.CoupleEvent
+import com.senok.coreeventpublisher.event.couple.CoupleEventType
+import com.senok.coreeventpublisher.event.couple.CoupleRequestEvent
+import com.senok.coreeventpublisher.event.couple.CoupleRequestEventType
 import io.kotest.matchers.shouldBe
 
 class AcceptCoupleServiceTest(
@@ -46,6 +52,11 @@ class AcceptCoupleServiceTest(
 
                 verifyCouple(COUPLE_ID)
                 val coupleRequestEntity = verifyCoupleRequest(COUPLE_REQUEST_ID)
+                
+                KafkaPublishVerifier.verify<CoupleRequestEvent>("couple.request.event") { event ->
+                    event.coupleRequestId shouldBe coupleRequestEntity.id
+                    event.eventType shouldBe CoupleRequestEventType.ACCEPTED
+                }
             }
         }
     }
