@@ -1,16 +1,17 @@
 package com.senok.apicore.user.domain.user
 
+import com.senok.apicore.common.domain.DomainModel
 import com.senok.corecommon.type.user.ProviderType
 
 class Device(
-    val id: Long? = null,
     val ownerId: Long,
     val deviceKey: String,
     val providerType: ProviderType,
     val isNotiOn: Boolean
-) {
+): DomainModel<Device>() {
+    
     init {
-        require(deviceKey.isNotBlank()) { "deviceKey는 비어있을 수 없습니다." }
+        require(deviceKey.isNotBlank()) { "deviceKey can not be blank." }
     }
 
     companion object {
@@ -20,7 +21,6 @@ class Device(
             providerType: ProviderType
         ): Device {
             return Device(
-                id = null,
                 ownerId = ownerId,
                 deviceKey = deviceKey,
                 providerType = providerType,

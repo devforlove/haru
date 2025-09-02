@@ -25,11 +25,6 @@ class CoupleMessage(
         publishWriteMessageEvent(message, fromId, toId)
     }
     
-    override fun assignId(id: Long): CoupleMessage {
-        this.id = id
-        return this
-    }
-    
     private fun changeContent(message: String, genderType: GenderType): Pair<Long, Long> {
         return when (genderType) {
             GenderType.MALE -> {

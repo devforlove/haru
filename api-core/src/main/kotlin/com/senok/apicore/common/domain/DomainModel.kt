@@ -8,7 +8,10 @@ abstract class DomainModel<T> {
     var id: Long by Delegates.notNull()
         protected set
     
-    abstract fun assignId(id: Long): T
+    fun assignId(id: Long): T {
+        this.id = id
+        return this as T
+    }
     
     protected fun publishEvent(event: Any) {
         Tx.writable {

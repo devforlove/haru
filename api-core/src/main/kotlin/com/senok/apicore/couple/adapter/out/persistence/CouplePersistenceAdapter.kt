@@ -35,7 +35,7 @@ class CouplePersistenceAdapter(
 
     override fun changeCoupleStatus(couple: Couple) {
         Tx.writable { 
-            coupleRepository.findById(couple.coupleId).apply { 
+            coupleRepository.findById(couple.id).apply {
                 this?.coupleStatus = couple.coupleStatus
             }
         }

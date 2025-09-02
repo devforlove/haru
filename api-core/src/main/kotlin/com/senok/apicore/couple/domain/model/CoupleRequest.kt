@@ -1,11 +1,13 @@
 package com.senok.apicore.couple.domain.model
 
+import com.senok.apicore.common.domain.DomainModel
 import com.senok.corecommon.type.couple.CoupleRequestType
 
 class CoupleRequest(
     val coupleId: Long,
     var coupleRequestType: CoupleRequestType,
-) {
+): DomainModel<CoupleRequest>() {
+    
     companion object {
         fun initRequest(coupleId: Long): CoupleRequest {
             return CoupleRequest(

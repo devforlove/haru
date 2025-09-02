@@ -1,5 +1,6 @@
 package com.senok.apicore.user.domain.user
 
+import com.senok.apicore.common.domain.DomainModel
 import com.senok.corecommon.type.user.GenderType
 import com.senok.corecommon.type.user.UserStatus
 
@@ -12,7 +13,8 @@ class User(
     var gender: GenderType,
     var rubyCount: Int,
     var userStatus: UserStatus = UserStatus.INITIATED,
-) {
+): DomainModel<User>() {
+    
     init {
         require(email.isNotBlank()) { "이메일은 비어있을 수 없습니다." }
         require(nickname.isNotBlank()) { "닉네임은 비어있을 수 없습니다." }
@@ -22,7 +24,6 @@ class User(
         require(nickname.isNotBlank()) { "닉네임은 비어있을 수 없습니다." }
         this.nickname = nickname
         this.gender = gender
-
         this.userStatus = UserStatus.ACTIVE
     }
 }

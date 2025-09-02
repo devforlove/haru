@@ -19,11 +19,10 @@ class DeviceMapper: CommonMapper<DeviceEntity, Device> {
 
     override fun toDomain(entity: DeviceEntity): Device {
         return Device(
-            id = entity.id,
             ownerId = entity.userId,
             deviceKey = entity.deviceKey,
             providerType = entity.providerType,
             isNotiOn = entity.isNotiOn,
-        )
+        ).assignId(entity.id!!)
     }
 }

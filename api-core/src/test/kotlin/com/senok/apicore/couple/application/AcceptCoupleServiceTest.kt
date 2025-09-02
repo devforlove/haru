@@ -3,6 +3,7 @@ package com.senok.apicore.couple.application
 import com.senok.apicore.common.integration.AbstractIntegrationSupport
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.deleteAll
 import com.senok.apicore.common.integration.IntegrationUtil.Companion.getQuery
+import com.senok.apicore.couple.adapter.out.persistence.entity.CoupleRequestEntity
 import com.senok.apicore.couple.adapter.out.persistence.entity.QCoupleEntity
 import com.senok.apicore.couple.adapter.out.persistence.entity.QCoupleRequestEntity
 import com.senok.apicore.couple.adapter.out.persistence.repository.CoupleRepository
@@ -44,7 +45,7 @@ class AcceptCoupleServiceTest(
                 sut.acceptCouple(command)
 
                 verifyCouple(COUPLE_ID)
-                verifyCoupleRequest(COUPLE_REQUEST_ID)
+                val coupleRequestEntity = verifyCoupleRequest(COUPLE_REQUEST_ID)
             }
         }
     }
@@ -64,11 +65,12 @@ private fun verifyCouple(coupleId: Long) {
     couple?.coupleStatus shouldBe CoupleStatus.ACTIVE
 }
 
-private fun verifyCoupleRequest(coupleRequestId: Long) {
+private fun verifyCoupleRequest(coupleRequestId: Long): CoupleRequestEntity {
     val coupleRequest = getQuery()
         .selectFrom(QCoupleRequestEntity.coupleRequestEntity)
         .where(QCoupleRequestEntity.coupleRequestEntity.coupleId.eq(coupleRequestId))
         .fetchOne()
 
     coupleRequest?.coupleRequestType shouldBe CoupleRequestType.ACCEPTED
+    return coupleRequest!!
 }

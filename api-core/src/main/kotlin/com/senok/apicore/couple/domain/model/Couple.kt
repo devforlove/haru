@@ -1,14 +1,15 @@
 package com.senok.apicore.couple.domain.model
 
+import com.senok.apicore.common.domain.DomainModel
 import com.senok.corecommon.type.couple.CoupleStatus
-import kotlin.properties.Delegates
 
 class Couple(
     val femaleId: Long,
     val maleId: Long,
     var coupleStatus: CoupleStatus,
     var messageCount: Int,
-) {
+): DomainModel<Couple>() {
+    
     companion object {
         fun initCouple(
             femaleId: Long,
@@ -22,14 +23,6 @@ class Couple(
                 messageCount = 0
             )
         }
-    }
-
-    var coupleId: Long by Delegates.notNull()
-        private set
-
-    fun assignId(id: Long): Couple {
-        coupleId = id
-        return this
     }
 
     fun changeStatus(status: CoupleStatus) {
