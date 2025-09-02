@@ -6,7 +6,7 @@ import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import org.springframework.stereotype.Component
 
 @Component
-class CoupleCodeEventMapper: CommonMapper<CoupleEventEntity, CoupleEvent> {
+class CoupleEventMapper: CommonMapper<CoupleEventEntity, CoupleEvent> {
 
     override fun toEntity(domain: CoupleEvent): CoupleEventEntity {
 

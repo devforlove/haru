@@ -1,0 +1,20 @@
+package com.senok.apicore.couple.application
+
+import com.senok.apicore.common.event.Events
+import com.senok.apicore.couple.application.out.SaveCoupleMessageEventPort
+import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
+import org.springframework.stereotype.Service
+import org.springframework.transaction.event.TransactionPhase
+import org.springframework.transaction.event.TransactionalEventListener
+
+@Service
+class WriteMessageEventHandler(
+    private val saveCoupleMessageEventPort: SaveCoupleMessageEventPort
+) {
+    
+    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    fun handleBeforeTransaction(event: CoupleMessageEvent) {
+        saveCoupleMessageEventPort.saveCoupleMessageEvent(event)
+        Events.raise(event)
+    }
+}

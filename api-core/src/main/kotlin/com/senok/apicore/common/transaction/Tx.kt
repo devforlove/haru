@@ -14,7 +14,11 @@ class Tx(
 
     companion object {
         private lateinit var txAdvice: TxAdvice
-
+        
+        fun <T> readOnly(function: () -> T): T {
+            return txAdvice.readOnly(function)
+        }
+        
         fun <T> writable(function: () -> T): T {
             return txAdvice.writable(function)
         }
@@ -22,7 +26,12 @@ class Tx(
 
     @Component
     class TxAdvice {
-
+        
+        @Transactional(readOnly = true)
+        fun <T> readOnly(function: () -> T): T {
+            return function()
+        }
+        
         @Transactional
         fun <T> writable(function: () -> T): T {
             return function()

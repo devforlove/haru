@@ -30,6 +30,24 @@ class KafkaProducerConfig(
         props[ProducerConfig.LINGER_MS_CONFIG] = 10
         return DefaultKafkaProducerFactory(props)
     }
+    
+    @Bean
+    fun coupleMessageEventProducerFactory(): ProducerFactory<String, Any> {
+        val props = props.buildProducerProperties()
+        props[ProducerConfig.ACKS_CONFIG] = "all"
+        props[ProducerConfig.RETRIES_CONFIG] = 5
+        props[ProducerConfig.LINGER_MS_CONFIG] = 10
+        return DefaultKafkaProducerFactory(props)
+    }
+    
+    @Bean
+    fun coupleRequestEventProducerFactory(): ProducerFactory<String, Any> {
+        val props = props.buildProducerProperties()
+        props[ProducerConfig.ACKS_CONFIG] = "all"
+        props[ProducerConfig.RETRIES_CONFIG] = 5
+        props[ProducerConfig.LINGER_MS_CONFIG] = 10
+        return DefaultKafkaProducerFactory(props)
+    }
 
     @Bean
     fun coupleEventKafkaTemplate(): KafkaTemplate<String, Any> =
@@ -38,4 +56,12 @@ class KafkaProducerConfig(
     @Bean
     fun deviceEventKafkaTemplate(): KafkaTemplate<String, Any> =
         KafkaTemplate(deviceEventProducerFactory())
+    
+    @Bean
+    fun coupleMessageEventKafkaTemplate(): KafkaTemplate<String, Any> =
+        KafkaTemplate(coupleMessageEventProducerFactory())
+    
+    @Bean
+    fun coupleRequestEventKafkaTemplate(): KafkaTemplate<String, Any> =
+        KafkaTemplate(coupleRequestEventProducerFactory())
 }

@@ -26,25 +26,25 @@ class AcceptCoupleServiceTest(
     private val changeCoupleRequestPort: ChangeCoupleRequestPort,
     private val changeCouplePort: ChangeCouplePort,
 ) : AbstractIntegrationSupport({
-    val userId = 1L
-    val coupleId = 1L
-    val coupleRequestId = 1L
+    val USER_ID = 1L
+    val COUPLE_ID = 1L
+    val COUPLE_REQUEST_ID = 1L
 
     beforeSpec {
-        coupleRequestRepository.save(CoupleRequestEntityFixture.getCoupleRequestEntity(coupleId = coupleId))
-        coupleRepository.save(CoupleEntityFixture.getCoupleEntity(maleId = 2L, femaleId = userId, coupleStatus = CoupleStatus.REQUESTING))
+        coupleRequestRepository.save(CoupleRequestEntityFixture.getCoupleRequestEntity(coupleId = COUPLE_ID))
+        coupleRepository.save(CoupleEntityFixture.getCoupleEntity(maleId = 2L, femaleId = USER_ID, coupleStatus = CoupleStatus.REQUESTING))
     }
 
     describe("유저가 커플 요청 승인시") {
         context("요청을 승낙한다면") {
             it("커플 상태가 활성화 상태가 되고, 커플 요청 상태가 승낙 상태가 된다. 이후 커플 요청 이벤트가 발행된다.") {
-                val command = AcceptCoupleCommandFixture.getCommand(userId, coupleRequestId, true)
+                val command = AcceptCoupleCommandFixture.getCommand(USER_ID, COUPLE_REQUEST_ID, true)
 
                 val sut = AcceptCoupleService(findCoupleRequestPort, findCouplePort, changeCoupleRequestPort, changeCouplePort)
                 sut.acceptCouple(command)
 
-                verifyCouple(coupleId)
-                verifyCoupleRequest(coupleRequestId)
+                verifyCouple(COUPLE_ID)
+                verifyCoupleRequest(COUPLE_REQUEST_ID)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.senok.apicore.common.domain
 
 import com.senok.apicore.common.event.Events
+import com.senok.apicore.common.transaction.Tx
 import kotlin.properties.Delegates
 
 abstract class DomainModel<T> {
@@ -10,6 +11,8 @@ abstract class DomainModel<T> {
     abstract fun assignId(id: Long): T
     
     protected fun publishEvent(event: Any) {
-        Events.raise(event)
+        Tx.writable {
+            Events.raise(event)
+        }
     }
 }
