@@ -9,19 +9,24 @@ import org.springframework.stereotype.Component
 class UserMapper: CommonMapper<UserEntity, User> {
 
     override fun toEntity(domain: User): UserEntity {
-        throw UnsupportedOperationException("not supported function")
+        return UserEntity(
+            email = domain.email,
+            nickname = domain.nickname,
+            profileImage = domain.profileImage,
+            gender = domain.gender,
+            rubyCount = domain.rubyCount,
+            userStatus = domain.userStatus
+        )
     }
 
     override fun toDomain(entity: UserEntity): User {
         return User(
-            userId = entity.id!!,
             email = entity.email,
-            name = entity.name?:"",
             nickname = entity.nickname,
             profileImage = entity.profileImage?:"",
             gender = entity.gender,
             rubyCount = entity.rubyCount,
             userStatus =  entity.userStatus
-        )
+        ).assignId(entity.id!!)
     }
 }

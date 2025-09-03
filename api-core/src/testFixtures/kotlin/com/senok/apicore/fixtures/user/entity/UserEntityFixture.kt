@@ -11,12 +11,11 @@ class UserEntityFixture {
             id: Long? = null,
             email: String = "example@example.com",
             password: String? = null,
-            name: String = "example",
             nickname: String = "hiho",
             profileImage: String = "https://example.com/image/1600x1600",
             gender: GenderType = GenderType.MALE,
             rubyCount: Int = 0,
             userStatus: UserStatus = UserStatus.ACTIVE
-        ) = UserEntity(id, email, password, name, nickname, profileImage, gender, rubyCount, userStatus)
+        ) = UserEntity(id, email, password, nickname, profileImage, gender, rubyCount, userStatus)
     }
 }

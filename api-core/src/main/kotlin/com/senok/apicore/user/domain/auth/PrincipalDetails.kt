@@ -1,6 +1,7 @@
 package com.senok.apicore.user.domain.auth
 
 import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
+import com.senok.apicore.user.domain.user.User
 import com.senok.corecommon.types.user.RoleType
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -14,10 +15,10 @@ data class PrincipalDetails(
     private val userAttributes: Map<String, Any> = emptyMap(),
 ): OAuth2User, UserDetails {
 
-    constructor(userEntity: UserEntity,
+    constructor(user: User,
                 roles: Set<RoleType>,
                 userAttributes: Map<String, Any>,
-    ): this(userEntity.email, userEntity.id!!, roles, userAttributes)
+    ): this(user.email, user.id, roles, userAttributes)
 
     val id = userId
 

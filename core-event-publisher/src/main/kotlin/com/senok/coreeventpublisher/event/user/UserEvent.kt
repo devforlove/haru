@@ -14,5 +14,6 @@ class UserEvent(
     data class UserEventAttribute(
         val userId: Long,
         val gender: GenderType,
+        val email: String
     )
 }

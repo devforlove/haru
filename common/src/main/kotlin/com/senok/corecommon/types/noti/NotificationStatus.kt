@@ -1,4 +1,4 @@
-package com.senok.alarm.adapter.out.persistence.entity
+package com.senok.corecommon.types.noti
 
 enum class NotificationStatus {
     NEW,

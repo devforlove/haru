@@ -4,4 +4,5 @@ import com.senok.apicore.user.domain.user.User
 
 interface FindUserPort {
     fun findUser(id: Long): User
+    fun findUserByEmail(email: String): User?
 }

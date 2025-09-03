@@ -1,18 +1,18 @@
 package com.senok.apicore.user.domain.auth
 
-import com.senok.apicore.user.adapter.out.persistence.entity.UserEntity
+import com.senok.apicore.user.domain.user.User
 
 data class OAuth2UserInfo private constructor(
-    val name: String,
+    val nickname: String,
     val email: String,
     val profile: String
 ) {
 
-    fun toEntity(): UserEntity {
-        return UserEntity.initiateUser(
-            email = email,
-            nickname = name,
-            profileImage = profile
+    fun toUser(): User {
+        return User.initUser(
+            email,
+            nickname,
+            profile
         )
     }
 
@@ -28,7 +28,7 @@ data class OAuth2UserInfo private constructor(
 
         private fun ofGoogle(attributes: Map<String, Any>): OAuth2UserInfo {
             return OAuth2UserInfo(
-                name = attributes["name"] as String,
+                nickname = attributes["name"] as String,
                 email = attributes["email"] as String,
                 profile = attributes["picture"] as String,
             )
@@ -39,7 +39,7 @@ data class OAuth2UserInfo private constructor(
             val profile = account["profile"] as Map<*, *>
 
             return OAuth2UserInfo(
-                name = profile["nickname"] as String,
+                nickname = profile["nickname"] as String,
                 email = profile["email"] as? String ?: "inwook94@naver.com",
                 profile = profile["profile_image_url"] as String
             )

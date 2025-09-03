@@ -21,14 +21,11 @@ class UserEntity(
     @Column(name = "password")
     val password: String? = null,
 
-    @Column(name = "name")
-    val name: String? = null,
-
     @Column(name = "nickname")
     val nickname: String,
 
     @Column(name = "profile_image")
-    val profileImage: String? = null,
+    val profileImage: String,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
@@ -41,27 +38,18 @@ class UserEntity(
     @Column(name = "user_status")
     val userStatus: UserStatus,
 ): BaseEntity() {
-
-    companion object {
-
-        fun initiateUser(email: String, nickname: String, profileImage: String): UserEntity {
-            return UserEntity(
-                email = email,
-                nickname = nickname,
-                profileImage = profileImage,
-                userStatus = UserStatus.INITIATED,
-                gender = GenderType.UNKNOWN,
-            )
-        }
-    }
-
+    
     @PostPersist
     private fun onPostCreate() {
         Events.raise(
             UserEvent(
                 userId = id!!,
                 eventType = UserEventType.REGISTER,
-                attributes = UserEvent.UserEventAttribute(id, gender),
+                attributes = UserEvent.UserEventAttribute(
+                    id,
+                    gender,
+                    email,
+                ),
                 createdAt = LocalDateTime.now()
             )
         )

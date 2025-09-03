@@ -25,7 +25,7 @@ class RegisterUserService(
             user.activeUser(command.nickname, command.genderType)
             val device = Device.register(userId, UUID.randomUUID().toString(), command.providerType)
 
-            updateUserPort.updateRegisterInfo(RegisterInfoDto(user.userId, user.nickname, user.gender))
+            updateUserPort.updateRegisterInfo(RegisterInfoDto(user.id, user.nickname, user.gender))
             registerDevicePort.registerDevice(device)
         }
     }
