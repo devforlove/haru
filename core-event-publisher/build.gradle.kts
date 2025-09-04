@@ -1,23 +1,28 @@
 plugins {
-    id 'java-test-fixtures'
+    id("java-test-fixtures")
 }
 
-bootJar.enabled = true
-jar.enabled = true
+tasks.bootJar {
+    enabled = false
+}
+
+tasks.jar {
+    enabled = true
+}
 
 dependencies {
-    implementation(project(':common'))
+    implementation(project(":common"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("org.springframework.kafka:spring-kafka")
-
+    
     testFixturesImplementation("org.testcontainers:kafka")
     testFixturesImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testFixturesImplementation('org.testcontainers:junit-jupiter')
+    testFixturesImplementation("org.testcontainers:junit-jupiter")
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-    testFixturesImplementation('org.awaitility:awaitility:4.2.0')
+    testFixturesImplementation("org.awaitility:awaitility:4.2.0")
 }
 
-test {
+tasks.test {
     useJUnitPlatform()
 }
