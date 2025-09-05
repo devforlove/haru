@@ -5,5 +5,4 @@ object ConsumerGroupConstants {
     const val COUPLE_CONSUMER_GROUP = "couple.event.consumer.group"
     const val COUPLE_REQUEST_CONSUMER_GROUP = "couple.request.event.consumer.group"
     const val COUPLE_MESSAGE_CONSUMER_GROUP = "couple.message.event.consumer.group"
-    const val USER_MESSAGE_CONSUMER_GROUP = "user.event.consumer.group"
 }

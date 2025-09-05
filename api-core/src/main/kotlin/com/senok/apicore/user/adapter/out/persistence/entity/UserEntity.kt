@@ -49,6 +49,7 @@ class UserEntity(
                     id,
                     gender,
                     email,
+                    nickname
                 ),
                 createdAt = LocalDateTime.now()
             )

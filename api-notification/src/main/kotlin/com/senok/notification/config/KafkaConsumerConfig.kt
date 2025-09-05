@@ -5,6 +5,7 @@ import com.senok.coreeventpublisher.event.couple.CoupleEvent
 import com.senok.coreeventpublisher.event.couple.CoupleMessageEvent
 import com.senok.coreeventpublisher.event.couple.CoupleRequestEvent
 import com.senok.coreeventpublisher.event.device.DeviceEvent
+import com.senok.coreeventpublisher.event.user.UserEvent
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties
 import org.springframework.context.annotation.Bean
@@ -19,6 +20,15 @@ import org.springframework.kafka.support.serializer.JsonDeserializer
 class KafkaConsumerConfig(
     private val props: KafkaProperties
 ) {
+    
+    @Bean
+    fun userEventContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, UserEvent> =
+        ConcurrentKafkaListenerContainerFactory<String, UserEvent>().apply {
+            consumerFactory = consumerFactory()
+            setConcurrency(1)
+            isBatchListener = true
+            containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
+        }
     
     @Bean
     fun coupleEventContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, CoupleEvent> =
