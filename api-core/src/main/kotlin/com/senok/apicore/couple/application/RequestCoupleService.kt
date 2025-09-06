@@ -35,12 +35,9 @@ class RequestCoupleService(
             // 커플 생성
             val couple = findCouplePort.findCoupleByUserId(femaleId, maleId)
                 ?: saveCouplePort.saveCouple(Couple.initCouple(femaleId, maleId))
-
+            
             // 커플 요청 생성
             saveCoupleRequestPort.saveCoupleRequest(CoupleRequest.initRequest(couple.id))
-
-            // 커플 코드 생성 및 이벤트 발행
-            saveCoupleCodePort.saveCoupleCode(CoupleCode.generateCode(couple.id))
         }
     }
 

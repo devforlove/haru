@@ -40,6 +40,7 @@ class DeviceEntity(
                     userId = userId,
                     providerType = providerType,
                     isNotiOn = isNotiOn,
+                    deviceKey = deviceKey,
                 ),
                 LocalDateTime.now()
             )

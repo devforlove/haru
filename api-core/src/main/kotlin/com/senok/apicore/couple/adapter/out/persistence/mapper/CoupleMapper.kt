@@ -13,7 +13,9 @@ class CoupleMapper: CommonMapper<CoupleEntity, Couple> {
             domain.femaleId,
             domain.maleId,
             domain.coupleStatus,
-            domain.messageCount
+            domain.messageCount,
+            domain.makeCoupleCode(),
+            domain.getCoupleCodeExpiredAt()
         )
     }
 
@@ -22,7 +24,7 @@ class CoupleMapper: CommonMapper<CoupleEntity, Couple> {
             entity.femaleId,
             entity.maleId,
             entity.coupleStatus,
-            entity.messageCount
+            entity.messageCount,
         ).assignId(entity.id!!)
     }
 }

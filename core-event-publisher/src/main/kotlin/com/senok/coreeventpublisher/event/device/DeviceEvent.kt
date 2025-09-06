@@ -15,6 +15,6 @@ class DeviceEvent(
         val userId: Long,
         val providerType: ProviderType?,
         val isNotiOn: Boolean,
-        val deviceKey: String
+        val deviceKey: String?
     )
 }

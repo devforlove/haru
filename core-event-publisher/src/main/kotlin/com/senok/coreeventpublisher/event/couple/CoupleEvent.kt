@@ -12,5 +12,8 @@ class CoupleEvent(
 
     data class CoupleEventAttribute(
         val coupleCodeExpiredAt: LocalDateTime? = null,
+        val coupleCode: String?,
+        val maleUserId: Long,
+        val femaleUserId: Long,
     )
 }

@@ -45,12 +45,11 @@ class RequestCoupleServiceTest(
 
                 val coupleEntity = verifyCouple(FEMALE_ID, MALE_ID)
                 val coupleEventEntity = verifyCoupleEvent(coupleEntity.id!!)
-                verifyCoupleCode(coupleEntity.id!!)
                 verifyCoupleRequest(coupleEntity.id!!, CoupleRequestType.REQUESTING)
 
                 KafkaPublishVerifier.verify<CoupleEvent>(TopicConstants.COUPLE) { event ->
                     event.coupleId shouldBe coupleEventEntity.coupleId
-                    event.eventType shouldBe CoupleEventType.REQUESTING
+                    event.eventType shouldBe CoupleEventType.CREATE
                     event.attributes.toString() shouldBe coupleEventEntity.attributes
                 }
             }
@@ -84,7 +83,7 @@ private fun verifyCoupleEvent(coupleId: Long): CoupleEventEntity {
         )
         .fetch()
     events.size shouldBe 1
-    events[0].eventType shouldBe CoupleEventType.REQUESTING
+    events[0].eventType shouldBe CoupleEventType.CREATE
     return events[0]
 }
 
@@ -99,14 +98,3 @@ private fun verifyCoupleRequest(coupleId: Long, coupleRequestType: CoupleRequest
     coupleRequest?.coupleRequestType shouldBe coupleRequestType
 }
 
-private fun verifyCoupleCode(coupleId: Long): CoupleCodeEntity {
-    val coupleCode = getQuery()
-        .selectFrom(QCoupleCodeEntity.coupleCodeEntity)
-        .where(
-            QCoupleCodeEntity.coupleCodeEntity.coupleId.eq(coupleId)
-        )
-        .fetchOne()
-
-    coupleCode shouldNotBe null
-    return coupleCode!!
-}

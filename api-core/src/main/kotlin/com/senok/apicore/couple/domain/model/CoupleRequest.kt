@@ -38,7 +38,7 @@ class CoupleRequest(
                 coupleRequestId = id,
                 eventType = if(coupleRequestType == CoupleRequestType.ACCEPTED)
                     CoupleRequestEventType.ACCEPTED else CoupleRequestEventType.REJECTED,
-                attributes = Unit,
+                attributes = CoupleRequestEvent.CoupleRequestEventAttribute(coupleId),
                 createdAt = LocalDateTime.now()
             )
         )

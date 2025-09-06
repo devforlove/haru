@@ -22,9 +22,15 @@ class CoupleEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "couple_status")
     var coupleStatus: CoupleStatus,
-
+    
     @Column(name = "message_count")
     var messageCount: Int,
+    
+    @Column(name = "couple_code")
+    var coupleCode: String,
+    
+    @Column(name = "couple_code_expired")
+    var coupleCodeExpiredAt: LocalDateTime,
 ): BaseEntity() {
 
     @PostPersist
@@ -32,8 +38,13 @@ class CoupleEntity(
         Events.raise(
             CoupleEvent(
                 coupleId = id!!,
-                eventType = CoupleEventType.REQUESTING,
-                attributes = CoupleEvent.CoupleEventAttribute(LocalDateTime.now().plusDays(CoupleConstant.expiredDay)),
+                eventType = CoupleEventType.CREATE,
+                attributes = CoupleEvent.CoupleEventAttribute(
+                    coupleCodeExpiredAt,
+                    coupleCode,
+                    maleId,
+                    femaleId,
+                ),
                 createdAt = LocalDateTime.now()
             )
         )
