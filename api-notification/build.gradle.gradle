@@ -1,0 +1,52 @@
+plugins {
+    id("java-test-fixtures")
+    id("com.google.cloud.tools.jib") version "3.1.2"
+}
+
+tasks.bootJar {
+    enabled = true
+    launchScript()
+    manifest {
+        attributes["Start-Class"] = "com.senok.ApiNotificationApplication"
+    }
+}
+
+tasks.jar {
+    enabled = true
+}
+
+dependencies {
+    implementation(project(":core-web"))
+    implementation(project(":core-event-publisher"))
+    implementation(project(":common"))
+
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.kafka:spring-kafka")
+
+    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    testImplementation("com.h2database:h2")
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+jib {
+    from {
+        image = "openjdk:17-jdk-slim"
+    }
+    to {
+        image = "haru/api-notification"
+        tags = setOf("0.0.2")
+    }
+    container {
+        jvmFlags = listOf(
+            "-Dspring.profiles.active=local",
+            "-Dfile.encoding=UTF-8",
+        )
+        ports = listOf("8061")
+        setAllowInsecureRegistries(true)
+    }
+}

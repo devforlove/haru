@@ -1,5 +1,6 @@
 plugins {
     id("java-test-fixtures")
+    id("com.google.cloud.tools.jib") version "3.1.2"
 }
 
 tasks.bootJar {
@@ -42,4 +43,22 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:mysql")
+}
+
+jib {
+    from {
+        image = "openjdk:17-jdk-slim"
+    }
+    to {
+        image = "haru/api-core"
+        tags = setOf("0.0.2")
+    }
+    container {
+        jvmFlags = listOf(
+            "-Dspring.profiles.active=local",
+            "-Dfile.encoding=UTF-8",
+        )
+        ports = listOf("8061")
+        setAllowInsecureRegistries(true)
+    }
 }
